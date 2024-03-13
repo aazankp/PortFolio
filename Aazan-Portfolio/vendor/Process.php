@@ -66,7 +66,7 @@ elseif (isset($action) && $action == "resumeForm") {
         if (stripos($key, "education") === 0) $eduArr[$key] = $value;
     }
 
-    print_r($eduArr);
+    // print_r($eduArr);
 }
 
 
