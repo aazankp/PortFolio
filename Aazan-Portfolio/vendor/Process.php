@@ -59,7 +59,7 @@ if (isset($action) && $action == "register") {
     }
 }
 
-elseif (isset($action) && $action == "resumeForm") {
+elseif (isset($action) && $action == "portFolio_Submit") {
     print_r($_REQUEST);
     $eduArr = [];
     foreach ($_REQUEST as $key => $value) {
