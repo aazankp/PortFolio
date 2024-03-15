@@ -4,7 +4,7 @@ require_once "Database.php";
 $objDatabase = new Database;
 
 $action = $_REQUEST["action"];
-echo "<pre>";
+// echo "<pre>";
 
 if (isset($action) && $action == "register") {
     $fname = htmlspecialchars($_REQUEST["fname"]);
@@ -60,13 +60,71 @@ if (isset($action) && $action == "register") {
 }
 
 elseif (isset($action) && $action == "portFolio_Submit") {
-    print_r($_REQUEST);
-    $eduArr = [];
+    // print_r($_REQUEST);
+    // print_r($_FILES);
+    
+    $about = $_REQUEST["about"];
+    $contact = $_REQUEST["contact"];
+    $eduArr = array();
+    $srvArr = array();
+    $expArr = array();
+    $sklArr = array();
+    $prjtArr = array();
+
+    
     foreach ($_REQUEST as $key => $value) {
         if (stripos($key, "education") === 0) $eduArr[$key] = $value;
+        if (stripos($key, "services") === 0) $srvArr[$key] = $value;
+        if (stripos($key, "experience") === 0) $expArr[$key] = $value;
+        if (stripos($key, "skills") === 0) $sklArr[$key] = $value;
+        if (stripos($key, "projects") === 0) $prjtArr[$key] = $value;
     }
 
+    foreach ($_FILES as $key => $value) {
+        if ($value["name"] == "") {
+            echo "projectImg";
+            exit;
+        } else {
+            $dir = "../images/Projects";
+            if (!is_dir($dir)) mkdir($dir, 0777, true);
+            $file_name = rand(0000,9999) . "_" .$value["name"];
+            move_uploaded_file($value["tmp_name"], $dir."/".$file_name);
+            $prjtArr[$key]["imageName"] = $file_name;
+        }
+    }
+
+    $about = json_encode($about);
+    $contact = json_encode($contact);
+    $eduArr = json_encode($eduArr);
+    $srvArr = json_encode($srvArr);
+    $expArr = json_encode($expArr);
+    $sklArr = json_encode($sklArr);
+    $prjtArr = json_encode($prjtArr);
+
+    if ($eduArr == "[]") $eduArr = "";
+    if ($srvArr == "[]") $srvArr = "";
+    if ($expArr == "[]") $expArr = "";
+    if ($sklArr == "[]") $sklArr = "";
+    if ($prjtArr == "[]") $prjtArr = "";
+    
+
+    // print_r($about);
+    // print_r($contact);
     // print_r($eduArr);
+    // print_r($srvArr);
+    // print_r($expArr);
+    // print_r($sklArr);
+    // print_r($prjtArr);
+
+    // die();
+
+    // echo var_dump($prjtArr);
+
+    // echo "$about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr";
+
+    $result = $objDatabase->portFolioInsertion($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr);
+    if ($result) echo 1;
+    else echo 2;
 }
 
 

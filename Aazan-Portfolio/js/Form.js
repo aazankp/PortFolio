@@ -23,14 +23,14 @@ $(document).ready(function() {
         return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
                 <div class="flex justify-end items-center h-20"> \
                     <div class="relative w-full"> \
-                        <textarea autocomplete="off" id="'+ nameVar +'Description" name="'+ nameVar +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" placeholder="Description"></textarea> \
-                        <label for="'+ nameVar +'Description" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
-                    </div> \
-                </div> \
-                <div class="flex justify-end items-center h-20"> \
-                    <div class="relative w-full"> \
                         <textarea autocomplete="off" id="'+ nameVar +'Description" name="'+ nameVar +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" placeholder="Education Description"></textarea> \
                         <label for="'+ nameVar +'Description" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Education Description</label> \
+                    </div> \
+                </div> \
+                <div class="flex items-center"> \
+                    <div class="relative w-full"> \
+                        <input autocomplete="off" id="'+ nameVar +'degree" name="'+ nameVar +'[educationDegree]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" placeholder="Degree" /> \
+                        <label for="'+ nameVar +'degree" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Degree</label> \
                     </div> \
                 </div> \
                 <div class="flex justify-end items-center"> \
@@ -53,18 +53,20 @@ $(document).ready(function() {
                         <label for="'+ nameVar+'to" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
                     </div> \
                 </div> \
-                <div class="flex items-center"> \
-                    <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar +'degree" name="'+ nameVar +'[educationDegree]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" placeholder="Degree" /> \
-                        <label for="'+ nameVar +'degree" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Degree</label> \
-                    </div> \
-                </div> \
             </div>');
     }
     $(document).on("click", "#education_Toggle", function() {
         let toggle = $('#education_Toggle').prop('checked');
         if (toggle === true) {
-            html = educationFields("education");
+            html = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
+                <div class="flex justify-end items-center"> \
+                    <div class="relative w-full"> \
+                        <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" placeholder="Description"></textarea> \
+                        <label for="educationDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
+                    </div> \
+                </div> \
+            </div>';
+            html += educationFields("education");
             html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                 <div class="flex justify-end items-center"> \
                     <button type="button" id="educationAdd" class="text-2xl"><i class="fa-solid fa-circle-plus abc"></i></button> \
@@ -75,9 +77,9 @@ $(document).ready(function() {
             $("#puteducation").html("");
         }
     });
-    numb = 1;
+    numbedu = 1;
     $(document).on("click", "#educationAdd", function(){
-        nameVar = "education"+numb;
+        nameVar = "education"+numbedu;
         html = '<div class="forDeleteeducation">';
         html += educationFields(nameVar);
         html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
@@ -88,7 +90,7 @@ $(document).ready(function() {
         </div>';
 
         $("#puteducation").append(html);
-        numb = numb+1;
+        numbedu = numbedu+1;
     });
     $(document).on("click", "#delAddeducation", function(){
         $(this).closest(".forDeleteeducation").remove();
@@ -134,9 +136,9 @@ $(document).ready(function() {
             $("#putservices").html("");
         }
     });
-    numb = 1;
+    numbservices = 1;
     $(document).on("click", "#servicesAdd", function(){
-        nameVar = "services"+numb;
+        nameVar = "services"+numbservices;
         html = '<div class="forDeleteservices">';
         html += servicesFields(nameVar);
         html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
@@ -147,7 +149,7 @@ $(document).ready(function() {
         </div>';
 
         $("#putservices").append(html);
-        numb = numb+1;
+        numbservices = numbservices+1;
     });
     $(document).on("click", "#delAddservices", function(){
         $(this).closest(".forDeleteservices").remove();
@@ -213,9 +215,9 @@ $(document).ready(function() {
             $("#putexperience").html("");
         }
     });
-    numb = 1;
+    numbexp = 1;
     $(document).on("click", "#experienceAdd", function(){
-        nameVar = "experience"+numb;
+        nameVar = "experience"+numbexp;
         html = '<div class="forDeleteexperience">';
         html += experienceFields(nameVar);
         html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
@@ -226,7 +228,7 @@ $(document).ready(function() {
         </div>';
 
         $("#putexperience").append(html);
-        numb = numb+1;
+        numbexp = numbexp+1;
     });
     $(document).on("click", "#delAddexperience", function(){
         $(this).closest(".forDeleteexperience").remove();
@@ -248,22 +250,22 @@ $(document).ready(function() {
                     <label for="'+ nameVar +'skillPercentage" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Skill Percentage</label> \
                 </div> \
             </div> \
-            <div class="flex justify-end items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'completeProjects" name="'+ nameVar +'[completeProjects]" type="number" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" placeholder="Complete Projects" /> \
-                    <label for="'+ nameVar +'completeProjects" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Complete Projects</label> \
-                </div> \
-            </div> \
         </div>');
     }
     $(document).on("click", "#skills_Toggle", function() {
         let toggle = $('#skills_Toggle').prop('checked');
         if (toggle === true) {
-            html = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
+            html = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4"> \
                 <div class="flex justify-end items-center"> \
                     <div class="relative w-full"> \
                         <textarea autocomplete="off" id="skillsDescription" name="skills[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" placeholder="Description"></textarea> \
                         <label for="skillsDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
+                    </div> \
+                </div> \
+                <div class="flex justify-end items-center"> \
+                    <div class="relative w-full"> \
+                        <input autocomplete="off" id="skillsCompleteProjects" name="skills[completeProjects]" type="number" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" placeholder="Complete Projects" /> \
+                        <label for="skillsCompleteProjects" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Complete Projects</label> \
                     </div> \
                 </div> \
             </div>';
@@ -278,9 +280,9 @@ $(document).ready(function() {
             $("#putskills").html("");
         }
     });
-    numb = 1;
+    numbskills = 1;
     $(document).on("click", "#skillsAdd", function(){
-        nameVar = "skills"+numb;
+        nameVar = "skills"+numbskills;
         html = '<div class="forDeleteskills">';
         html += skillsFields(nameVar);
         html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
@@ -291,7 +293,7 @@ $(document).ready(function() {
         </div>';
 
         $("#putskills").append(html);
-        numb = numb+1;
+        numbskills = numbskills+1;
     });
     $(document).on("click", "#delAddskills", function(){
         $(this).closest(".forDeleteskills").remove();
@@ -315,7 +317,7 @@ $(document).ready(function() {
             </div> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'projectsImage" name="'+ nameVar +'[projectsImage]" type="file" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" /> \
+                    <input autocomplete="off" id="'+ nameVar +'projectsImage" name="'+ nameVar +'" type="file" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" /> \
                 </div> \
             </div> \
         </div>');
@@ -342,9 +344,9 @@ $(document).ready(function() {
             $("#putprojects").html("");
         }
     });
-    numb = 1;
+    numbproj = 1;
     $(document).on("click", "#projectsAdd", function(){
-        nameVar = "projects"+numb;
+        nameVar = "projects"+numbproj;
         html = '<div class="forDeleteprojects">';
         html += projectsFields(nameVar);
         html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
@@ -355,7 +357,7 @@ $(document).ready(function() {
         </div>';
 
         $("#putprojects").append(html);
-        numb = numb+1;
+        numbproj = numbproj+1;
     });
     $(document).on("click", "#delAddprojects", function(){
         $(this).closest(".forDeleteprojects").remove();
@@ -367,14 +369,38 @@ $(document).ready(function() {
         event.preventDefault();
         var formdata = new FormData(this);
         $.ajax({
-         url: "vendor/Process.php?action=portFolio_Submit",
-         type: "POST",
-         data: formdata,
-         cache: false,
-         processData: false,
-         contentType: false,
-         success: function(result){
-             console.log(result);
-         }});
-     });
+            url: "vendor/Process.php?action=portFolio_Submit",
+            type: "POST",
+            data: formdata,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(result){
+                console.log(result);
+                if(result == 1){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Your Data has been Submitted!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                }
+                else if (result == 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Warning...',
+                        text: 'Please Fill All Fields Carefully!'
+                    })
+                }
+                else if (result == "projectImg") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please Upload Project Image!'
+                    })
+                }
+            }
+        });
+    });
 });

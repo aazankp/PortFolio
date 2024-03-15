@@ -4,7 +4,9 @@ $error = [
     "fields" => "Please Fill All Fields Properly!",
     "image" => "Please Select Valid Format of Image!",
     "signupSuccess" => "SIGN UP Successfully...",
-    "cvFormat" => "Please Upload PDF Format Only!"
+    "cvFormat" => "Please Upload PDF Format Only!",
+    "formSubmit" => "Data Save Successfully!",
+    "formNotSubmit" => "Please Fill Data Carefully!",
 ];
 
 if (isset($_REQUEST["error"]) ) $check = $_REQUEST["error"];

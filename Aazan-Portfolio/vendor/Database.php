@@ -20,6 +20,20 @@ class Database {
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }
+
+    public function portFolioInsertion ($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr) {
+        $about = mysqli_real_escape_string($this->conn, $about);
+        $contact = mysqli_real_escape_string($this->conn, $contact);
+        $eduArr = mysqli_real_escape_string($this->conn, $eduArr);
+        $srvArr = mysqli_real_escape_string($this->conn, $srvArr);
+        $expArr = mysqli_real_escape_string($this->conn, $expArr);
+        $sklArr = mysqli_real_escape_string($this->conn, $sklArr);
+        $prjtArr = mysqli_real_escape_string($this->conn, $prjtArr);
+        $this->query = "INSERT INTO portfolioformdata (about, contact, education, services, experiences, skills, projects) VALUES ('$about', '$contact', '$eduArr', '$srvArr', '$expArr', '$sklArr', '$prjtArr')";
+        // die($this->query);
+        $this->result = mysqli_query($this->conn, $this->query);
+        return $this->result;
+    }
 }
 
 ?>

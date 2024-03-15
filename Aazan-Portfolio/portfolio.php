@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>PortFolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.min.css" rel="stylesheet">
     <link href="css/Form.css" rel="stylesheet">
 </head>
-
+<!-- method="POST" action="vendor/Process.php" -->
 <body class="bg-gray-100">
     <?php require_once "vendor/NavBar.html"; ?>
-
-
     <div class="container mx-auto px-4 md:px-10 lg:px-20 xl:px-40 py-10 text-center">
         <h1 class="font-bold text-2xl">Form For Resume</h1>
-
-        <div class="grid grid-cols-12 gap-4 bg-gray-700 p-4 text-white font-bold my-4 rounded-3xl">
-            <div class="col-span-11 flex items-center">About</div>
-        </div>
         <form id="portFolio_Form_Submit" enctype="multipart/form-data">
+            <!-- About -->
+            <div class="grid grid-cols-12 gap-4 bg-gray-700 p-4 text-white font-bold my-4 rounded-3xl">
+                <div class="col-span-11 flex items-center">About</div>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4">
                 <div class="flex justify-end items-center">
                     <div class="relative w-full">
@@ -30,6 +28,7 @@
                     </div>
                 </div>
             </div>
+            <!-- About End -->
 
             <!-- Contact -->
             <div class="grid grid-cols-12 gap-4 bg-gray-700 p-4 text-white font-bold my-4 rounded-3xl">
@@ -110,7 +109,8 @@
             <div id="putprojects" class="mb-8"></div>
             <!-- Projects End -->
 
-            <button type="submit" class="bg-blue-500 text-white rounded-md px-2 py-2 mt-5">Save</button>
+            <!-- <input type="hidden" value="portFolio_Submit" name="action"> -->
+            <button type="submit" class="bg-emerald-500 text-white rounded-md px-2 py-2 mt-5">Save</button>
         </form>
 
 
@@ -123,7 +123,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.all.min.js"></script>
     <script src="js/Form.js"></script>
 </body>
-
 </html>
