@@ -5,8 +5,7 @@ $error = [
     "image" => "Please Select Valid Format of Image!",
     "signupSuccess" => "SIGN UP Successfully...",
     "cvFormat" => "Please Upload PDF Format Only!",
-    "formSubmit" => "Data Save Successfully!",
-    "formNotSubmit" => "Please Fill Data Carefully!",
+    "signinfail" => "Your Email or Password is Incorrect!"
 ];
 
 if (isset($_REQUEST["error"]) ) $check = $_REQUEST["error"];
@@ -30,8 +29,10 @@ if (isset($check)) {
         }
     }
 
+    $fileName = basename($_SERVER['REQUEST_URI']);
+    $aFIle = explode("?", $fileName);
     if (!array_key_exists($check, $error)) {
-        header("location: ../login/register.php");
+        header("location: ../login/$aFIle[0]");
     }
 }
 ?>

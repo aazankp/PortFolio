@@ -1,129 +1,675 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>PortFolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.min.css" rel="stylesheet">
-    <link href="css/Form.css" rel="stylesheet">
+	<title>PortFolio - Aazan Khan Pathan</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="css/aos.css">
+	<link rel="stylesheet" href="css/ionicons.min.css">
+	<link rel="stylesheet" href="css/flaticon.css">
+	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="css/style.css">
 </head>
-<!-- method="POST" action="vendor/Process.php" -->
-<body class="bg-gray-100">
-    <?php require_once "vendor/NavBar.html"; ?>
-    <div class="container mx-auto px-4 md:px-10 lg:px-20 xl:px-40 py-10 text-center">
-        <h1 class="font-bold text-2xl">Form For Resume</h1>
-        <form id="portFolio_Form_Submit" enctype="multipart/form-data">
-            <!-- About -->
-            <div class="grid grid-cols-12 gap-4 bg-gray-700 p-4 text-white font-bold my-4 rounded-3xl">
-                <div class="col-span-11 flex items-center">About</div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4">
-                <div class="flex justify-end items-center">
-                    <div class="relative w-full">
-                        <textarea autocomplete="off" id="aboutDescription" name="about[aboutDescription]" type="text" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" placeholder="Description"></textarea>
-                        <label for="aboutDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label>
-                    </div>
-                </div>
-            </div>
-            <!-- About End -->
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
-            <!-- Contact -->
-            <div class="grid grid-cols-12 gap-4 bg-gray-700 p-4 text-white font-bold my-4 rounded-3xl">
-                <div class="col-span-11 flex items-center">Contact</div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4">
-                <div class="flex justify-end items-center">
-                    <div class="relative w-full">
-                        <textarea autocomplete="off" id="contactdescription" name="contact[Description]" type="text" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" placeholder="Description"></textarea>
-                        <label for="contactDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label>
-                    </div>
-                </div>
-            </div>
-            <!-- Contact End -->
-    
-            <!-- Education -->
-            <div class="grid grid-cols-12 gap-4 bg-gray-700 p-4 text-white font-bold my-4 rounded-3xl">
-                <div class="col-span-11 flex items-center">Education</div>
-                <div class="col-span-1 flex justify-end items-center">
-                    <label for="education_Toggle" class="flex items-center cursor-pointer">
-                        <input type="checkbox" name="education[education_Toggle]" id="education_Toggle" class="sr-only peer">
-                        <div class="block relative bg-blue-300 w-16 h-8 p-1 rounded-full before:absolute before:bg-white before:w-6 before:h-6 before:p-1 before:rounded-full before:transition-all before:duration-500 before:left-1 peer-checked:before:left-8 peer-checked:before:bg-green-600"></div>
-                    </label>
-                </div>
-            </div>
-            <div id="puteducation" class="mb-8"></div>
-            <!-- Education End -->
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="">PortFolio</a>
+			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse"
+				data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
 
-            <!-- Services -->
-            <div class="grid grid-cols-12 gap-4 bg-gray-700 p-4 text-white font-bold my-4 rounded-3xl">
-                <div class="col-span-11 flex items-center">Services</div>
-                <div class="col-span-1 flex justify-end items-center">
-                    <label for="services_Toggle" class="flex items-center cursor-pointer">
-                        <input type="checkbox" name="services[services_Toggle]" id="services_Toggle" class="sr-only peer">
-                        <div class="block relative bg-blue-300 w-16 h-8 p-1 rounded-full before:absolute before:bg-white before:w-6 before:h-6 before:p-1 before:rounded-full before:transition-all before:duration-500 before:left-1 peer-checked:before:left-8 peer-checked:before:bg-green-600"></div>
-                    </label>
-                </div>
-            </div>
-            <div id="putservices" class="mb-8"></div>
-            <!-- Services End -->
+			<div class="collapse navbar-collapse ftco-nav">
+				<ul class="navbar-nav nav ml-auto">
+					<li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
+					<li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
+					<li class="nav-item"><a href="#education-section" class="nav-link"><span>Education</span></a></li>
+					<li class="nav-item"><a href="#services-section" class="nav-link"><span>Services</span></a></li>
+					<li class="nav-item"><a href="#experience-section" class="nav-link"><span>Experience</span></a></li>
+					<li class="nav-item"><a href="#skills-section" class="nav-link"><span>Skills</span></a></li>
+					<li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
+					<li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<section id="home-section" class="hero">
+		<div class="home-slider owl-carousel">
+			<div class="slider-item ">
+				<div class="overlay"></div>
+				<div class="container">
+					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
+						<div class="one-third js-fullheight order-md-last img" style="background-image:url(images/Profile.PNG);">
+							<div class="overlay"></div>
+						</div>
+						<div class="one-forth d-flex  align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+							<div class="text">
+								<span class="subheading">Hello!</span>
+								<h1 class="mb-4 mt-3">I'm <span>Aazan Khan Pathan</span></h1>
+								<h2 class="mb-4">A Website & Software Developer</h2>
+								<p>
+									<div class="ftco-nav">
+										<a href="#contact-input-section" class="btn btn-primary py-3 px-4">Hire me</a>
+										<a href="https://github.com/aazankp?tab=repositories" target="_blank" class="btn btn-white btn-outline-white py-3 px-4">My works</a>
+									</div>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-            <!-- Experience -->
-            <div class="grid grid-cols-12 gap-4 bg-gray-700 p-4 text-white font-bold my-4 rounded-3xl">
-                <div class="col-span-11 flex items-center">Experience</div>
-                <div class="col-span-1 flex justify-end items-center">
-                    <label for="experience_Toggle" class="flex items-center cursor-pointer">
-                        <input type="checkbox" name="experience[experience_Toggle]" id="experience_Toggle" class="sr-only peer">
-                        <div class="block relative bg-blue-300 w-16 h-8 p-1 rounded-full before:absolute before:bg-white before:w-6 before:h-6 before:p-1 before:rounded-full before:transition-all before:duration-500 before:left-1 peer-checked:before:left-8 peer-checked:before:bg-green-600"></div>
-                    </label>
-                </div>
-            </div>
-            <div id="putexperience" class="mb-8"></div>
-            <!-- Experience End -->
+	<section class="ftco-about img ftco-section ftco-no-pb" id="about-section">
+		<div class="container">
+			<div class="row d-flex">
+				<div class="col-md-6 col-lg-5 d-flex">
+					<div class="img-about img d-flex align-items-stretch">
+						<div class="overlay"></div>
+						<div class="img d-flex align-self-stretch align-items-center"
+							style="background-image:url(images/Profile.PNG);">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-7 pl-lg-5 pb-5">
+					<div class="row justify-content-start pb-3">
+						<div class="col-md-12 heading-section ftco-animate">
+							<h1 class="big">About</h1>
+							<h2 class="mb-4">About Me</h2>
+							<p>
+								I'm Aazan Khan Pathan, and in 2022, Following that, I served as an MIS Assistant at the Management and Development Foundation. Presently, I am employed as a Software Engineer at Verge Systems. I hold a 4-month certificate in web development and design, along with a 3-year DAE CIT diploma and a Bachelor's degree in Commerce from the University of Sindh, Jamshoro. My background showcases a blend of business acumen and IT proficiency, highlighting my adaptability across domains.
+							</p>
+							<ul class="about-info mt-4 px-md-0 px-2">
+								<li class="d-flex"><span>Name:</span> <span>Aazan Khan Pathan</span></li>
+								<li class="d-flex"><span>Date of birth:</span> <span>May 08, 2001</span></li>
+								<li class="d-flex"><span>Address:</span> <span>House # 18 Pathan Goth Hussainabad Qasimabad Hyderabad</span></li>
+								<li class="d-flex"><span>Zip code:</span> <span>71000</span></li>
+								<li class="d-flex"><span>Email:</span> <span>aazank517@gmail.com</span></li>
+								<li class="d-flex"><span>Phone: </span> <span>+92-311-8679523</span></li>
+							</ul>
+						</div>
+					</div>
+					<div class="counter-wrap ftco-animate d-flex mt-md-3">
+						<div class="text">
+							<p><a href="#" class="btn btn-primary py-3 px-3">Download CV</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-            <!-- Skills -->
-            <div class="grid grid-cols-12 gap-4 bg-gray-700 p-4 text-white font-bold my-4 rounded-3xl">
-                <div class="col-span-11 flex items-center">Skills</div>
-                <div class="col-span-1 flex justify-end items-center">
-                    <label for="skills_Toggle" class="flex items-center cursor-pointer">
-                        <input type="checkbox" name="skills[skills_Toggle]" id="skills_Toggle" class="sr-only peer">
-                        <div class="block relative bg-blue-300 w-16 h-8 p-1 rounded-full before:absolute before:bg-white before:w-6 before:h-6 before:p-1 before:rounded-full before:transition-all before:duration-500 before:left-1 peer-checked:before:left-8 peer-checked:before:bg-green-600"></div>
-                    </label>
-                </div>
-            </div>
-            <div id="putskills" class="mb-8"></div>
-            <!-- Skills End -->
+	<section class="ftco-section ftco-no-pb" id="education-section">
+		<div class="container">
+			<div class="row justify-content-center pb-5">
+				<div class="col-md-10 heading-section text-center ftco-animate">
+					<h1 class="big big-2">Education</h1>
+					<h2 class="mb-4">Education</h2>
+					<p>
+						I possess a 3-year DAE CIT diploma From Government College of Technology, Hyderabad, Sindh, complemented by a 4-month certification in web development and design. Additionally, I hold a Bachelor's degree in Commerce from the University of Sindh Jamshoro and have successfully completed a Microsoft Office short course offered by IMSA.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="resume-wrap ftco-animate">
+						<span class="date">2014-2015</span>
+						<h2>Bachelor of Commerce</h2>
+						<span class="position">University of Sindh, Jamshoro</span>
+						<p class="mt-4">
+							Completed comprehensive program encompassing key disciplines of commerce including accounting, finance, economics, and business law. Equipped with practical skills and theoretical knowledge essential for diverse career paths in banking, finance, accounting, and entrepreneurship.
+						</p>
+					</div>
 
-            <!-- Projects -->
-            <div class="grid grid-cols-12 gap-4 bg-gray-700 p-4 text-white font-bold my-4 rounded-3xl">
-                <div class="col-span-11 flex items-center">Projects</div>
-                <div class="col-span-1 flex justify-end items-center">
-                    <label for="projects_Toggle" class="flex items-center cursor-pointer">
-                        <input type="checkbox" name="projects[projects_Toggle]" id="projects_Toggle" class="sr-only peer">
-                        <div class="block relative bg-blue-300 w-16 h-8 p-1 rounded-full before:absolute before:bg-white before:w-6 before:h-6 before:p-1 before:rounded-full before:transition-all before:duration-500 before:left-1 peer-checked:before:left-8 peer-checked:before:bg-green-600"></div>
-                    </label>
-                </div>
-            </div>
-            <div id="putprojects" class="mb-8"></div>
-            <!-- Projects End -->
+					<div class="resume-wrap ftco-animate">
+						<span class="date">2014-2015</span>
+						<h2>Web Development & Designing</h2>
+						<span class="position">Faith College of Information & Technology</span>
+						<p class="mt-4">
+							Completed a comprehensive program in web development and design, specializing in HTML, CSS, JavaScript, and UX design. Skilled in crafting engaging websites and applications, proficient in both front-end and back-end development.
+						</p>
+					</div>
 
-            <!-- <input type="hidden" value="portFolio_Submit" name="action"> -->
-            <button type="submit" class="bg-emerald-500 text-white rounded-md px-2 py-2 mt-5">Save</button>
-        </form>
+					<div class="resume-wrap ftco-animate">
+						<span class="date">2014-2015</span>
+						<h2>Diploma in Computer & Business Management - DCBM</h2>
+						<span class="position">New Future Concept</span>
+						<p class="mt-4">
+							Successfully completed a comprehensive program merging computer skills with business management principles. Proficient in leveraging technology for efficient business operations. Ready to contribute to diverse business environments with expertise in both computer and management domains.
+						</p>
+					</div>
+					
+				</div>
+
+				<div class="col-md-6">
+					<div class="resume-wrap ftco-animate">
+						<span class="date">2014-2015</span>
+						<h2>Diploma in Computer Information Technology - CIT</h2>
+						<span class="position">Government College of Technology</span>
+						<p class="mt-4">
+							Completed rigorous program focusing on core aspects of computer information technology, including software development, network administration, database management. Acquired hands-on experience and theoretical understanding essential for roles in IT support, software development, system administration, and related fields.
+						</p>
+					</div>
+					<div class="resume-wrap ftco-animate">
+						<span class="date">2014-2015</span>
+						<h2>Microsoft Office / Office Automation</h2>
+						<span class="position">School of Vocational & Technical Education</span>
+						<p class="mt-4">
+							Completed a comprehensive program specializing in Microsoft Office and office automation tools. Proficient in Word, Excel, PowerPoint, and Outlook for improved productivity. Ready to streamline office tasks and contribute efficiently to administrative roles.
+						</p>
+					</div>
+					<div class="resume-wrap ftco-animate">
+						<span class="date">2017-2018</span>
+						<h2>Microsoft Office</h2>
+						<span class="position">Institute of Modern Sciences And Arts - IMSA</span>
+						<p class="mt-4">
+							Completed a specialized program focusing on Microsoft Office applications. Proficient in Word, Excel, PowerPoint, and Outlook for enhanced productivity. Equipped with practical skills to streamline office tasks and contribute effectively to various roles requiring Microsoft Office proficiency.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section" id="services-section">
+		<div class="container">
+			<div class="row justify-content-center py-5 mt-5">
+				<div class="col-md-12 heading-section text-center ftco-animate">
+					<h1 class="big big-2">Services</h1>
+					<h2 class="mb-4">Services</h2>
+					<p>
+						We offer comprehensive web services tailored to your needs, including web design and development, e-commerce solutions, API development, and maintenance support. Our expertise extends to performance optimization, consulting, and technical guidance. Additionally, we specialize in mobile backend development, ensuring seamless integration with your applications.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 text-center d-flex ftco-animate">
+					<span class="services-1">
+						<span class="icon">
+							<i class="fa-solid fa-wand-magic-sparkles"></i>
+						</span>
+						<div class="desc">
+							<h3 class="mb-5">Web Design</h3>
+						</div>
+					</span>
+				</div>
+				<div class="col-md-4 text-center d-flex ftco-animate">
+					<span class="services-1">
+						<span class="icon">
+							<i class="fa-solid fa-laptop-code"></i>
+						</span>
+						<div class="desc">
+							<h3 class="mb-5">Web Development</h3>
+						</div>
+					</span>
+				</div>
+				<div class="col-md-4 text-center d-flex ftco-animate">
+					<span class="services-1">
+						<span class="icon">
+							<i class="fa-solid fa-cart-shopping"></i>
+						</span>
+						<div class="desc">
+							<h3 class="mb-5">E-commerce Solutions</h3>
+						</div>
+					</span>
+				</div>
+				<div class="col-md-4 text-center d-flex ftco-animate">
+					<span class="services-1">
+						<span class="icon">
+							<i class="fa-solid fa-code-pull-request"></i>
+						</span>
+						<div class="desc">
+							<h3 class="mb-5">API Development</h3>
+						</div>
+					</span>
+				</div>
+				<div class="col-md-4 text-center d-flex ftco-animate">
+					<span class="services-1">
+						<span class="icon">
+							<i class="fa-solid fa-mobile-screen-button"></i>
+						</span>
+						<div class="desc">
+							<h3 class="mb-5">Web Application Maintenance and Support</h3>
+						</div>
+					</span>
+				</div>
+				<div class="col-md-4 text-center d-flex ftco-animate">
+					<span class="services-1">
+						<span class="icon">
+							<i class="fa-solid fa-bolt"></i>
+						</span>
+						<div class="desc">
+							<h3 class="mb-5">Performance Optimization</h3>
+						</div>
+					</span>
+				</div>
+				<div class="col-md-4 text-center d-flex ftco-animate">
+					<span class="services-1">
+						<span class="icon">
+							<i class="fa-regular fa-lightbulb"></i>
+						</span>
+						<div class="desc">
+							<h3 class="mb-5">Consulting and Technical Guidance</h3>
+						</div>
+					</span>
+				</div>
+				<div class="col-md-4 text-center d-flex ftco-animate">
+					<span class="services-1">
+						<span class="icon">
+							<i class="fa-solid fa-gears"></i>
+						</span>
+						<div class="desc">
+							<h3 class="mb-5">Mobile Backend Development</h3>
+						</div>
+					</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section ftco-no-pb" id="experience-section">
+		<div class="container">
+			<div class="row justify-content-center pb-5">
+				<div class="col-md-10 heading-section text-center ftco-animate">
+					<h1 class="big big-2">Experience</h1>
+					<h2 class="mb-4">Experience</h2>
+					<p>
+						With a solid foundation as an MIS Assistant in an NGO, I meticulously managed data for a pivotal Nutrition project over 9 months. Currently, I thrive as a skilled Software Engineer, spearheading the development of innovative solutions with precision and expertise.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="resume-wrap ftco-animate">
+						<span class="date">02/2024 - Present</span>
+						<h2>Software Engineer</h2>
+						<span class="position">Verge Systems</span>
+						<p class="mt-4">
+							Experienced Software Engineer with expertise in PHP, Laravel, JavaScript, jQuery, and MySQL. Proficient in developing robust web applications and dynamic websites. Skilled in leveraging cutting-edge technologies to create efficient and scalable solutions.
+						</p>
+					</div>
+
+					<div class="resume-wrap ftco-animate">
+						<span class="date">08/2023 - 01/2024</span>
+						<h2>Intern - Web Developer</h2>
+						<span class="position">Verge Systems</span>
+						<p class="mt-4">
+							As an Intern - Web Developer, I honed my skills in web development, gaining practical experience in HTML, CSS, JavaScript, and other relevant technologies. I contributed to the creation of dynamic and user-friendly websites under the guidance of experienced professionals, while also actively learning and adapting to new challenges in the field.
+						</p>
+					</div>
+
+				</div>
+
+				<div class="col-md-6">
+					<div class="resume-wrap ftco-animate">
+						<span class="date">11/2022 - 06/2023</span>
+						<h2>Data Entry Officer / MIS Assistant</h2>
+						<span class="position">Management & Development Foundation</span>
+						<p class="mt-4">
+							As a Data Entry Officer in a nutrition project, I meticulously managed and inputted critical data to support the project's objectives. I ensured accuracy and efficiency in data entry processes, contributing to the success of the project while gaining valuable experience in data management and analysis and reporting.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section" id="skills-section">
+		<div class="container">
+			<div class="row justify-content-center pb-5">
+				<div class="col-md-12 heading-section text-center ftco-animate">
+					<h1 class="big big-2">Skills</h1>
+					<h2 class="mb-4">My Skills</h2>
+					<p>
+						Discover my versatile skills and expertise. From problem-solving to creativity, I bring a diverse set of abilities to the table. Whether it's technical proficiency, effective communication, or strategic thinking, I'm ready to excel in any task.
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>Photoshop</h3>
+						<div class="progress">
+							<div class="progress-bar color-1" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+								aria-valuemax="60" style="width:60%">
+								<span>60%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>jQuery</h3>
+						<div class="progress">
+							<div class="progress-bar color-2" role="progressbar" aria-valuenow="85" aria-valuemin="0"
+								aria-valuemax="100" style="width:85%">
+								<span>85%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>HTML</h3>
+						<div class="progress">
+							<div class="progress-bar color-3" role="progressbar" aria-valuenow="95" aria-valuemin="0"
+								aria-valuemax="100" style="width:95%">
+								<span>95%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>CSS</h3>
+						<div class="progress">
+							<div class="progress-bar color-4" role="progressbar" aria-valuenow="80" aria-valuemin="0"
+								aria-valuemax="100" style="width:80%">
+								<span>80%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>JavaScript</h3>
+						<div class="progress">
+							<div class="progress-bar color-5" role="progressbar" aria-valuenow="80" aria-valuemin="0"
+								aria-valuemax="100" style="width:80%">
+								<span>80%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>PHP</h3>
+						<div class="progress">
+							<div class="progress-bar color-6" role="progressbar" aria-valuenow="95" aria-valuemin="0"
+								aria-valuemax="100" style="width:95%">
+								<span>95%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>MYSQL</h3>
+						<div class="progress">
+							<div class="progress-bar color-6" role="progressbar" aria-valuenow="90" aria-valuemin="0"
+								aria-valuemax="100" style="width:90%">
+								<span>90%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>Bootstrap</h3>
+						<div class="progress">
+							<div class="progress-bar color-6" role="progressbar" aria-valuenow="90" aria-valuemin="0"
+								aria-valuemax="100" style="width:90%">
+								<span>90%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>Tailwind</h3>
+						<div class="progress">
+							<div class="progress-bar color-6" role="progressbar" aria-valuenow="90" aria-valuemin="0"
+								aria-valuemax="100" style="width:90%">
+								<span>90%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>Laravel</h3>
+						<div class="progress">
+							<div class="progress-bar color-6" role="progressbar" aria-valuenow="80" aria-valuemin="0"
+								aria-valuemax="100" style="width:80%">
+								<span>80%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>AJAX</h3>
+						<div class="progress">
+							<div class="progress-bar color-6" role="progressbar" aria-valuenow="95" aria-valuemin="0"
+								aria-valuemax="100" style="width:95%">
+								<span>95%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>API</h3>
+						<div class="progress">
+							<div class="progress-bar color-6" role="progressbar" aria-valuenow="90" aria-valuemin="0"
+								aria-valuemax="100" style="width:90%">
+								<span>90%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter img" id="section-counter">
+		<div class="container">
+			<div class="row d-md-flex align-items-center">
+				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+					<div class="block-18">
+						<div class="text">
+							<strong class="number" data-number="12">0</strong>
+							<span>Complete Projects</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section ftco-project" id="projects-section">
+    	<div class="container">
+			<div class="row justify-content-center pb-5">
+				<div class="col-md-12 heading-section text-center ftco-animate">
+					<h1 class="big big-2">Projects</h1>
+					<h2 class="mb-4">Our Projects</h2>
+					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+				</div>
+			</div>
+    		<div class="row">
+    			<div class="col-md-6">
+    				<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/project-4.jpg);">
+    					<div class="overlay"></div>
+	    				<div class="text text-center p-4">
+	    					<h3><a href="#">Branding &amp; Illustration Design</a></h3>
+	    					<span>Web Design</span>
+	    				</div>
+    				</div>
+  				</div>
+  				<div class="col-md-6">
+    				<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/project-5.jpg);">
+    					<div class="overlay"></div>
+	    				<div class="text text-center p-4">
+	    					<h3><a href="#">Branding &amp; Illustration Design</a></h3>
+	    					<span>Web Design</span>
+	    				</div>
+    				</div>
+  				</div>
+    		</div>
+    	</div>
+    </section>
+
+	<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
+		<div class="container">
+			<div class="row justify-content-center mb-5 pb-3">
+				<div class="col-md-7 heading-section text-center ftco-animate">
+					<h1 class="big big-2">Contact</h1>
+					<h2 class="mb-4">Contact Me</h2>
+					<p>
+						Get in touch with me easily using the provided contact information. Whether you have questions, inquiries, or simply want to connect, I'm here to help and engage with you.
+					</p>
+				</div>
+			</div>
+
+			<div class="row contact-info mb-5 align-items-center justify-content-center">
+				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
+					<div class="align-self-stretch box p-4 text-center">
+						<div class="icon d-flex align-items-center justify-content-center">
+							<span class="icon-map-signs"></span>
+						</div>
+						<h3 class="mb-4">Address</h3>
+						<p>House # 18, Pathan Goth Hussainabad Hyderabad, Sindh, Pakistan</p>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
+					<div class="align-self-stretch box p-4 text-center">
+						<div class="icon d-flex align-items-center justify-content-center">
+							<span class="icon-phone2"></span>
+						</div>
+						<h3 class="mb-4">Contact Number</h3>
+						<p><a href="tel://923118679523">+ 92 311 8679523 <br /><br /><br /></a></p>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
+					<div class="align-self-stretch box p-4 text-center">
+						<div class="icon d-flex align-items-center justify-content-center">
+							<span class="icon-paper-plane"></span>
+						</div>
+						<h3 class="mb-4">Email Address</h3>
+						<p><a href="aazank517@gmail.com">aazank517@gmail.com <br /><br /><br /></a></p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row no-gutters block-9 ftco-section ftco-no-pb" id="contact-input-section">
+				<div class="col-md-6 order-md-last d-flex">
+					<form action="#" class="bg-light p-4 p-md-5 contact-form">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Your Name">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Your Email">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Subject">
+						</div>
+						<div class="form-group">
+							<textarea name="" id="" cols="30" rows="7" class="form-control"
+								placeholder="Message"></textarea>
+						</div>
+						<div class="form-group">
+							<input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+						</div>
+					</form>
+
+				</div>
+
+				<div class="col-md-6 d-flex">
+					<div class="img" style="background-image: url(images/contactUs.jpg);"></div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 
-    </div>
+	<footer class="ftco-footer ftco-section">
+		<div class="container">
+			<div class="row mb-5">
+				<div class="col-md">
+					<div class="ftco-footer-widget mb-4">
+						<h2 class="ftco-heading-2">About</h2>
+						<p>
+							I'm Aazan Khan Pathan, a Software Engineer at Verge Systems. With a 3-year DAE CIT diploma, a 4-month certificate in web development, and a Bachelor's degree in Commerce from the University of Sindh Jamshoro, my experience seamlessly combines business acumen with IT proficiency, showcasing adaptability across diverse domains.
+						</p>
+						<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+							<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+							<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+							<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md">
+					<div class="ftco-footer-widget mb-4 ml-md-4 ftco-nav">
+						<h2 class="ftco-heading-2">Links</h2>
+							<ul class="list-unstyled">
+								<li><a href="#home-section"><span class="icon-long-arrow-right mr-2"> Home</span></a></li>
+								<li><a href="#about-section"><span class="icon-long-arrow-right mr-2"> About</span></a></li>
+								<li><a href="#education-section"><span class="icon-long-arrow-right mr-2"> Education</span></a></li>
+								<li><a href="#services-section"><span class="icon-long-arrow-right mr-2"> Services</span></a></li>
+								<li><a href="#experience-section"><span class="icon-long-arrow-right mr-2"> Experience</span></a></li>
+								<li><a href="#skills-section"><span class="icon-long-arrow-right mr-2"> Skills</span></a></li>
+								<li><a href="#projects-section"><span class="icon-long-arrow-right mr-2">Projects</span></a></li>
+								<li><a href="#contact-section"><span class="icon-long-arrow-right mr-2"> Contact</span></a></li>
+							</ul>
+					</div>
+				</div>
+				<div class="col-md">
+					<div class="ftco-footer-widget mb-4">
+						<h2 class="ftco-heading-2">Have a Questions?</h2>
+						<div class="block-23 mb-3">
+							<ul>
+								<li><span class="icon icon-map-marker"></span><span class="text">House # 18, Pathan Goth Hussainabad Hyderabad, Sindh, Pakistan</span></li>
+								<li><a href="#"><span class="icon icon-phone"></span><span class="text">+ 92 311 8679523</span></a></li>
+								<li><a href="#"><span class="icon icon-envelope"></span><span class="text">aazank517@gmail.com</span></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="row">
+				<div class="col-md-12 text-center">
+					<p>
+						Copyright &copy;
+						<script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+						is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a
+							href="https://colorlib.com" target="_blank">Colorlib</a>
+					</p>
+				</div>
+			</div> -->
+		</div>
+	</footer>
 
-    
+	<!-- loader -->
+	<div id="ftco-loader" class="show fullscreen">
+		<svg class="circular" width="48px" height="48px">
+			<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+			<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
+		</svg>
+	</div>
 
+	<script src="js/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+	<script src="js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/jquery.stellar.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/aos.js"></script>
+	<script src="js/jquery.animateNumber.min.js"></script>
+	<script src="js/scrollax.min.js"></script>
+	<script src="js/main.js"></script>
 
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.all.min.js"></script>
-    <script src="js/Form.js"></script>
 </body>
 </html>
