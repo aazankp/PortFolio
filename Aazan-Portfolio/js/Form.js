@@ -28,7 +28,17 @@ $(document).ready(function() {
             data: { action: 'checkUserData' },
             success: function (result) {
                 aData = JSON.parse(result);
-                console.log(aData);
+
+                var Field = "education";
+
+                if (Field == "education") {
+                    aEducation = JSON.parse(aData["education"]);
+                    iEduLen = Object.keys(aEducation).length;
+                    console.log(iEduLen);
+                    console.log(aEducation);
+                }
+
+                // console.log(aData);
             }
         });
     }
