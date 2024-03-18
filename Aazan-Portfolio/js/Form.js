@@ -29,9 +29,9 @@ $(document).ready(function() {
             success: function (result) {
                 aData = JSON.parse(result);
 
-                var Field = "education";
+                var sField = "education";
 
-                if (Field == "education") {
+                if (sField == "education") {
                     aEducation = JSON.parse(aData["education"]);
                     iEduLen = Object.keys(aEducation).length;
                     console.log(iEduLen);
