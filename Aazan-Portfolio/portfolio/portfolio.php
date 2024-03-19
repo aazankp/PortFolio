@@ -75,9 +75,7 @@
                     </label>
                 </div>
             </div>
-            <div id="puteducation" class="mb-8">
-                <h1>Heloo</h1>
-            </div>
+            <div id="puteducation" class="mb-8"> </div>
             <!-- Education End -->
 
             <!-- Services -->

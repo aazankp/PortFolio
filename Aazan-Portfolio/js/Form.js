@@ -20,23 +20,118 @@ $(document).ready(function() {
 
     // PortFolio Form Code
 
+    var PortFolioData;
+    var aEducation;
+
     function DataCheck ()
     {
-        $.ajax({
+        PortFolioData = $.ajax({
             url: '../vendor/Process.php',
             type: 'POST',
             data: { action: 'checkUserData' },
             success: function (result) {
                 aData = JSON.parse(result);
+                aEducation = JSON.parse(aData.education);
 
-                var sField = "education";
+                if (aEducation.hasOwnProperty("education")) {
+                    let toggle = $('#education_Toggle').prop('checked');
+                    if (toggle === true) {
+                        htmlEducation = ' \
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
+                                    <div class="flex justify-end items-center"> \
+                                        <div class="relative w-full"> \
+                                            <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description">'+ aEducation.education.description +'</textarea> \
+                                            <label for="educationDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
+                                        </div> \
+                                    </div> \
+                                </div>';
+                        $.each(aEducation, function (index, element) {                     
+                            htmlEducation += ' \
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
+                                    <div class="flex justify-end items-center h-20"> \
+                                        <div class="relative w-full"> \
+                                            <textarea autocomplete="off" id="'+ index +'Description" name="'+ index +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Education Description">'+ element.educationDescription +'</textarea> \
+                                            <label for="'+ index +'Description" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Education Description</label> \
+                                        </div> \
+                                    </div> \
+                                    <div class="flex items-center"> \
+                                        <div class="relative w-full"> \
+                                            <input autocomplete="off" id="'+ index +'degree" name="'+ index +'[educationDegree]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Degree" value="'+ element.educationDegree +'" /> \
+                                            <label for="'+ index +'degree" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Degree</label> \
+                                        </div> \
+                                    </div> \
+                                    <div class="flex justify-end items-center"> \
+                                        <div class="relative w-full"> \
+                                            <input autocomplete="off" id="'+ index +'institute" name="'+ index +'[educationInstitute]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Institution Name" value="'+ element.educationInstitute +'" /> \
+                                            <label for="'+ index +'institute" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Institution Name</label> \
+                                        </div> \
+                                    </div> \
+                                </div> \
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
+                                    <div class="flex items-center"> \
+                                        <div class="relative w-full"> \
+                                            <input autocomplete="off" id="'+ index +'from" name="'+ index +'[educationFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="From" value="'+ element.educationFrom +'" /> \
+                                            <label for="'+ index +'from" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">From</label> \
+                                        </div> \
+                                    </div> \
+                                    <div class="flex items-center"> \
+                                        <div class="relative w-full"> \
+                                            <input autocomplete="off" id="'+ index +'to" name="'+ index +'[educationTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="To" value="'+ element.educationTo +'" /> \
+                                            <label for="'+ index +'to" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
+                                        </div> \
+                                    </div> \
+                                </div>';
+                        });
 
-                if (sField == "education") {
-                    aEducation = JSON.parse(aData["education"]);
-                    iEduLen = Object.keys(aEducation).length;
-                    console.log(iEduLen);
-                    console.log(aEducation);
+                        htmlEducation += ' \
+                                <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
+                                    <div class="flex justify-end items-center"> \
+                                        <button type="button" id="educationAdd" class="text-2xl"><i class="fa-solid fa-circle-plus abc"></i></button> \
+                                    </div> \
+                                </div>';
+
+                        $("#puteducation").html(htmlEducation);
+                        
+                    } else {
+                        $("#puteducation").html("");
+                    }
+
+                } else {
+                    let toggle = $('#education_Toggle').prop('checked');
+                    if (toggle === true) {
+                        htmlEducation = ' \
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
+                                <div class="flex justify-end items-center"> \
+                                    <div class="relative w-full"> \
+                                        <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description"></textarea> \
+                                        <label for="educationDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
+                                    </div> \
+                                </div> \
+                            </div>';
+                        htmlEducation += educationFields("education");
+                        htmlEducation += ' \
+                            <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
+                                <div class="flex justify-end items-center"> \
+                                    <button type="button" id="educationAdd" class="text-2xl"><i class="fa-solid fa-circle-plus abc"></i></button> \
+                                </div> \
+                            </div>';
+
+                        $("#puteducation").html(htmlEducation);
+
+                    } else {
+                        $("#puteducation").html("");
+                    }
                 }
+
+
+                // var sField = "education";
+
+                // if (sField == "education") {
+                //     aEducation = JSON.parse(aData["education"]);
+                //     iEduLen = Object.keys(aEducation).length;
+                //     // console.log(iEduLen);
+                //     console.log(aEducation);
+                // }
 
                 // console.log(aData);
             }
@@ -82,50 +177,35 @@ $(document).ready(function() {
                 </div> \
             </div>');
     }
-    $(document).on("click", "#education_Toggle", function() {
-        let toggle = $('#education_Toggle').prop('checked');
-        if (toggle === true) {
-            
 
-
-            // console.log(Aazan);
-            // html = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
-            //     <div class="flex justify-end items-center"> \
-            //         <div class="relative w-full"> \
-            //             <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description"></textarea> \
-            //             <label for="educationDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
-            //         </div> \
-            //     </div> \
-            // </div>';
-            // html += educationFields("education");
-            // html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
-            //     <div class="flex justify-end items-center"> \
-            //         <button type="button" id="educationAdd" class="text-2xl"><i class="fa-solid fa-circle-plus abc"></i></button> \
-            //     </div> \
-            // </div>';
-            // $("#puteducation").html(html);
-        } else {
-            $("#puteducation").html("");
-        }
-    });
-    numbedu = 1;
-    $(document).on("click", "#educationAdd", function(){
-        nameVar = "education"+numbedu;
-        html = '<div class="forDeleteeducation">';
-        html += educationFields(nameVar);
-        html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
-                <div class="flex justify-end items-center"> \
-                    <button type="button" id="delAddeducation" class="text-2xl"><i class="fa-solid fa-trash"></i></button> \
+    PortFolioData.then(function () {
+        $(document).on("click", "#education_Toggle", function() {
+            DataCheck ();
+            // let toggle = $('#education_Toggle').prop('checked');
+            // if (toggle === true) {
+            // } else {
+            //     $("#puteducation").html("");
+            // }
+        });
+        numbedu = 'education' in aEducation ? Object.keys(aEducation).length : 1;
+        $(document).on("click", "#educationAdd", function(){
+            nameVar = "education"+numbedu;
+            html = '<div class="forDeleteeducation">';
+            html += educationFields(nameVar);
+            html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
+                    <div class="flex justify-end items-center"> \
+                        <button type="button" id="delAddeducation" class="text-2xl"><i class="fa-solid fa-trash"></i></button> \
+                    </div> \
                 </div> \
-            </div> \
-        </div>';
-
-        $("#puteducation").append(html);
-        numbedu = numbedu+1;
-    });
-    $(document).on("click", "#delAddeducation", function(){
-        $(this).closest(".forDeleteeducation").remove();
-    });
+            </div>';
+    
+            $("#puteducation").append(html);
+            numbedu = numbedu+1;
+        });
+        $(document).on("click", "#delAddeducation", function(){
+            $(this).closest(".forDeleteeducation").remove();
+        });
+    })
     // Education Code End
 
     //  Services Code Start
