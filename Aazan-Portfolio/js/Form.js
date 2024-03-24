@@ -20,6 +20,8 @@ $(document).ready(function() {
 
     // PortFolio Form Code
 
+    
+
     var PortFolioData;
     var aEducation;
 
@@ -34,106 +36,49 @@ $(document).ready(function() {
                 aEducation = JSON.parse(aData.education);
 
                 if (aEducation.hasOwnProperty("education")) {
-                    let toggle = $('#education_Toggle').prop('checked');
-                    if (toggle === true) {
-                        htmlEducation = ' \
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
-                                    <div class="flex justify-end items-center"> \
-                                        <div class="relative w-full"> \
-                                            <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description">'+ aEducation.education.description +'</textarea> \
-                                            <label for="educationDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
-                                        </div> \
-                                    </div> \
-                                </div>';
-                        $.each(aEducation, function (index, element) {                     
-                            htmlEducation += ' \
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
-                                    <div class="flex justify-end items-center h-20"> \
-                                        <div class="relative w-full"> \
-                                            <textarea autocomplete="off" id="'+ index +'Description" name="'+ index +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Education Description">'+ element.educationDescription +'</textarea> \
-                                            <label for="'+ index +'Description" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Education Description</label> \
-                                        </div> \
-                                    </div> \
-                                    <div class="flex items-center"> \
-                                        <div class="relative w-full"> \
-                                            <input autocomplete="off" id="'+ index +'degree" name="'+ index +'[educationDegree]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Degree" value="'+ element.educationDegree +'" /> \
-                                            <label for="'+ index +'degree" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Degree</label> \
-                                        </div> \
-                                    </div> \
-                                    <div class="flex justify-end items-center"> \
-                                        <div class="relative w-full"> \
-                                            <input autocomplete="off" id="'+ index +'institute" name="'+ index +'[educationInstitute]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Institution Name" value="'+ element.educationInstitute +'" /> \
-                                            <label for="'+ index +'institute" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Institution Name</label> \
-                                        </div> \
-                                    </div> \
-                                </div> \
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
-                                    <div class="flex items-center"> \
-                                        <div class="relative w-full"> \
-                                            <input autocomplete="off" id="'+ index +'from" name="'+ index +'[educationFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="From" value="'+ element.educationFrom +'" /> \
-                                            <label for="'+ index +'from" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">From</label> \
-                                        </div> \
-                                    </div> \
-                                    <div class="flex items-center"> \
-                                        <div class="relative w-full"> \
-                                            <input autocomplete="off" id="'+ index +'to" name="'+ index +'[educationTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="To" value="'+ element.educationTo +'" /> \
-                                            <label for="'+ index +'to" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
-                                        </div> \
-                                    </div> \
-                                </div>';
-                        });
-
-                        htmlEducation += ' \
-                                <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
-                                    <div class="flex justify-end items-center"> \
-                                        <button type="button" id="educationAdd" class="text-2xl"><i class="fa-solid fa-circle-plus abc"></i></button> \
-                                    </div> \
-                                </div>';
-
-                        $("#puteducation").html(htmlEducation);
-                        
-                    } else {
-                        $("#puteducation").html("");
-                    }
-
-                } else {
-                    let toggle = $('#education_Toggle').prop('checked');
-                    if (toggle === true) {
-                        htmlEducation = ' \
+                    htmlEducation = ' \
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                                 <div class="flex justify-end items-center"> \
                                     <div class="relative w-full"> \
-                                        <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description"></textarea> \
+                                        <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description">'+ aEducation.education.description +'</textarea> \
                                         <label for="educationDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                                     </div> \
                                 </div> \
                             </div>';
-                        htmlEducation += educationFields("education");
-                        htmlEducation += ' \
+                    $.each(aEducation, function (index, element) {                     
+                        htmlEducation += educationFields ("education", index, element);
+                    });
+
+                    htmlEducation += ' \
                             <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                                 <div class="flex justify-end items-center"> \
-                                    <button type="button" id="educationAdd" class="text-2xl"><i class="fa-solid fa-circle-plus abc"></i></button> \
+                                    <button type="button" id="educationAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
                                 </div> \
                             </div>';
 
-                        $("#puteducation").html(htmlEducation);
+                    CheckTogle ("education_Toggle", htmlEducation);
 
-                    } else {
-                        $("#puteducation").html("");
-                    }
+                } else {
+                    htmlEducation = ' \
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
+                            <div class="flex justify-end items-center"> \
+                                <div class="relative w-full"> \
+                                    <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description"></textarea> \
+                                    <label for="educationDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
+                                </div> \
+                            </div> \
+                        </div>';
+                    htmlEducation += educationFields("education", "", "");
+                    htmlEducation += ' \
+                        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
+                            <div class="flex justify-end items-center"> \
+                                <button type="button" id="educationAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
+                            </div> \
+                        </div>';
+
+                    CheckTogle ("education_Toggle", htmlEducation);
                 }
 
-
-                // var sField = "education";
-
-                // if (sField == "education") {
-                //     aEducation = JSON.parse(aData["education"]);
-                //     iEduLen = Object.keys(aEducation).length;
-                //     // console.log(iEduLen);
-                //     console.log(aEducation);
-                // }
-
-                // console.log(aData);
             }
         });
     }
@@ -141,23 +86,30 @@ $(document).ready(function() {
     DataCheck ();
 
     // Education Code Start
-    function educationFields (nameVar) {
+    function educationFields (nameVar, index, element) {
+        len = Object.keys(element).length
+        var nameVar = (len > 0) ? index : nameVar;
+        var eduDesc = (len > 0) ? element.educationDescription : "";
+        var eduDegree = (len > 0) ? element.educationDegree : "";
+        var eduInstitute = (len > 0) ? element.educationInstitute : "";
+        var eduFrom = (len > 0) ? element.educationFrom : "";
+        var eduTo = (len > 0) ? element.educationTo : "";
         return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
                 <div class="flex justify-end items-center h-20"> \
                     <div class="relative w-full"> \
-                        <textarea autocomplete="off" id="'+ nameVar +'Description" name="'+ nameVar +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Education Description"></textarea> \
+                        <textarea autocomplete="off" id="'+ nameVar +'Description" name="'+ nameVar +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Education Description">'+eduDesc+'</textarea> \
                         <label for="'+ nameVar +'Description" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Education Description</label> \
                     </div> \
                 </div> \
                 <div class="flex items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar +'degree" name="'+ nameVar +'[educationDegree]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Degree" /> \
+                        <input autocomplete="off" id="'+ nameVar +'degree" name="'+ nameVar +'[educationDegree]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Degree" value="'+ eduDegree +'" /> \
                         <label for="'+ nameVar +'degree" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Degree</label> \
                     </div> \
                 </div> \
                 <div class="flex justify-end items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar +'institute" name="'+ nameVar +'[educationInstitute]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Institution Name" /> \
+                        <input autocomplete="off" id="'+ nameVar +'institute" name="'+ nameVar +'[educationInstitute]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Institution Name" value="'+ eduInstitute +'" /> \
                         <label for="'+ nameVar +'institute" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Institution Name</label> \
                     </div> \
                 </div> \
@@ -165,13 +117,13 @@ $(document).ready(function() {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
                 <div class="flex items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar+'from" name="'+ nameVar +'[educationFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="From" /> \
+                        <input autocomplete="off" id="'+ nameVar+'from" name="'+ nameVar +'[educationFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="From" value="'+ eduFrom +'" /> \
                         <label for="'+ nameVar+'from" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">From</label> \
                     </div> \
                 </div> \
                 <div class="flex items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar+'to" name="'+ nameVar +'[educationTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="To" /> \
+                        <input autocomplete="off" id="'+ nameVar+'to" name="'+ nameVar +'[educationTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="To" value="'+ eduTo +'" /> \
                         <label for="'+ nameVar+'to" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
                     </div> \
                 </div> \
@@ -181,17 +133,12 @@ $(document).ready(function() {
     PortFolioData.then(function () {
         $(document).on("click", "#education_Toggle", function() {
             DataCheck ();
-            // let toggle = $('#education_Toggle').prop('checked');
-            // if (toggle === true) {
-            // } else {
-            //     $("#puteducation").html("");
-            // }
         });
         numbedu = 'education' in aEducation ? Object.keys(aEducation).length : 1;
         $(document).on("click", "#educationAdd", function(){
             nameVar = "education"+numbedu;
             html = '<div class="forDeleteeducation">';
-            html += educationFields(nameVar);
+            html += educationFields(nameVar, "", "");
             html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                     <div class="flex justify-end items-center"> \
                         <button type="button" id="delAddeducation" class="text-2xl"><i class="fa-solid fa-trash"></i></button> \
@@ -208,8 +155,24 @@ $(document).ready(function() {
     })
     // Education Code End
 
+    function CheckTogle (target, html) {
+        let toggle = $('#'+target).prop('checked');
+        if (toggle === true) {
+            $("#"+target).html(html);
+        } else {
+            $("#"+target).html("");
+        }
+    }
+
     //  Services Code Start
-    function servicesFields (nameVar) {
+    function servicesFields (nameVar, index, element) {
+        len = Object.keys(element).length
+        var nameVar = (len > 0) ? index : nameVar;
+        var eduDesc = (len > 0) ? element.educationDescription : "";
+        var eduDegree = (len > 0) ? element.educationDegree : "";
+        var eduInstitute = (len > 0) ? element.educationInstitute : "";
+        var eduFrom = (len > 0) ? element.educationFrom : "";
+        var eduTo = (len > 0) ? element.educationTo : "";
         return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
@@ -239,7 +202,7 @@ $(document).ready(function() {
             html += servicesFields("services");
             html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                 <div class="flex justify-end items-center"> \
-                    <button type="button" id="servicesAdd" class="text-2xl"><i class="fa-solid fa-circle-plus abc"></i></button> \
+                    <button type="button" id="servicesAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
                 </div> \
             </div>';
             $("#putservices").html(html);
@@ -318,7 +281,7 @@ $(document).ready(function() {
             html += experienceFields("experience");
             html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                 <div class="flex justify-end items-center"> \
-                    <button type="button" id="experienceAdd" class="text-2xl"><i class="fa-solid fa-circle-plus abc"></i></button> \
+                    <button type="button" id="experienceAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
                 </div> \
             </div>';
             $("#putexperience").html(html);
@@ -383,7 +346,7 @@ $(document).ready(function() {
             html += skillsFields("skills");
             html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                 <div class="flex justify-end items-center"> \
-                    <button type="button" id="skillsAdd" class="text-2xl"><i class="fa-solid fa-circle-plus abc"></i></button> \
+                    <button type="button" id="skillsAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
                 </div> \
             </div>';
             $("#putskills").html(html);
@@ -447,7 +410,7 @@ $(document).ready(function() {
             html += projectsFields("projects");
             html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                 <div class="flex justify-end items-center"> \
-                    <button type="button" id="projectsAdd" class="text-2xl"><i class="fa-solid fa-circle-plus abc"></i></button> \
+                    <button type="button" id="projectsAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
                 </div> \
             </div>';
             $("#putprojects").html(html);
