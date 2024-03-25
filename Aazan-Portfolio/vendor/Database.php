@@ -46,6 +46,7 @@ class Database {
     public function fetchPortFolio ($iUserId)
     {
         $this->query = "SELECT * FROM portfolioformdata WHERE PortFolio_Id='$iUserId'";
+        // die($this->query);
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }

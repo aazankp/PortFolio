@@ -134,8 +134,8 @@
     {
         $iUserId = $_SESSION["userInfo"]["userId"];
         $fetchPortFolio = $objDatabase->fetchPortFolio (1);
-        $aProtFolioData = mysqli_fetch_assoc($fetchPortFolio);
-        echo json_encode($aProtFolioData);
+        $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
+        echo json_encode($aProfFolioData);
     }
 
 

@@ -1,3 +1,130 @@
+<?php
+    session_start();
+    require_once "vendor/Database.php";
+    $objDatabase = new Database;
+    $iUserId = $_SESSION["userInfo"]["userId"];
+    $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
+    if (mysqli_num_rows($fetchPortFolio) > 0) {
+        $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
+        $aAbout = json_decode($aProfFolioData["about"], true);
+        $aContact = json_decode($aProfFolioData["contact"], true);
+        $aEducation = json_decode($aProfFolioData["education"], true);
+        $aServices = json_decode($aProfFolioData["services"], true);
+        $aExperiences = json_decode($aProfFolioData["experiences"], true);
+        $aSkills = json_decode($aProfFolioData["skills"], true);
+        $aProjects = json_decode($aProfFolioData["projects"], true);
+
+        $sAboutDesc = $aContact["Description"];
+        $sContactDesc = $aAbout["aboutDescription"];
+
+
+		// Education Code Start
+		$eduCode = "";
+		foreach ($aEducation as $key => $value) {
+			$dateFrom = explode("-", $value["educationFrom"]);
+			$dateTo = explode("-", $value["educationTo"]);
+			$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . $dateTo[1] . "/" . $dateTo[0];
+			$eduCode .= '
+			<div class="col-md-6">
+				<div class="resume-wrap ftco-animate">
+					<span class="date">'. $fullDate .'</span>
+					<h2>'. $value["educationDegree"] .'</h2>
+					<span class="position">'. $value["educationInstitute"] .'</span>
+					<p class="mt-4">'. $value["educationDescription"] .'</p>
+				</div>
+			</div>';
+		}
+
+		$eduFullCode = '
+		<section class="ftco-section ftco-no-pb" id="education-section">
+			<div class="container">
+				<div class="row justify-content-center pb-5">
+					<div class="col-md-10 heading-section text-center ftco-animate">
+						<h1 class="big big-2">Education</h1>
+						<h2 class="mb-4">Education</h2>
+						<p>'. $aEducation["education"]["description"] .'</p>
+					</div>
+				</div>
+				<div class="row">
+					'. $eduCode .'
+				</div>
+			</div>
+		</section>';
+		// Education Code End
+
+		// Services Code Start
+		$srvCode = "";
+		foreach ($aServices as $key => $value) {
+			$srvCode .= '
+			<div class="col-md-4 text-center d-flex ftco-animate">
+				<span class="services-1">
+					<span class="icon">
+						<i class="'. $value["iconName"] .'"></i>
+					</span>
+					<div class="desc">
+						<h3 class="mb-5">'. $value["serviceName"] .'</h3>
+					</div>
+				</span>
+			</div>';
+		}
+
+		$srvFullCode = '
+		<section class="ftco-section" id="services-section">
+			<div class="container">
+				<div class="row justify-content-center py-5 mt-5">
+					<div class="col-md-12 heading-section text-center ftco-animate">
+						<h1 class="big big-2">Services</h1>
+						<h2 class="mb-4">Services</h2>
+						<p>'. $aServices["services"]["description"] .'</p>
+					</div>
+				</div>
+				<div class="row">'. $srvCode .'</div>
+			</div>
+		</section>';
+		// Services Code End
+
+		// Experiences Code Start
+		$expCode = "";
+		foreach ($aExperiences as $key => $value) {
+			$dateFrom = explode("-", $value["jobFrom"]);
+			$dateTo = explode("-", $value["jobTo"]);
+			$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . $dateTo[1] . "/" . $dateTo[0];
+			$expCode .= '
+			<div class="col-md-6">
+				<div class="resume-wrap ftco-animate">
+					<span class="date">'. $fullDate .'</span>
+					<h2>'. $value["position"] .'</h2>
+					<span class="position">'. $value["companyName"] .'</span>
+					<p class="mt-4">'. $value["jobDescription"] .'</p>
+				</div>
+			</div>';
+		}
+
+		$expFullCode = '
+		<section class="ftco-section ftco-no-pb" id="experience-section">
+			<div class="container">
+				<div class="row justify-content-center pb-5">
+					<div class="col-md-10 heading-section text-center ftco-animate">
+						<h1 class="big big-2">Experience</h1>
+						<h2 class="mb-4">Experience</h2>
+						<p>'. $aExperiences["experience"]["description"] .'</p>
+					</div>
+				</div>
+				<div class="row">'. $expCode .'</div>
+			</div>
+		</section>';
+		// Experiences Code End
+
+
+        // echo "<pre>";
+        // print_r($aExperiences);
+		// die;
+    } else {
+        // die("No Data Found");
+        $sAboutDesc = "";
+        $sContactDesc = "";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,220 +235,9 @@
 		</div>
 	</section>
 
-	<section class="ftco-section ftco-no-pb" id="education-section">
-		<div class="container">
-			<div class="row justify-content-center pb-5">
-				<div class="col-md-10 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Education</h1>
-					<h2 class="mb-4">Education</h2>
-					<p>
-						I possess a 3-year DAE CIT diploma From Government College of Technology, Hyderabad, Sindh, complemented by a 4-month certification in web development and design. Additionally, I hold a Bachelor's degree in Commerce from the University of Sindh Jamshoro and have successfully completed a Microsoft Office short course offered by IMSA.
-					</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="resume-wrap ftco-animate">
-						<span class="date">2014-2015</span>
-						<h2>Bachelor of Commerce</h2>
-						<span class="position">University of Sindh, Jamshoro</span>
-						<p class="mt-4">
-							Completed comprehensive program encompassing key disciplines of commerce including accounting, finance, economics, and business law. Equipped with practical skills and theoretical knowledge essential for diverse career paths in banking, finance, accounting, and entrepreneurship.
-						</p>
-					</div>
-
-					<div class="resume-wrap ftco-animate">
-						<span class="date">2014-2015</span>
-						<h2>Web Development & Designing</h2>
-						<span class="position">Faith College of Information & Technology</span>
-						<p class="mt-4">
-							Completed a comprehensive program in web development and design, specializing in HTML, CSS, JavaScript, and UX design. Skilled in crafting engaging websites and applications, proficient in both front-end and back-end development.
-						</p>
-					</div>
-
-					<div class="resume-wrap ftco-animate">
-						<span class="date">2014-2015</span>
-						<h2>Diploma in Computer & Business Management - DCBM</h2>
-						<span class="position">New Future Concept</span>
-						<p class="mt-4">
-							Successfully completed a comprehensive program merging computer skills with business management principles. Proficient in leveraging technology for efficient business operations. Ready to contribute to diverse business environments with expertise in both computer and management domains.
-						</p>
-					</div>
-					
-				</div>
-
-				<div class="col-md-6">
-					<div class="resume-wrap ftco-animate">
-						<span class="date">2014-2015</span>
-						<h2>Diploma in Computer Information Technology - CIT</h2>
-						<span class="position">Government College of Technology</span>
-						<p class="mt-4">
-							Completed rigorous program focusing on core aspects of computer information technology, including software development, network administration, database management. Acquired hands-on experience and theoretical understanding essential for roles in IT support, software development, system administration, and related fields.
-						</p>
-					</div>
-					<div class="resume-wrap ftco-animate">
-						<span class="date">2014-2015</span>
-						<h2>Microsoft Office / Office Automation</h2>
-						<span class="position">School of Vocational & Technical Education</span>
-						<p class="mt-4">
-							Completed a comprehensive program specializing in Microsoft Office and office automation tools. Proficient in Word, Excel, PowerPoint, and Outlook for improved productivity. Ready to streamline office tasks and contribute efficiently to administrative roles.
-						</p>
-					</div>
-					<div class="resume-wrap ftco-animate">
-						<span class="date">2017-2018</span>
-						<h2>Microsoft Office</h2>
-						<span class="position">Institute of Modern Sciences And Arts - IMSA</span>
-						<p class="mt-4">
-							Completed a specialized program focusing on Microsoft Office applications. Proficient in Word, Excel, PowerPoint, and Outlook for enhanced productivity. Equipped with practical skills to streamline office tasks and contribute effectively to various roles requiring Microsoft Office proficiency.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="ftco-section" id="services-section">
-		<div class="container">
-			<div class="row justify-content-center py-5 mt-5">
-				<div class="col-md-12 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Services</h1>
-					<h2 class="mb-4">Services</h2>
-					<p>
-						We offer comprehensive web services tailored to your needs, including web design and development, e-commerce solutions, API development, and maintenance support. Our expertise extends to performance optimization, consulting, and technical guidance. Additionally, we specialize in mobile backend development, ensuring seamless integration with your applications.
-					</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<span class="services-1">
-						<span class="icon">
-							<i class="fa-solid fa-wand-magic-sparkles"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Web Design</h3>
-						</div>
-					</span>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<span class="services-1">
-						<span class="icon">
-							<i class="fa-solid fa-laptop-code"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Web Development</h3>
-						</div>
-					</span>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<span class="services-1">
-						<span class="icon">
-							<i class="fa-solid fa-cart-shopping"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">E-commerce Solutions</h3>
-						</div>
-					</span>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<span class="services-1">
-						<span class="icon">
-							<i class="fa-solid fa-code-pull-request"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">API Development</h3>
-						</div>
-					</span>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<span class="services-1">
-						<span class="icon">
-							<i class="fa-solid fa-mobile-screen-button"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Web Application Maintenance and Support</h3>
-						</div>
-					</span>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<span class="services-1">
-						<span class="icon">
-							<i class="fa-solid fa-bolt"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Performance Optimization</h3>
-						</div>
-					</span>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<span class="services-1">
-						<span class="icon">
-							<i class="fa-regular fa-lightbulb"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Consulting and Technical Guidance</h3>
-						</div>
-					</span>
-				</div>
-				<div class="col-md-4 text-center d-flex ftco-animate">
-					<span class="services-1">
-						<span class="icon">
-							<i class="fa-solid fa-gears"></i>
-						</span>
-						<div class="desc">
-							<h3 class="mb-5">Mobile Backend Development</h3>
-						</div>
-					</span>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="ftco-section ftco-no-pb" id="experience-section">
-		<div class="container">
-			<div class="row justify-content-center pb-5">
-				<div class="col-md-10 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Experience</h1>
-					<h2 class="mb-4">Experience</h2>
-					<p>
-						With a solid foundation as an MIS Assistant in an NGO, I meticulously managed data for a pivotal Nutrition project over 9 months. Currently, I thrive as a skilled Software Engineer, spearheading the development of innovative solutions with precision and expertise.
-					</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="resume-wrap ftco-animate">
-						<span class="date">02/2024 - Present</span>
-						<h2>Software Engineer</h2>
-						<span class="position">Verge Systems</span>
-						<p class="mt-4">
-							Experienced Software Engineer with expertise in PHP, Laravel, JavaScript, jQuery, and MySQL. Proficient in developing robust web applications and dynamic websites. Skilled in leveraging cutting-edge technologies to create efficient and scalable solutions.
-						</p>
-					</div>
-
-					<div class="resume-wrap ftco-animate">
-						<span class="date">08/2023 - 01/2024</span>
-						<h2>Intern - Web Developer</h2>
-						<span class="position">Verge Systems</span>
-						<p class="mt-4">
-							As an Intern - Web Developer, I honed my skills in web development, gaining practical experience in HTML, CSS, JavaScript, and other relevant technologies. I contributed to the creation of dynamic and user-friendly websites under the guidance of experienced professionals, while also actively learning and adapting to new challenges in the field.
-						</p>
-					</div>
-
-				</div>
-
-				<div class="col-md-6">
-					<div class="resume-wrap ftco-animate">
-						<span class="date">11/2022 - 06/2023</span>
-						<h2>Data Entry Officer / MIS Assistant</h2>
-						<span class="position">Management & Development Foundation</span>
-						<p class="mt-4">
-							As a Data Entry Officer in a nutrition project, I meticulously managed and inputted critical data to support the project's objectives. I ensured accuracy and efficiency in data entry processes, contributing to the success of the project while gaining valuable experience in data management and analysis and reporting.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	<?= $eduFullCode; ?>
+	<?= $srvFullCode; ?>
+	<?= $expFullCode; ?>
 
 	<section class="ftco-section" id="skills-section">
 		<div class="container">
