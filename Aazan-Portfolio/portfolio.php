@@ -115,9 +115,92 @@
 		</section>';
 		// Experiences Code End
 
+		// Skills Code Start
+		$sklCode = "";
+		foreach ($aSkills as $key => $value) {
+			$perc = str_replace("%", "", $value['skillPercentage']);
+			$sklCode .= '
+			<div class="col-md-6 animate-box">
+				<div class="progress-wrap ftco-animate">
+					<h3>'. $value['skillName'] .'</h3>
+					<div class="progress">
+						<div class="progress-bar color-1" role="progressbar" aria-valuenow="'.$perc.'" aria-valuemin="0"
+							aria-valuemax="'.$perc.'" style="width:'. $perc .'%">
+							<span>'. $perc .'%</span>
+						</div>
+					</div>
+				</div>
+			</div>';
+		}
+
+		$sklFullCode = '
+		<section class="ftco-section" id="skills-section">
+			<div class="container">
+				<div class="row justify-content-center pb-5">
+					<div class="col-md-12 heading-section text-center ftco-animate">
+						<h1 class="big big-2">Skills</h1>
+						<h2 class="mb-4">My Skills</h2>
+						<p>'. $aSkills["skills"]["description"] .'</p>
+					</div>
+				</div>
+				<div class="row">'. $sklCode .'</div>
+			</div>
+		</section>';
+		// Skills Code End
+
+		// Complete Projects Code Start
+		$Complete_Proj_FullCode = '
+		<section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter img" id="section-counter">
+			<div class="container">
+				<div class="row d-md-flex align-items-center">
+					<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+						<div class="block-18">
+							<div class="text">
+								<strong class="number" data-number="12">'. $aSkills["skills"]["completeProjects"] .'</strong>
+								<span>Complete Projects</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>';
+		// Complete Projects Code End
+
+		// Projects Code Start
+		$projCode = "";
+		foreach ($aProjects as $key => $value) {
+			$projCode .= '
+			<div class="col-md-6">
+				<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/Projects/'.$value["imageName"].');">
+					<div class="overlay"></div>
+					<div class="text text-center p-4">
+						<h3><a href="#">'.$value["projectsName"].'</a></h3>
+						<span>'.$value["projectsType"].'</span>
+					</div>
+				</div>
+			</div>';
+		}
+
+		$projFullCode = '
+		<section class="ftco-section ftco-project" id="projects-section">
+			<div class="container">
+				<div class="row justify-content-center pb-5">
+					<div class="col-md-12 heading-section text-center ftco-animate">
+						<h1 class="big big-2">Projects</h1>
+						<h2 class="mb-4">Our Projects</h2>
+						<p>'. $aProjects["projects"]["description"] .'</p>
+					</div>
+				</div>
+				<div class="row">'. $projCode .'</div>
+			</div>
+		</section>';
+		// Projects Code End
+
+		
+
 
         // echo "<pre>";
-        // print_r($aExperiences);
+        // print_r($aAbout);
 		// die;
     } else {
         // die("No Data Found");
@@ -129,20 +212,20 @@
 <html lang="en">
 <head>
 	<title>PortFolio - Aazan Khan Pathan</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-	<link rel="stylesheet" href="css/animate.css">
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	<link rel="stylesheet" href="css/aos.css">
-	<link rel="stylesheet" href="css/ionicons.min.css">
-	<link rel="stylesheet" href="css/flaticon.css">
-	<link rel="stylesheet" href="css/icomoon.css">
-	<link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -212,9 +295,7 @@
 						<div class="col-md-12 heading-section ftco-animate">
 							<h1 class="big">About</h1>
 							<h2 class="mb-4">About Me</h2>
-							<p>
-								I'm Aazan Khan Pathan, and in 2022, Following that, I served as an MIS Assistant at the Management and Development Foundation. Presently, I am employed as a Software Engineer at Verge Systems. I hold a 4-month certificate in web development and design, along with a 3-year DAE CIT diploma and a Bachelor's degree in Commerce from the University of Sindh, Jamshoro. My background showcases a blend of business acumen and IT proficiency, highlighting my adaptability across domains.
-							</p>
+							<p><?= $aAbout["aboutDescription"]; ?></p>
 							<ul class="about-info mt-4 px-md-0 px-2">
 								<li class="d-flex"><span>Name:</span> <span>Aazan Khan Pathan</span></li>
 								<li class="d-flex"><span>Date of birth:</span> <span>May 08, 2001</span></li>
@@ -238,201 +319,9 @@
 	<?= $eduFullCode; ?>
 	<?= $srvFullCode; ?>
 	<?= $expFullCode; ?>
-
-	<section class="ftco-section" id="skills-section">
-		<div class="container">
-			<div class="row justify-content-center pb-5">
-				<div class="col-md-12 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Skills</h1>
-					<h2 class="mb-4">My Skills</h2>
-					<p>
-						Discover my versatile skills and expertise. From problem-solving to creativity, I bring a diverse set of abilities to the table. Whether it's technical proficiency, effective communication, or strategic thinking, I'm ready to excel in any task.
-					</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>Photoshop</h3>
-						<div class="progress">
-							<div class="progress-bar color-1" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-								aria-valuemax="60" style="width:60%">
-								<span>60%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>jQuery</h3>
-						<div class="progress">
-							<div class="progress-bar color-2" role="progressbar" aria-valuenow="85" aria-valuemin="0"
-								aria-valuemax="100" style="width:85%">
-								<span>85%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>HTML</h3>
-						<div class="progress">
-							<div class="progress-bar color-3" role="progressbar" aria-valuenow="95" aria-valuemin="0"
-								aria-valuemax="100" style="width:95%">
-								<span>95%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>CSS</h3>
-						<div class="progress">
-							<div class="progress-bar color-4" role="progressbar" aria-valuenow="80" aria-valuemin="0"
-								aria-valuemax="100" style="width:80%">
-								<span>80%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>JavaScript</h3>
-						<div class="progress">
-							<div class="progress-bar color-5" role="progressbar" aria-valuenow="80" aria-valuemin="0"
-								aria-valuemax="100" style="width:80%">
-								<span>80%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>PHP</h3>
-						<div class="progress">
-							<div class="progress-bar color-6" role="progressbar" aria-valuenow="95" aria-valuemin="0"
-								aria-valuemax="100" style="width:95%">
-								<span>95%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>MYSQL</h3>
-						<div class="progress">
-							<div class="progress-bar color-6" role="progressbar" aria-valuenow="90" aria-valuemin="0"
-								aria-valuemax="100" style="width:90%">
-								<span>90%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>Bootstrap</h3>
-						<div class="progress">
-							<div class="progress-bar color-6" role="progressbar" aria-valuenow="90" aria-valuemin="0"
-								aria-valuemax="100" style="width:90%">
-								<span>90%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>Tailwind</h3>
-						<div class="progress">
-							<div class="progress-bar color-6" role="progressbar" aria-valuenow="90" aria-valuemin="0"
-								aria-valuemax="100" style="width:90%">
-								<span>90%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>Laravel</h3>
-						<div class="progress">
-							<div class="progress-bar color-6" role="progressbar" aria-valuenow="80" aria-valuemin="0"
-								aria-valuemax="100" style="width:80%">
-								<span>80%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>AJAX</h3>
-						<div class="progress">
-							<div class="progress-bar color-6" role="progressbar" aria-valuenow="95" aria-valuemin="0"
-								aria-valuemax="100" style="width:95%">
-								<span>95%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 animate-box">
-					<div class="progress-wrap ftco-animate">
-						<h3>API</h3>
-						<div class="progress">
-							<div class="progress-bar color-6" role="progressbar" aria-valuenow="90" aria-valuemin="0"
-								aria-valuemax="100" style="width:90%">
-								<span>90%</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter img" id="section-counter">
-		<div class="container">
-			<div class="row d-md-flex align-items-center">
-				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-					<div class="block-18">
-						<div class="text">
-							<strong class="number" data-number="12">0</strong>
-							<span>Complete Projects</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="ftco-section ftco-project" id="projects-section">
-    	<div class="container">
-			<div class="row justify-content-center pb-5">
-				<div class="col-md-12 heading-section text-center ftco-animate">
-					<h1 class="big big-2">Projects</h1>
-					<h2 class="mb-4">Our Projects</h2>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-				</div>
-			</div>
-    		<div class="row">
-    			<div class="col-md-6">
-    				<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/project-4.jpg);">
-    					<div class="overlay"></div>
-	    				<div class="text text-center p-4">
-	    					<h3><a href="#">Branding &amp; Illustration Design</a></h3>
-	    					<span>Web Design</span>
-	    				</div>
-    				</div>
-  				</div>
-  				<div class="col-md-6">
-    				<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/project-5.jpg);">
-    					<div class="overlay"></div>
-	    				<div class="text text-center p-4">
-	    					<h3><a href="#">Branding &amp; Illustration Design</a></h3>
-	    					<span>Web Design</span>
-	    				</div>
-    				</div>
-  				</div>
-    		</div>
-    	</div>
-    </section>
+	<?= $sklFullCode; ?>
+	<?= $Complete_Proj_FullCode; ?>
+	<?= $projFullCode; ?>
 
 	<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
 		<div class="container">
@@ -440,9 +329,7 @@
 				<div class="col-md-7 heading-section text-center ftco-animate">
 					<h1 class="big big-2">Contact</h1>
 					<h2 class="mb-4">Contact Me</h2>
-					<p>
-						Get in touch with me easily using the provided contact information. Whether you have questions, inquiries, or simply want to connect, I'm here to help and engage with you.
-					</p>
+					<p><?= $aContact["aContact"]; ?></p>
 				</div>
 			</div>
 
@@ -513,9 +400,7 @@
 				<div class="col-md">
 					<div class="ftco-footer-widget mb-4">
 						<h2 class="ftco-heading-2">About</h2>
-						<p>
-							I'm Aazan Khan Pathan, a Software Engineer at Verge Systems. With a 3-year DAE CIT diploma, a 4-month certificate in web development, and a Bachelor's degree in Commerce from the University of Sindh Jamshoro, my experience seamlessly combines business acumen with IT proficiency, showcasing adaptability across diverse domains.
-						</p>
+						<p><?= $aAbout["aboutDescription"]; ?></p>
 						<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
 							<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
 							<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -572,8 +457,23 @@
 		</svg>
 	</div>
 
-	<script src="js/jquery.min.js"></script>
+	<!-- <script src="js/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+	<script src="js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/jquery.stellar.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/aos.js"></script>
+	<script src="js/jquery.animateNumber.min.js"></script>
+	<script src="js/scrollax.min.js"></script>
+	<script src="js/main.js"></script> -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

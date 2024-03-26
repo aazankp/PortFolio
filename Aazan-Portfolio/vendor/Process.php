@@ -89,7 +89,7 @@
         $sklArr = array();
         $prjtArr = array();
 
-        
+        date_default_timezone_set("Asia/Karachi");
         foreach ($_REQUEST as $key => $value) {
             if (stripos($key, "education") === 0) $eduArr[$key] = $value;
             if (stripos($key, "services") === 0) $srvArr[$key] = $value;
@@ -105,7 +105,7 @@
             } else {
                 $dir = "../images/Projects";
                 if (!is_dir($dir)) mkdir($dir, 0777, true);
-                $file_name = rand(0000,9999) . "_" .$value["name"];
+                $file_name = rand(0000,9999) . "_" . time() . ".jpg";
                 move_uploaded_file($value["tmp_name"], $dir."/".$file_name);
                 $prjtArr[$key]["imageName"] = $file_name;
             }

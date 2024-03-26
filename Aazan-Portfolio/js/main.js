@@ -65,7 +65,8 @@
 
 	var onePageClick = function() {
 
-		$(document).on('click', '.ftco-nav a[href^="#"]', function (event) {
+
+		$(document).on('click', '#ftco-nav a[href^="#"]', function (event) {
 	    event.preventDefault();
 
 	    var href = $.attr(this, 'href');
@@ -80,6 +81,7 @@
 	};
 
 	onePageClick();
+	
 
 	var carousel = function() {
 		$('.home-slider').owlCarousel({
@@ -266,18 +268,6 @@
 
     fixedContentPos: false
   });
-
-//   $(".hireMebtn").on('click', function(event) {
-//     if (this.hash !== "") {
-//       event.preventDefault();
-//       var hash = this.hash;
-//       $('html, body').animate({
-//         scrollTop: $(hash).offset().top
-//       }, 800, function(){
-//         window.location.hash = hash;
-//       });
-//     }
-//   });
 
 
 
