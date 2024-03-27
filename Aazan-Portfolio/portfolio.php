@@ -200,7 +200,7 @@
 
 
         // echo "<pre>";
-        // print_r($aAbout);
+        // print_r($aContact);
 		// die;
     } else {
         // die("No Data Found");
@@ -263,12 +263,12 @@
 						<div class="one-forth d-flex  align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 							<div class="text">
 								<span class="subheading">Hello!</span>
-								<h1 class="mb-4 mt-3">I'm <span>Aazan Khan Pathan</span></h1>
-								<h2 class="mb-4">A Website & Software Developer</h2>
+								<h1 class="mb-4 mt-3">I'm <span><?= $aProfFolioData["fullName"] ?></span></h1>
+								<h2 class="mb-4"><?= $aProfFolioData["occupation"] ?></h2>
 								<p>
 									<div class="ftco-nav">
 										<a href="#contact-input-section" class="btn btn-primary py-3 px-4">Hire me</a>
-										<a href="https://github.com/aazankp?tab=repositories" target="_blank" class="btn btn-white btn-outline-white py-3 px-4">My works</a>
+										<a href="<?= $aProfFolioData["workUrl"] ?>" target="_blank" class="btn btn-white btn-outline-white py-3 px-4">My works</a>
 									</div>
 								</p>
 							</div>
@@ -297,18 +297,18 @@
 							<h2 class="mb-4">About Me</h2>
 							<p><?= $aAbout["aboutDescription"]; ?></p>
 							<ul class="about-info mt-4 px-md-0 px-2">
-								<li class="d-flex"><span>Name:</span> <span>Aazan Khan Pathan</span></li>
-								<li class="d-flex"><span>Date of birth:</span> <span>May 08, 2001</span></li>
-								<li class="d-flex"><span>Address:</span> <span>House # 18 Pathan Goth Hussainabad Qasimabad Hyderabad</span></li>
-								<li class="d-flex"><span>Zip code:</span> <span>71000</span></li>
-								<li class="d-flex"><span>Email:</span> <span>aazank517@gmail.com</span></li>
-								<li class="d-flex"><span>Phone: </span> <span>+92-311-8679523</span></li>
+								<li class="d-flex"><span>Name:</span> <span><?= $aProfFolioData["fullName"] ?></span></li>
+								<li class="d-flex"><span>Date of birth:</span> <span><?= date("F j, Y", strtotime($aProfFolioData["DOB"])) ?></span></li>
+								<li class="d-flex"><span>Address:</span> <span><?= $aProfFolioData["address"] ?></span></li>
+								<li class="d-flex"><span>Zip code:</span> <span><?= $aProfFolioData["zipcode"] ?></span></li>
+								<li class="d-flex"><span>Email:</span> <span><?= $aProfFolioData["email"] ?></span></li>
+								<li class="d-flex"><span>Phone: </span> <span>+92-<?= preg_replace("/(\d{3})(\d{3})(\d{4})/", "$1-$2$3", substr($aProfFolioData["mobile"], 1)) ?></span></li>
 							</ul>
 						</div>
 					</div>
 					<div class="counter-wrap ftco-animate d-flex mt-md-3">
 						<div class="text">
-							<p><a href="#" class="btn btn-primary py-3 px-3">Download CV</a></p>
+							<p><a href="vendor/Resumes/<?= $aProfFolioData["resume"] ?>" target="_blank" class="btn btn-primary py-3 px-3">Download CV</a></p>
 						</div>
 					</div>
 				</div>
@@ -329,7 +329,7 @@
 				<div class="col-md-7 heading-section text-center ftco-animate">
 					<h1 class="big big-2">Contact</h1>
 					<h2 class="mb-4">Contact Me</h2>
-					<p><?= $aContact["aContact"]; ?></p>
+					<p><?= $aContact["Description"]; ?></p>
 				</div>
 			</div>
 
@@ -340,7 +340,7 @@
 							<span class="icon-map-signs"></span>
 						</div>
 						<h3 class="mb-4">Address</h3>
-						<p>House # 18, Pathan Goth Hussainabad Hyderabad, Sindh, Pakistan</p>
+						<p><?= $aProfFolioData["address"] ?></p>
 					</div>
 				</div>
 				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
@@ -349,7 +349,7 @@
 							<span class="icon-phone2"></span>
 						</div>
 						<h3 class="mb-4">Contact Number</h3>
-						<p><a href="tel://923118679523">+ 92 311 8679523 <br /><br /><br /></a></p>
+						<p><a href="tel://923118679523">+ 92-<?= preg_replace("/(\d{3})(\d{3})(\d{4})/", "$1-$2$3", substr($aProfFolioData["mobile"], 1)) ?> <br /><br /><br /></a></p>
 					</div>
 				</div>
 				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
@@ -358,7 +358,7 @@
 							<span class="icon-paper-plane"></span>
 						</div>
 						<h3 class="mb-4">Email Address</h3>
-						<p><a href="aazank517@gmail.com">aazank517@gmail.com <br /><br /><br /></a></p>
+						<p><a href="#"><?= $aProfFolioData["email"] ?> <br /><br /><br /></a></p>
 					</div>
 				</div>
 			</div>
@@ -428,9 +428,9 @@
 						<h2 class="ftco-heading-2">Have a Questions?</h2>
 						<div class="block-23 mb-3">
 							<ul>
-								<li><span class="icon icon-map-marker"></span><span class="text">House # 18, Pathan Goth Hussainabad Hyderabad, Sindh, Pakistan</span></li>
-								<li><a href="#"><span class="icon icon-phone"></span><span class="text">+ 92 311 8679523</span></a></li>
-								<li><a href="#"><span class="icon icon-envelope"></span><span class="text">aazank517@gmail.com</span></a></li>
+								<li><span class="icon icon-map-marker"></span><span class="text"><?= $aProfFolioData["address"] ?></span></li>
+								<li><a href="#"><span class="icon icon-phone"></span><span class="text">+ 92-<?= preg_replace("/(\d{3})(\d{3})(\d{4})/", "$1-$2$3", substr($aProfFolioData["mobile"], 1)) ?></span></a></li>
+								<li><a href="#"><span class="icon icon-envelope"></span><span class="text"><?= $aProfFolioData["email"] ?></span></a></li>
 							</ul>
 						</div>
 					</div>
