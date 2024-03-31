@@ -43,18 +43,18 @@ $(document).ready(function() {
             data: { action: 'checkUserData' },
             success: function (result) {
                 aData = JSON.parse(result);
-                aEducation = JSON.parse(aData.education);
-                aServices = JSON.parse(aData.services);
-                aExperiences = JSON.parse(aData.experiences);
-                aSkills = JSON.parse(aData.skills);
-                aProjects = JSON.parse(aData.projects);
+                aEducation = (aData !== null && aData.education != "") ? JSON.parse(aData.education) : "";
+                aServices = (aData !== null && aData.services != "") ? JSON.parse(aData.services) : "";
+                aExperiences = (aData !== null && aData.experiences != "") ? JSON.parse(aData.experiences) : "";
+                aSkills = (aData !== null && aData.skills != "") ? JSON.parse(aData.skills) : "";
+                aProjects = (aData !== null && aData.projects != "") ? JSON.parse(aData.projects) : "";
 
                 if (aEducation.hasOwnProperty("education")) {
                     htmlEducation = ' \
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                                 <div class="flex justify-end items-center"> \
                                     <div class="relative w-full"> \
-                                        <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description">'+ aEducation.education.description +'</textarea> \
+                                        <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description">'+ aEducation.education.description +'</textarea> \
                                         <label for="educationDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                                     </div> \
                                 </div> \
@@ -75,7 +75,7 @@ $(document).ready(function() {
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                             <div class="flex justify-end items-center"> \
                                 <div class="relative w-full"> \
-                                    <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description"></textarea> \
+                                    <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description"></textarea> \
                                     <label for="educationDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                                 </div> \
                             </div> \
@@ -96,7 +96,7 @@ $(document).ready(function() {
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                             <div class="flex justify-end items-center"> \
                                 <div class="relative w-full"> \
-                                    <textarea autocomplete="off" id="servicesDescription" name="services[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description">'+aServices.services.description+'</textarea> \
+                                    <textarea autocomplete="off" id="servicesDescription" name="services[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description">'+aServices.services.description+'</textarea> \
                                     <label for="servicesDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                                 </div> \
                             </div> \
@@ -115,7 +115,7 @@ $(document).ready(function() {
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                             <div class="flex justify-end items-center"> \
                                 <div class="relative w-full"> \
-                                    <textarea autocomplete="off" id="servicesDescription" name="services[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description"></textarea> \
+                                    <textarea autocomplete="off" id="servicesDescription" name="services[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description"></textarea> \
                                     <label for="servicesDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                                 </div> \
                             </div> \
@@ -135,7 +135,7 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="experienceDescription" name="experience[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description">'+aExperiences.experience.description+'</textarea> \
+                                <textarea autocomplete="off" id="experienceDescription" name="experience[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description">'+aExperiences.experience.description+'</textarea> \
                                 <label for="experienceDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
@@ -155,12 +155,12 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="experienceDescription" name="experience[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description"></textarea> \
+                                <textarea autocomplete="off" id="experienceDescription" name="experience[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description"></textarea> \
                                 <label for="experienceDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
                     </div>';
-                    htmlExperiences += experienceFields ("experience", index, element);
+                    htmlExperiences += experienceFields ("experience", "", "");
                     htmlExperiences += '\
                     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                         <div class="flex justify-end items-center"> \
@@ -175,13 +175,13 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="skillsDescription" name="skills[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description">'+aSkills.skills.description+'</textarea> \
+                                <textarea autocomplete="off" id="skillsDescription" name="skills[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description">'+aSkills.skills.description+'</textarea> \
                                 <label for="skillsDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <input autocomplete="off" id="skillsCompleteProjects" name="skills[completeProjects]" type="number" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Complete Projects" value="'+aSkills.skills.completeProjects+'" /> \
+                                <input autocomplete="off" id="skillsCompleteProjects" name="skills[completeProjects]" type="number" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Complete Projects" value="'+aSkills.skills.completeProjects+'" /> \
                                 <label for="skillsCompleteProjects" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Complete Projects</label> \
                             </div> \
                         </div> \
@@ -201,13 +201,13 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="skillsDescription" name="skills[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description"></textarea> \
+                                <textarea autocomplete="off" id="skillsDescription" name="skills[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description"></textarea> \
                                 <label for="skillsDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <input autocomplete="off" id="skillsCompleteProjects" name="skills[completeProjects]" type="number" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Complete Projects" /> \
+                                <input autocomplete="off" id="skillsCompleteProjects" name="skills[completeProjects]" type="number" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Complete Projects" /> \
                                 <label for="skillsCompleteProjects" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Complete Projects</label> \
                             </div> \
                         </div> \
@@ -227,7 +227,7 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="projectsDescription" name="projects[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description">'+aProjects.projects.description+'</textarea> \
+                                <textarea autocomplete="off" id="projectsDescription" name="projects[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description">'+aProjects.projects.description+'</textarea> \
                                 <label for="projectsDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
@@ -246,7 +246,7 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="projectsDescription" name="projects[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description"></textarea> \
+                                <textarea autocomplete="off" id="projectsDescription" name="projects[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description"></textarea> \
                                 <label for="projectsDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
@@ -278,19 +278,19 @@ $(document).ready(function() {
         return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
                 <div class="flex justify-end items-center h-20"> \
                     <div class="relative w-full"> \
-                        <textarea autocomplete="off" id="'+ nameVar +'Description" name="'+ nameVar +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Education Description">'+eduDesc+'</textarea> \
+                        <textarea autocomplete="off" id="'+ nameVar +'Description" name="'+ nameVar +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Education Description">'+eduDesc+'</textarea> \
                         <label for="'+ nameVar +'Description" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Education Description</label> \
                     </div> \
                 </div> \
                 <div class="flex items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar +'degree" name="'+ nameVar +'[educationDegree]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Degree" value="'+ eduDegree +'" /> \
+                        <input autocomplete="off" id="'+ nameVar +'degree" name="'+ nameVar +'[educationDegree]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Degree" value="'+ eduDegree +'" /> \
                         <label for="'+ nameVar +'degree" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Degree</label> \
                     </div> \
                 </div> \
                 <div class="flex justify-end items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar +'institute" name="'+ nameVar +'[educationInstitute]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Institution Name" value="'+ eduInstitute +'" /> \
+                        <input autocomplete="off" id="'+ nameVar +'institute" name="'+ nameVar +'[educationInstitute]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Institution Name" value="'+ eduInstitute +'" /> \
                         <label for="'+ nameVar +'institute" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Institution Name</label> \
                     </div> \
                 </div> \
@@ -298,13 +298,13 @@ $(document).ready(function() {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
                 <div class="flex items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar+'from" name="'+ nameVar +'[educationFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="From" value="'+ eduFrom +'" /> \
+                        <input autocomplete="off" id="'+ nameVar+'from" name="'+ nameVar +'[educationFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="From" value="'+ eduFrom +'" /> \
                         <label for="'+ nameVar+'from" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">From</label> \
                     </div> \
                 </div> \
                 <div class="flex items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar+'to" name="'+ nameVar +'[educationTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="To" value="'+ eduTo +'" /> \
+                        <input autocomplete="off" id="'+ nameVar+'to" name="'+ nameVar +'[educationTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="To" value="'+ eduTo +'" /> \
                         <label for="'+ nameVar+'to" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
                     </div> \
                 </div> \
@@ -315,7 +315,7 @@ $(document).ready(function() {
         $(document).on("click", "#education_Toggle", function() {
             DataCheck ();
         });
-        numbedu = 'education' in aEducation ? Object.keys(aEducation).length : 1;
+        numbedu = aEducation.hasOwnProperty("education") ? Object.keys(aEducation).length : 1;
         $(document).on("click", "#educationAdd", function(){
             nameVar = "education"+numbedu;
             html = '<div class="forDeleteeducation">';
@@ -345,14 +345,14 @@ $(document).ready(function() {
         return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'iconName" name="'+ nameVar +'[iconName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Icon Name" value="'+srvIconName+'" /> \
+                    <input autocomplete="off" id="'+ nameVar +'iconName" name="'+ nameVar +'[iconName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Icon Name" value="'+srvIconName+'" /> \
                     <label for="'+ nameVar +'iconName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Icon Name</label> \
                 </div> \
             </div> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'serviceName" name="'+ nameVar +'[serviceName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Service Name" value="'+srvServiceName+'" /> \
-                    <label for="'+ nameVar +'serviceName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Service Name</label> \
+                    <input autocomplete="off" id="'+ nameVar +'serviceName" name="'+ nameVar +'[serviceName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Service Name" value="'+srvServiceName+'" /> \
+                    <label for="'+ nameVar +'serviceName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Service Name</label> \
                 </div> \
             </div> \
         </div>');
@@ -395,33 +395,33 @@ $(document).ready(function() {
         return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'position" name="'+ nameVar +'[position]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Position" value="'+expPosition+'" /> \
+                    <input autocomplete="off" id="'+ nameVar +'position" name="'+ nameVar +'[position]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Position" value="'+expPosition+'" /> \
                     <label for="'+ nameVar +'position" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Position</label> \
                 </div> \
             </div> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'companyName" name="'+ nameVar +'[companyName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Company Name" value="'+expCompanyName+'" /> \
-                    <label for="'+ nameVar +'companyName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Company Name</label> \
+                    <input autocomplete="off" id="'+ nameVar +'companyName" name="'+ nameVar +'[companyName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Company Name" value="'+expCompanyName+'" /> \
+                    <label for="'+ nameVar +'companyName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Company Name</label> \
                 </div> \
             </div> \
             <div class="flex justify-end items-center h-20"> \
                 <div class="relative w-full"> \
-                    <textarea autocomplete="off" id="'+ nameVar +'jobDescription" name="'+ nameVar +'[jobDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Job Description">'+expJobDescription+'</textarea> \
-                    <label for="'+ nameVar +'jobDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Job Description</label> \
+                    <textarea autocomplete="off" id="'+ nameVar +'jobDescription" name="'+ nameVar +'[jobDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Job Description">'+expJobDescription+'</textarea> \
+                    <label for="'+ nameVar +'jobDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Job Description</label> \
                 </div> \
             </div> \
         </div> \
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
             <div class="flex items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar+'jobFrom" name="'+ nameVar +'[jobFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="From" value="'+expJobFrom+'" /> \
+                    <input autocomplete="off" id="'+ nameVar+'jobFrom" name="'+ nameVar +'[jobFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="From" value="'+expJobFrom+'" /> \
                     <label for="'+ nameVar+'jobFrom" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">From</label> \
                 </div> \
             </div> \
             <div class="flex items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar+'jobTo" name="'+ nameVar +'[jobTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="To" value="'+expJobTo+'" /> \
+                    <input autocomplete="off" id="'+ nameVar+'jobTo" name="'+ nameVar +'[jobTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="To" value="'+expJobTo+'" /> \
                     <label for="'+ nameVar+'jobTo" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
                 </div> \
             </div> \
@@ -462,13 +462,13 @@ $(document).ready(function() {
         return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'skillName" name="'+ nameVar +'[skillName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Skill Name" value="'+sklSkillName+'" /> \
+                    <input autocomplete="off" id="'+ nameVar +'skillName" name="'+ nameVar +'[skillName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Skill Name" value="'+sklSkillName+'" /> \
                     <label for="'+ nameVar +'skillName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Skill Name</label> \
                 </div> \
             </div> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'skillPercentage" name="'+ nameVar +'[skillPercentage]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Skill Percentage" value="'+sklSkillPercentage+'" /> \
+                    <input autocomplete="off" id="'+ nameVar +'skillPercentage" name="'+ nameVar +'[skillPercentage]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Skill Percentage" value="'+sklSkillPercentage+'" /> \
                     <label for="'+ nameVar +'skillPercentage" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Skill Percentage</label> \
                 </div> \
             </div> \
@@ -510,19 +510,19 @@ $(document).ready(function() {
         return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'projectsName" name="'+ nameVar +'[projectsName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Projects Name" value="'+prjProjectsName+'" /> \
+                    <input autocomplete="off" id="'+ nameVar +'projectsName" name="'+ nameVar +'[projectsName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Projects Name" value="'+prjProjectsName+'" /> \
                     <label for="'+ nameVar +'projectsName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Projects Name</label> \
                 </div> \
             </div> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'projectsType" name="'+ nameVar +'[projectsType]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm" placeholder="Projects Type" value="'+prjProjectsType+'" /> \
+                    <input autocomplete="off" id="'+ nameVar +'projectsType" name="'+ nameVar +'[projectsType]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Projects Type" value="'+prjProjectsType+'" /> \
                     <label for="'+ nameVar +'projectsType" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Project Type</label> \
                 </div> \
             </div> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'projectsImage" name="'+ nameVar +'" type="file" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100" /> \
+                    <input autocomplete="off" id="'+ nameVar +'projectsImage" name="'+ nameVar +'" type="file" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 validate" /> \
                     <input name="'+ nameVar +'[prev_Image]" type="hidden" value="'+prjPrev_Image+'" /> \
                 </div> \
             </div> \
@@ -558,40 +558,71 @@ $(document).ready(function() {
     $(document).on("submit", "#portFolio_Form_Submit", function(event) {
         event.preventDefault();
         var formdata = new FormData(this);
-        $.ajax({
-            url: "../vendor/Process.php?action=portFolio_Submit",
-            type: "POST",
-            data: formdata,
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function(result){
-                console.log(result);
-                if(result == 1){
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Your Data has been Submitted!',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
+      
+        var inputFields = $("#portFolio_Form_Submit input.validate");
+        var textareaFields = $("#portFolio_Form_Submit textarea.validate");
+       
+        if (inputFields.length > 0) {
+            isEmpty = false;
+            inputFields.each(function() {
+                if ($(this).val().trim() === "") {
+                    isEmpty = true;
+                    return false;
                 }
-                else if (result == 0) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Warning...',
-                        text: 'Please Fill All Fields Carefully!'
-                    })
+            });
+        }
+        
+        if (textareaFields.length > 0) {
+            isEmpty = false;
+            textareaFields.each(function() {
+                if ($(this).val().trim() === "") {
+                    isEmpty = true;
+                    return false;
                 }
-                else if (result == "projectImg") {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Please Upload Project Image!'
-                    })
+            });
+        }
+
+        if (isEmpty === false) {
+            $.ajax({
+                url: "../vendor/Process.php?action=portFolio_Submit",
+                type: "POST",
+                data: formdata,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(result){
+                    if(result == 1){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your Data has been Submitted!',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                    }
+                    else if (result == 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Warning...',
+                            text: 'Insertion Fail!'
+                        })
+                    }
+                    else if (result == "projectImg") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please Upload Project Image!'
+                        })
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Warning...',
+                text: 'Please Fill All Fields Carefully!'
+            });
+        }
     });
     // PortFolio Form Code End
 

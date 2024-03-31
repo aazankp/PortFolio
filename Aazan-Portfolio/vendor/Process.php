@@ -125,15 +125,23 @@
         if ($sklArr == "[]") $sklArr = "";
         if ($prjtArr == "[]") $prjtArr = "";
 
-        $result = $objDatabase->portFolioInsertion($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $_REQUEST["userId"]);
-        if ($result) echo 1;
-        else echo 2;
+        if ($_REQUEST["btnValue"] == "insert") {
+            $result = $objDatabase->portFolioInsertion($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $_REQUEST["userId"]);
+            if ($result) echo 1;
+            else echo 0;
+        } else {
+            $result = $objDatabase->portFolioUpdate($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $_REQUEST["userId"]);
+            if ($result) echo 1;
+            else echo 0;
+        }
     }
 
     elseif (isset($action) && $action == "checkUserData")
     {
         $iUserId = $_SESSION["userInfo"]["userId"];
-        $fetchPortFolio = $objDatabase->fetchPortFolio (1);
+        // $iUserId = 10;
+        // die("here". $iUserId);
+        $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
         $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
         echo json_encode($aProfFolioData);
     }

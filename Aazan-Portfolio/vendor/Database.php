@@ -43,9 +43,23 @@ class Database {
         return $this->result;
     }
 
+    public function portFolioUpdate ($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $iUserId)
+    {
+        $about = mysqli_real_escape_string($this->conn, $about);
+        $contact = mysqli_real_escape_string($this->conn, $contact);
+        $eduArr = mysqli_real_escape_string($this->conn, $eduArr);
+        $srvArr = mysqli_real_escape_string($this->conn, $srvArr);
+        $expArr = mysqli_real_escape_string($this->conn, $expArr);
+        $sklArr = mysqli_real_escape_string($this->conn, $sklArr);
+        $prjtArr = mysqli_real_escape_string($this->conn, $prjtArr);
+        $this->query = "UPDATE portfolioformdata SET about='$about', contact='$contact', education='$eduArr', services='$srvArr', experiences='$expArr', skills='$sklArr', projects='$prjtArr' WHERE userId='$iUserId'";
+        $this->result = mysqli_query($this->conn, $this->query);
+        return $this->result;
+    }
+
     public function fetchPortFolio ($iUserId)
     {
-        $this->query = "SELECT * FROM portfolioformdata AS PFD INNER JOIN users AS U ON U.userId = PFD.userId WHERE PortFolio_Id='$iUserId'";
+        $this->query = "SELECT * FROM portfolioformdata AS PFD INNER JOIN users AS U ON U.userId = PFD.userId WHERE PFD.userId='$iUserId'";
         // die($this->query);
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;

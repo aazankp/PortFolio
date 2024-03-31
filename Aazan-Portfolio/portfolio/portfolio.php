@@ -30,6 +30,8 @@
         $sAboutDesc = "";
         $sContactDesc = "";
     }
+
+    $btnValue = (mysqli_num_rows($fetchPortFolio) > 0) ? "update" : "insert";
 ?>
 
 <div class="bg-gray-100">
@@ -43,7 +45,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4">
                 <div class="flex justify-end items-center">
                     <div class="relative w-full">
-                        <textarea autocomplete="off" id="aboutDescription" name="about[aboutDescription]" type="text" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:border-teal-600 text-sm leading-5 bg-gray-100" placeholder="Description"><?= $sContactDesc; ?></textarea>
+                        <textarea autocomplete="off" id="aboutDescription" name="about[aboutDescription]" type="text" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:border-teal-600 text-sm leading-5 bg-gray-100 validate" placeholder="Description"><?= $sContactDesc; ?></textarea>
                         <label for="aboutDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label>
                     </div>
                 </div>
@@ -57,7 +59,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4">
                 <div class="flex justify-end items-center">
                     <div class="relative w-full">
-                        <textarea autocomplete="off" id="contactdescription" name="contact[Description]" type="text" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5" placeholder="Description"><?= $sContactDesc; ?></textarea>
+                        <textarea autocomplete="off" id="contactdescription" name="contact[Description]" type="text" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description"><?= $sContactDesc; ?></textarea>
                         <label for="contactDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label>
                     </div>
                 </div>
@@ -71,7 +73,6 @@
                     <label for="education_Toggle" class="flex items-center cursor-pointer">
                         <input <?= (isset($aEducation["education"]["education_Toggle"])) ? "checked" : ""; ?> type="checkbox" name="education[education_Toggle]" id="education_Toggle" class="sr-only peer">
                         <div class="block relative bg-blue-300 w-16 h-8 p-1 rounded-full before:absolute before:bg-white before:w-6 before:h-6 before:p-1 before:rounded-full before:transition-all before:duration-500 before:left-1 peer-checked:before:left-8 peer-checked:before:bg-green-600"></div>
-                        <input type="hidden">
                     </label>
                 </div>
             </div>
@@ -131,7 +132,8 @@
             <!-- Projects End -->
 
             <input type="hidden" value="<?= $iUserId; ?>" name="userId">
-            <button type="submit" class="bg-emerald-500 text-white rounded-md px-2 py-2 mt-5">Save</button>
+            <input type="hidden" value="<?= $btnValue; ?>" name="btnValue">
+            <button type="submit" class="bg-emerald-500 text-white rounded-md px-2 py-2 mt-5" id="submitButton">Save</button>
         </form>
     </div>
 </div>

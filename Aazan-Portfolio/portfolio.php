@@ -3,9 +3,10 @@
     require_once "vendor/Database.php";
     $objDatabase = new Database;
     $iUserId = $_SESSION["userInfo"]["userId"];
-    $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
+    // $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
+    $fetchPortFolio = $objDatabase->fetchPortFolio (3);
     if (mysqli_num_rows($fetchPortFolio) > 0) {
-        $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
+		$aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
         $aAbout = json_decode($aProfFolioData["about"], true);
         $aContact = json_decode($aProfFolioData["contact"], true);
         $aEducation = json_decode($aProfFolioData["education"], true);
@@ -19,133 +20,149 @@
 
 
 		// Education Code Start
-		$eduCode = "";
-		foreach ($aEducation as $key => $value) {
-			$dateFrom = explode("-", $value["educationFrom"]);
-			$dateTo = explode("-", $value["educationTo"]);
-			$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . $dateTo[1] . "/" . $dateTo[0];
-			$eduCode .= '
-			<div class="col-md-6">
-				<div class="resume-wrap ftco-animate">
-					<span class="date">'. $fullDate .'</span>
-					<h2>'. $value["educationDegree"] .'</h2>
-					<span class="position">'. $value["educationInstitute"] .'</span>
-					<p class="mt-4">'. $value["educationDescription"] .'</p>
-				</div>
-			</div>';
-		}
-
-		$eduFullCode = '
-		<section class="ftco-section ftco-no-pb" id="education-section">
-			<div class="container">
-				<div class="row justify-content-center pb-5">
-					<div class="col-md-10 heading-section text-center ftco-animate">
-						<h1 class="big big-2">Education</h1>
-						<h2 class="mb-4">Education</h2>
-						<p>'. $aEducation["education"]["description"] .'</p>
+		if (isset($aEducation["education"])) {
+			$eduCode = "";
+			foreach ($aEducation as $key => $value) {
+				$dateFrom = explode("-", $value["educationFrom"]);
+				$dateTo = explode("-", $value["educationTo"]);
+				$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . $dateTo[1] . "/" . $dateTo[0];
+				$eduCode .= '
+				<div class="col-md-6">
+					<div class="resume-wrap ftco-animate">
+						<span class="date">'. $fullDate .'</span>
+						<h2>'. $value["educationDegree"] .'</h2>
+						<span class="position">'. $value["educationInstitute"] .'</span>
+						<p class="mt-4">'. $value["educationDescription"] .'</p>
+					</div>
+				</div>';
+			}
+	
+			$eduFullCode = '
+			<section class="ftco-section ftco-no-pb" id="education-section">
+				<div class="container">
+					<div class="row justify-content-center pb-5">
+						<div class="col-md-10 heading-section text-center ftco-animate">
+							<h1 class="big big-2">Education</h1>
+							<h2 class="mb-4">Education</h2>
+							<p>'. $aEducation["education"]["description"] .'</p>
+						</div>
+					</div>
+					<div class="row">
+						'. $eduCode .'
 					</div>
 				</div>
-				<div class="row">
-					'. $eduCode .'
-				</div>
-			</div>
-		</section>';
+			</section>';
+		} else {
+			$eduFullCode = "";
+		}
 		// Education Code End
 
 		// Services Code Start
-		$srvCode = "";
-		foreach ($aServices as $key => $value) {
-			$srvCode .= '
-			<div class="col-md-4 text-center d-flex ftco-animate">
-				<span class="services-1">
-					<span class="icon">
-						<i class="'. $value["iconName"] .'"></i>
+		if (isset($aServices["services"])) {
+			$srvCode = "";
+			foreach ($aServices as $key => $value) {
+				$srvCode .= '
+				<div class="col-md-4 text-center d-flex ftco-animate">
+					<span class="services-1">
+						<span class="icon">
+							<i class="'. $value["iconName"] .'"></i>
+						</span>
+						<div class="desc">
+							<h3 class="mb-5">'. $value["serviceName"] .'</h3>
+						</div>
 					</span>
-					<div class="desc">
-						<h3 class="mb-5">'. $value["serviceName"] .'</h3>
+				</div>';
+			}
+	
+			$srvFullCode = '
+			<section class="ftco-section" id="services-section">
+				<div class="container">
+					<div class="row justify-content-center py-5 mt-5">
+						<div class="col-md-12 heading-section text-center ftco-animate">
+							<h1 class="big big-2">Services</h1>
+							<h2 class="mb-4">Services</h2>
+							<p>'. $aServices["services"]["description"] .'</p>
+						</div>
 					</div>
-				</span>
-			</div>';
-		}
-
-		$srvFullCode = '
-		<section class="ftco-section" id="services-section">
-			<div class="container">
-				<div class="row justify-content-center py-5 mt-5">
-					<div class="col-md-12 heading-section text-center ftco-animate">
-						<h1 class="big big-2">Services</h1>
-						<h2 class="mb-4">Services</h2>
-						<p>'. $aServices["services"]["description"] .'</p>
-					</div>
+					<div class="row">'. $srvCode .'</div>
 				</div>
-				<div class="row">'. $srvCode .'</div>
-			</div>
-		</section>';
+			</section>';
+		} else {
+			$srvFullCode = "";
+		}
 		// Services Code End
 
 		// Experiences Code Start
-		$expCode = "";
-		foreach ($aExperiences as $key => $value) {
-			$dateFrom = explode("-", $value["jobFrom"]);
-			$dateTo = explode("-", $value["jobTo"]);
-			$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . $dateTo[1] . "/" . $dateTo[0];
-			$expCode .= '
-			<div class="col-md-6">
-				<div class="resume-wrap ftco-animate">
-					<span class="date">'. $fullDate .'</span>
-					<h2>'. $value["position"] .'</h2>
-					<span class="position">'. $value["companyName"] .'</span>
-					<p class="mt-4">'. $value["jobDescription"] .'</p>
-				</div>
-			</div>';
-		}
-
-		$expFullCode = '
-		<section class="ftco-section ftco-no-pb" id="experience-section">
-			<div class="container">
-				<div class="row justify-content-center pb-5">
-					<div class="col-md-10 heading-section text-center ftco-animate">
-						<h1 class="big big-2">Experience</h1>
-						<h2 class="mb-4">Experience</h2>
-						<p>'. $aExperiences["experience"]["description"] .'</p>
+		if (isset($aExperiences["experience"])) {
+			$expCode = "";
+			foreach ($aExperiences as $key => $value) {
+				$dateFrom = explode("-", $value["jobFrom"]);
+				$dateTo = explode("-", $value["jobTo"]);
+				$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . $dateTo[1] . "/" . $dateTo[0];
+				$expCode .= '
+				<div class="col-md-6">
+					<div class="resume-wrap ftco-animate">
+						<span class="date">'. $fullDate .'</span>
+						<h2>'. $value["position"] .'</h2>
+						<span class="position">'. $value["companyName"] .'</span>
+						<p class="mt-4">'. $value["jobDescription"] .'</p>
 					</div>
+				</div>';
+			}
+	
+			$expFullCode = '
+			<section class="ftco-section ftco-no-pb" id="experience-section">
+				<div class="container">
+					<div class="row justify-content-center pb-5">
+						<div class="col-md-10 heading-section text-center ftco-animate">
+							<h1 class="big big-2">Experience</h1>
+							<h2 class="mb-4">Experience</h2>
+							<p>'. $aExperiences["experience"]["description"] .'</p>
+						</div>
+					</div>
+					<div class="row">'. $expCode .'</div>
 				</div>
-				<div class="row">'. $expCode .'</div>
-			</div>
-		</section>';
+			</section>';
+		} else {
+			$expFullCode = "";
+		}
 		// Experiences Code End
 
 		// Skills Code Start
-		$sklCode = "";
-		foreach ($aSkills as $key => $value) {
-			$perc = str_replace("%", "", $value['skillPercentage']);
-			$sklCode .= '
-			<div class="col-md-6 animate-box">
-				<div class="progress-wrap ftco-animate">
-					<h3>'. $value['skillName'] .'</h3>
-					<div class="progress">
-						<div class="progress-bar color-1" role="progressbar" aria-valuenow="'.$perc.'" aria-valuemin="0"
-							aria-valuemax="'.$perc.'" style="width:'. $perc .'%">
-							<span>'. $perc .'%</span>
+		if (isset($aSkills["skills"])) {
+			$sklCode = "";
+			foreach ($aSkills as $key => $value) {
+				$perc = str_replace("%", "", $value['skillPercentage']);
+				$sklCode .= '
+				<div class="col-md-6 animate-box">
+					<div class="progress-wrap ftco-animate">
+						<h3>'. $value['skillName'] .'</h3>
+						<div class="progress">
+							<div class="progress-bar color-1" role="progressbar" aria-valuenow="'.$perc.'" aria-valuemin="0"
+								aria-valuemax="'.$perc.'" style="width:'. $perc .'%">
+								<span>'. $perc .'%</span>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>';
-		}
-
-		$sklFullCode = '
-		<section class="ftco-section" id="skills-section">
-			<div class="container">
-				<div class="row justify-content-center pb-5">
-					<div class="col-md-12 heading-section text-center ftco-animate">
-						<h1 class="big big-2">Skills</h1>
-						<h2 class="mb-4">My Skills</h2>
-						<p>'. $aSkills["skills"]["description"] .'</p>
+				</div>';
+			}
+	
+			$sklFullCode = '
+			<section class="ftco-section" id="skills-section">
+				<div class="container">
+					<div class="row justify-content-center pb-5">
+						<div class="col-md-12 heading-section text-center ftco-animate">
+							<h1 class="big big-2">Skills</h1>
+							<h2 class="mb-4">My Skills</h2>
+							<p>'. $aSkills["skills"]["description"] .'</p>
+						</div>
 					</div>
+					<div class="row">'. $sklCode .'</div>
 				</div>
-				<div class="row">'. $sklCode .'</div>
-			</div>
-		</section>';
+			</section>';
+		} else {
+			$sklFullCode = "";
+		}
 		// Skills Code End
 
 		// Complete Projects Code Start
@@ -167,46 +184,59 @@
 		// Complete Projects Code End
 
 		// Projects Code Start
-		$projCode = "";
-		foreach ($aProjects as $key => $value) {
-			$projCode .= '
-			<div class="col-md-6">
-				<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/Projects/'.$value["imageName"].');">
-					<div class="overlay"></div>
-					<div class="text text-center p-4">
-						<h3><a href="#">'.$value["projectsName"].'</a></h3>
-						<span>'.$value["projectsType"].'</span>
+		if (isset($aProjects["projects"])) {
+			$projCode = "";
+			foreach ($aProjects as $key => $value) {
+				$projCode .= '
+				<div class="col-md-6">
+					<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/Projects/'.$value["imageName"].');">
+						<div class="overlay"></div>
+						<div class="text text-center p-4">
+							<h3><a href="#">'.$value["projectsName"].'</a></h3>
+							<span>'.$value["projectsType"].'</span>
+						</div>
 					</div>
+				</div>';
+			}
+	
+			$projFullCode = '
+			<section class="ftco-section ftco-project" id="projects-section">
+				<div class="container">
+					<div class="row justify-content-center pb-5">
+						<div class="col-md-12 heading-section text-center ftco-animate">
+							<h1 class="big big-2">Projects</h1>
+							<h2 class="mb-4">Our Projects</h2>
+							<p>'. $aProjects["projects"]["description"] .'</p>
+						</div>
+					</div>
+					<div class="row">'. $projCode .'</div>
 				</div>
-			</div>';
+			</section>';
+		} else {
+			$projFullCode = "";
 		}
-
-		$projFullCode = '
-		<section class="ftco-section ftco-project" id="projects-section">
-			<div class="container">
-				<div class="row justify-content-center pb-5">
-					<div class="col-md-12 heading-section text-center ftco-animate">
-						<h1 class="big big-2">Projects</h1>
-						<h2 class="mb-4">Our Projects</h2>
-						<p>'. $aProjects["projects"]["description"] .'</p>
-					</div>
-				</div>
-				<div class="row">'. $projCode .'</div>
-			</div>
-		</section>';
 		// Projects Code End
 
-		
-
-
-        // echo "<pre>";
-        // print_r($aContact);
-		// die;
     } else {
-        // die("No Data Found");
-        $sAboutDesc = "";
-        $sContactDesc = "";
+        die("No Data Found");
     }
+
+	// menu code
+	$eduMenu = (isset($aEducation["education"]["education_Toggle"])) ? '<li class="nav-item"><a href="#education-section" class="nav-link"><span>Education</span></a></li>' : "";
+	$servicesMenu = (isset($aServices["services"]["services_Toggle"])) ? '<li class="nav-item"><a href="#services-section" class="nav-link"><span>Services</span></a></li>' : "";
+	$expMenu = (isset($aExperiences["experience"]["experience_Toggle"])) ? '<li class="nav-item"><a href="#experience-section" class="nav-link"><span>Experience</span></a></li>' : "";
+	$skillsMenu = (isset($aSkills["skills"]["skills_Toggle"])) ? '<li class="nav-item"><a href="#skills-section" class="nav-link"><span>Skills</span></a></li>' : "";
+	$projectMenu = (isset($aProjects["projects"]["projects_Toggle"])) ? '<li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>' : "";
+	// menu code end
+	
+	// bottom menu code
+	$edu_btm_Menu = (isset($aEducation["education"]["education_Toggle"])) ? '<li><a href="#education-section"><span class="icon-long-arrow-right mr-2"> Education</span></a></li>' : "";
+	$services_btm_Menu = (isset($aServices["services"]["services_Toggle"])) ? '<li><a href="#services-section"><span class="icon-long-arrow-right mr-2"> Services</span></a></li>' : "";
+	$exp_btm_Menu = (isset($aExperiences["experience"]["experience_Toggle"])) ? '<li><a href="#experience-section"><span class="icon-long-arrow-right mr-2"> Experience</span></a></li>' : "";
+	$skills_btm_Menu = (isset($aSkills["skills"]["skills_Toggle"])) ? '<li><a href="#skills-section"><span class="icon-long-arrow-right mr-2"> Skills</span></a></li>' : "";
+	$project_btm_Menu = (isset($aProjects["projects"]["projects_Toggle"])) ? '<li><a href="#projects-section"><span class="icon-long-arrow-right mr-2"> Projects</span></a></li>' : "";
+	// bottom menu code end
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -232,20 +262,19 @@
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
 		<div class="container">
 			<a class="navbar-brand" href="">PortFolio</a>
-			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse"
-				data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
+			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="oi oi-menu"></span> Menu
 			</button>
 
-			<div class="collapse navbar-collapse ftco-nav">
+			<div class="collapse navbar-collapse ftco-nav" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto">
 					<li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
 					<li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
-					<li class="nav-item"><a href="#education-section" class="nav-link"><span>Education</span></a></li>
-					<li class="nav-item"><a href="#services-section" class="nav-link"><span>Services</span></a></li>
-					<li class="nav-item"><a href="#experience-section" class="nav-link"><span>Experience</span></a></li>
-					<li class="nav-item"><a href="#skills-section" class="nav-link"><span>Skills</span></a></li>
-					<li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
+					<?= $eduMenu; ?>
+					<?= $servicesMenu; ?>
+					<?= $expMenu; ?>
+					<?= $skillsMenu; ?>
+					<?= $projectMenu; ?>
 					<li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
 				</ul>
 			</div>
@@ -414,11 +443,11 @@
 							<ul class="list-unstyled">
 								<li><a href="#home-section"><span class="icon-long-arrow-right mr-2"> Home</span></a></li>
 								<li><a href="#about-section"><span class="icon-long-arrow-right mr-2"> About</span></a></li>
-								<li><a href="#education-section"><span class="icon-long-arrow-right mr-2"> Education</span></a></li>
-								<li><a href="#services-section"><span class="icon-long-arrow-right mr-2"> Services</span></a></li>
-								<li><a href="#experience-section"><span class="icon-long-arrow-right mr-2"> Experience</span></a></li>
-								<li><a href="#skills-section"><span class="icon-long-arrow-right mr-2"> Skills</span></a></li>
-								<li><a href="#projects-section"><span class="icon-long-arrow-right mr-2">Projects</span></a></li>
+								<?= $edu_btm_Menu ?>
+								<?= $services_btm_Menu ?>
+								<?= $exp_btm_Menu ?>
+								<?= $skills_btm_Menu ?>
+								<?= $project_btm_Menu ?>
 								<li><a href="#contact-section"><span class="icon-long-arrow-right mr-2"> Contact</span></a></li>
 							</ul>
 					</div>
@@ -472,8 +501,8 @@
 	<script src="js/scrollax.min.js"></script>
 	<script src="js/main.js"></script> -->
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
-	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
