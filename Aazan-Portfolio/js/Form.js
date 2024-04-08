@@ -28,12 +28,27 @@ $(document).ready(function() {
         }
     }
 
+    function makeRandomNumb(Arr, ArrCount)
+    {
+        while (true) {
+            randNumb = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+            randNumb = randNumb.toString().padStart(2);
+            if (!Arr.includes(randNumb)) Arr.push(randNumb);
+            if (Arr.length >= Object.keys(ArrCount).length) break;
+        }
+    }
+
     var PortFolioData;
     var aEducation;
     var aServices;
     var aExperiences;
     var aSkills;
     var aProjects;
+    var eduCount = new Array();
+    var srvCount = new Array();
+    var expCount = new Array();
+    var sklCount = new Array();
+    var prjCount = new Array();
 
     function DataCheck ()
     {
@@ -61,6 +76,13 @@ $(document).ready(function() {
                             </div>';
                     $.each(aEducation, function (index, element) {                     
                         htmlEducation += educationFields ("education", index, element);
+                        var pattern = /\d+/g;
+                        valedu = index.match(pattern);
+                        if (valedu !== null) {
+                            for (let i = 0; i < valedu.length; i++) {
+                                eduCount.push(valedu[i]);
+                            }
+                        }
                     });
 
                     htmlEducation += ' \
@@ -103,6 +125,13 @@ $(document).ready(function() {
                         </div>';
                     $.each(aServices, function (index, element) {                     
                         htmlServices += servicesFields ("services", index, element);
+                        var pattern = /\d+/g;
+                        valsrv = index.match(pattern);
+                        if (valsrv !== null) {
+                            for (let i = 0; i < valsrv.length; i++) {
+                                srvCount.push(valsrv[i]);
+                            }
+                        }
                     });
                     htmlServices += '\
                         <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
@@ -142,6 +171,13 @@ $(document).ready(function() {
                     </div>';
                     $.each(aExperiences, function (index, element) {                     
                         htmlExperiences += experienceFields ("experience", index, element);
+                        var pattern = /\d+/g;
+                        valexp = index.match(pattern);
+                        if (valexp !== null) {
+                            for (let i = 0; i < valexp.length; i++) {
+                                expCount.push(valexp[i]);
+                            }
+                        }
                     });
                     htmlExperiences += '\
                     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
@@ -188,6 +224,13 @@ $(document).ready(function() {
                     </div>';
                     $.each(aSkills, function (index, element) {                     
                         htmlSkills += skillsFields("skills", index, element);
+                        var pattern = /\d+/g;
+                        valskl = index.match(pattern);
+                        if (valskl !== null) {
+                            for (let i = 0; i < valskl.length; i++) {
+                                sklCount.push(valskl[i]);
+                            }
+                        }
                     });
                     htmlSkills += '\
                     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
@@ -234,6 +277,13 @@ $(document).ready(function() {
                     </div>';
                     $.each(aProjects, function (index, element) {                     
                         htmlProject += projectsFields("projects", index, element);
+                        var pattern = /\d+/g;
+                        valprj = index.match(pattern);
+                        if (valprj !== null) {
+                            for (let i = 0; i < valprj.length; i++) {
+                                prjCount.push(valprj[i]);
+                            }
+                        }
                     });
                     htmlProject += '\
                     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
@@ -315,7 +365,8 @@ $(document).ready(function() {
         $(document).on("click", "#education_Toggle", function() {
             DataCheck ();
         });
-        numbedu = aEducation.hasOwnProperty("education") ? Object.keys(aEducation).length : 1;
+        makeRandomNumb(eduCount, aEducation);
+        numbedu = aEducation.hasOwnProperty("education") ? eduCount[eduCount.length-1] : 1;
         $(document).on("click", "#educationAdd", function(){
             nameVar = "education"+numbedu;
             html = '<div class="forDeleteeducation">';
@@ -362,7 +413,8 @@ $(document).ready(function() {
         $(document).on("click", "#services_Toggle", function() {
             DataCheck ();
         });
-        numbservices = 1;
+        makeRandomNumb(srvCount, aServices);
+        numbservices = aServices.hasOwnProperty("services") ? srvCount[srvCount.length-1] : 1;
         $(document).on("click", "#servicesAdd", function(){
             nameVar = "services"+numbservices;
             html = '<div class="forDeleteservices">';
@@ -432,7 +484,8 @@ $(document).ready(function() {
         $(document).on("click", "#experience_Toggle", function() {
             DataCheck ();
         });
-        numbexp = 1;
+        makeRandomNumb(expCount, aExperiences);
+        numbexp = aExperiences.hasOwnProperty("experience") ? expCount[expCount.length-1] : 1;
         $(document).on("click", "#experienceAdd", function(){
             nameVar = "experience"+numbexp;
             html = '<div class="forDeleteexperience">';
@@ -479,7 +532,8 @@ $(document).ready(function() {
         $(document).on("click", "#skills_Toggle", function() {
             DataCheck ();
         });
-        numbskills = 1;
+        makeRandomNumb(sklCount, aSkills);
+        numbskills = aSkills.hasOwnProperty("skills") ? sklCount[sklCount.length-1] : 1;
         $(document).on("click", "#skillsAdd", function(){
             nameVar = "skills"+numbskills;
             html = '<div class="forDeleteskills">';
@@ -533,7 +587,8 @@ $(document).ready(function() {
         $(document).on("click", "#projects_Toggle", function() {
             DataCheck ();
         });
-        numbproj = 1;
+        makeRandomNumb(prjCount, aProjects);
+        numbproj = aProjects.hasOwnProperty("projects") ? prjCount[prjCount.length-1] : 1;
         $(document).on("click", "#projectsAdd", function(){
             nameVar = "projects"+numbproj;
             html = '<div class="forDeleteprojects">';

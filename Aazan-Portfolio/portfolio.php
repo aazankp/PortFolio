@@ -286,6 +286,7 @@
 				<div class="overlay"></div>
 				<div class="container">
 					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
+						<!-- <img class="one-third js-fullheight order-md-last img" src="images/Profile.PNG" style="width: 75%;"> -->
 						<div class="one-third js-fullheight order-md-last img" style="background-image:url(images/Profile.PNG);">
 							<div class="overlay"></div>
 						</div>
