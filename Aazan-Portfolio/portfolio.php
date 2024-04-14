@@ -287,7 +287,7 @@
 				<div class="container">
 					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
 						<!-- <img class="one-third js-fullheight order-md-last img" src="images/Profile.PNG" style="width: 75%;"> -->
-						<div class="one-third js-fullheight order-md-last img" style="background-image:url(images/Profile.PNG);">
+						<div class="one-third js-fullheight order-md-last img" style="background-image:url(images/Profiles/1945_1712844608.PNG);">
 							<div class="overlay"></div>
 						</div>
 						<div class="one-forth d-flex  align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
@@ -316,7 +316,7 @@
 					<div class="img-about img d-flex align-items-stretch">
 						<div class="overlay"></div>
 						<div class="img d-flex align-self-stretch align-items-center"
-							style="background-image:url(images/Profile.PNG);">
+							style="background-image:url(images/Profiles/446_1712844081.jpg);">
 						</div>
 					</div>
 				</div>

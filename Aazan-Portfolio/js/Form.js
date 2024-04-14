@@ -18,6 +18,59 @@ $(document).ready(function() {
     });
     // Navbar Code End
 
+
+    // URL to fetch the list of free icons from FontAwesome website
+    var apiUrl = 'https://fontawesome.com/icons?d=gallery&m=free';
+
+    // Specify the API endpoint for user data
+// const  = 'https://api.example.com/users/123';
+
+// Make a GET request using the Fetch API
+fetch(apiUrl)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(userData => {
+    // Process the retrieved user data
+    console.log('User Data:', userData);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+    // Fetch HTML content using AJAX
+    // $.ajax({
+    //     url: url,
+    //     method: 'GET',
+    //     dataType: 'html',
+    //     success: function(response) {
+    //         // Create a jQuery object from the response HTML
+    //         var $html = $(response);
+            
+    //         // Initialize an empty array to store icons
+    //         var icons = [];
+
+    //         // Find all elements with class 'icon-container'
+    //         $html.find('.icon-container').each(function() {
+    //             // Extract icon name and class
+    //             var Icon_name = $(this).find('span').eq(0).text().trim();
+    //             var Icon_class = $(this).find('span').eq(1).text().trim();
+    //             icons.push({name: Icon_name, class: Icon_class});
+    //         });
+
+    //         // Output the list of icons as JSON
+    //         console.log(JSON.stringify(icons));
+    //     },
+    //     error: function(xhr, status, error) {
+    //         console.error('Error fetching data:', error);
+    //     }
+    // });
+
+
+
     // PortFolio Form Code
     function CheckTogle (check, target, html) {
         let toggle = $('#'+check).prop('checked');

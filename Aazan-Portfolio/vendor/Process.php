@@ -1,5 +1,6 @@
 <?php
     session_start();
+    date_default_timezone_set("Asia/Karachi");
     require_once "Database.php";
     $objDatabase = new Database;
 
@@ -45,8 +46,32 @@
                 // Profile
                 $dir = "../images/Profiles";
                 if (!is_dir($dir)) mkdir($dir, 0777, true);
-                $file_name = rand(0000,9999) . "_" .$_FILES["profile"]["name"];
-                move_uploaded_file($_FILES["profile"]["tmp_name"], $dir."/".$file_name);
+                $file_name = rand(0000,9999) . "_" . time() . ".PNG";
+
+                $fullImgPath = $dir."/".$file_name;
+                $ImgPath = $_FILES["profile"]["tmp_name"];
+                $boundary = uniqid();
+                
+                $Curl = curl_init("https://api.pixmiller.com/v1/remove");
+                
+                $Header = [
+                    'X-Api-Key: 11e701956059c9ee935c5e27d46c9d7e33af5aea',
+                    'Accept: application/json',
+                    'Content-Type: multipart/form-data; boundary='.$boundary
+                ];
+                
+                $Param = "--$boundary\r\n";
+                $Param .= 'Content-Disposition: form-data; name="image_file"; filename="' . $file_name . "\"\r\n";
+                $Param .= 'Content-Type: image/PNG' . "\r\n\r\n";
+                $Param .= file_get_contents($ImgPath) . "\r\n";
+                $Param .= "--$boundary--\r\n";
+
+                $Response = CURL ("POST", $Curl, $Param, $Header);
+                $Response = json_decode($Response, true);
+                $imageContent = file_get_contents($Response["url"]);
+                file_put_contents($fullImgPath, $imageContent);
+                // move_uploaded_file($ImgPath, $dir."/".$file_name);
+
                 // Insertion
                 $res = $objDatabase->signup($fname, $email, $address, $zipcode, $mobile, $dob, $password, $file_name, $occupation, $myworkurl, $cvFile_name);
                 if ($res) header("location: ../login/register.php?errorSuccess=signupSuccess");
@@ -89,7 +114,6 @@
         $sklArr = array();
         $prjtArr = array();
 
-        date_default_timezone_set("Asia/Karachi");
         foreach ($_REQUEST as $key => $value) {
             if (stripos($key, "education") === 0) $eduArr[$key] = $value;
             if (stripos($key, "services") === 0) $srvArr[$key] = $value;
@@ -144,6 +168,20 @@
         $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
         $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
         echo json_encode($aProfFolioData);
+    }
+
+    function CURL ($Method, $Curl, $Param, $Header) {
+        if ($Method != "GET") {
+            curl_setopt($Curl, CURLOPT_POST, true);
+        }
+        if ($Param != "" || $Param != NULL)
+            curl_setopt($Curl, CURLOPT_POSTFIELDS, $Param);
+        curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);
+        if ($Header != "" || $Header != NULL)
+            curl_setopt($Curl, CURLOPT_HTTPHEADER, $Header);
+        $Response = curl_exec($Curl);
+        curl_close($Curl);
+        return $Response;
     }
 
 
