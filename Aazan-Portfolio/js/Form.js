@@ -33,13 +33,33 @@ fetch(apiUrl)
     }
     return response.json();
   })
-  .then(userData => {
-    // Process the retrieved user data
-    console.log('User Data:', userData);
+  .then(data => {
+    // Handle successful response
+    console.log(data);
   })
   .catch(error => {
-    console.error('Error:', error);
+    // Handle error
+    console.error('Error fetching data:', error);
   });
+
+
+// fetch(apiUrl)
+//   .then(response => {
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok');
+      
+//     }
+    
+//     console.log('response azaaaan',response.json);
+//     return response.json();
+//   })
+//   .then(userData => {
+//     // Process the retrieved user data
+//     console.log('User Data:', userData);
+//   })
+//   .catch(error => {
+//     console.error('Error:', error);
+//   });
 
     // Fetch HTML content using AJAX
     // $.ajax({
