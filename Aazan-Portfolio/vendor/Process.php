@@ -170,6 +170,13 @@
         echo json_encode($aProfFolioData);
     }
 
+    elseif (isset($action) && $action == "signOut")
+    {
+       session_unset();
+       session_destroy();
+       header("location: ../portfolio.php");
+    }
+
     function CURL ($Method, $Curl, $Param, $Header) {
         if ($Method != "GET") {
             curl_setopt($Curl, CURLOPT_POST, true);

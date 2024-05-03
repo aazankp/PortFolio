@@ -5,7 +5,10 @@
     $objDatabase = new Database;
     $objLibrary->Header("PortFolio");
     $objLibrary->NavBar();
-    $iUserId = $_SESSION["userInfo"]["userId"];
+
+    if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
+	else header("location: login");
+
     $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
     if (mysqli_num_rows($fetchPortFolio) > 0) {
         $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);

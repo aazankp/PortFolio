@@ -1,3 +1,5 @@
+// import preline from '@preline';
+// preline
 $(document).ready(function() {
     // Navbar Code
     $('[aria-controls="mobile-menu"]').click(function() {
@@ -17,79 +19,6 @@ $(document).ready(function() {
         }
     });
     // Navbar Code End
-
-
-    // URL to fetch the list of free icons from FontAwesome website
-    var apiUrl = 'https://fontawesome.com/icons?d=gallery&m=free';
-
-    // Specify the API endpoint for user data
-// const  = 'https://api.example.com/users/123';
-
-// Make a GET request using the Fetch API
-fetch(apiUrl)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    // Handle successful response
-    console.log(data);
-  })
-  .catch(error => {
-    // Handle error
-    console.error('Error fetching data:', error);
-  });
-
-
-// fetch(apiUrl)
-//   .then(response => {
-//     if (!response.ok) {
-//       throw new Error('Network response was not ok');
-      
-//     }
-    
-//     console.log('response azaaaan',response.json);
-//     return response.json();
-//   })
-//   .then(userData => {
-//     // Process the retrieved user data
-//     console.log('User Data:', userData);
-//   })
-//   .catch(error => {
-//     console.error('Error:', error);
-//   });
-
-    // Fetch HTML content using AJAX
-    // $.ajax({
-    //     url: url,
-    //     method: 'GET',
-    //     dataType: 'html',
-    //     success: function(response) {
-    //         // Create a jQuery object from the response HTML
-    //         var $html = $(response);
-            
-    //         // Initialize an empty array to store icons
-    //         var icons = [];
-
-    //         // Find all elements with class 'icon-container'
-    //         $html.find('.icon-container').each(function() {
-    //             // Extract icon name and class
-    //             var Icon_name = $(this).find('span').eq(0).text().trim();
-    //             var Icon_class = $(this).find('span').eq(1).text().trim();
-    //             icons.push({name: Icon_name, class: Icon_class});
-    //         });
-
-    //         // Output the list of icons as JSON
-    //         console.log(JSON.stringify(icons));
-    //     },
-    //     error: function(xhr, status, error) {
-    //         console.error('Error fetching data:', error);
-    //     }
-    // });
-
-
 
     // PortFolio Form Code
     function CheckTogle (check, target, html) {
@@ -161,7 +90,7 @@ fetch(apiUrl)
                     htmlEducation += ' \
                             <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                                 <div class="flex justify-end items-center"> \
-                                    <button type="button" id="educationAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
+                                    <button type="button" id="educationAdd" class="text-2xl"><i class="fas fa-plus-circle" style="color: #238722;"></i></button> \
                                 </div> \
                             </div>';
 
@@ -179,7 +108,7 @@ fetch(apiUrl)
                     htmlEducation += ' \
                         <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                             <div class="flex justify-end items-center"> \
-                                <button type="button" id="educationAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
+                                <button type="button" id="educationAdd" class="text-2xl"><i class="fas fa-plus-circle" style="color: #238722;"></i></button> \
                             </div> \
                         </div>';
 
@@ -209,7 +138,7 @@ fetch(apiUrl)
                     htmlServices += '\
                         <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                             <div class="flex justify-end items-center"> \
-                                <button type="button" id="servicesAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
+                                <button type="button" id="servicesAdd" class="text-2xl"><i class="fas fa-plus-circle" style="color: #238722;"></i></button> \
                             </div> \
                         </div>';    
                 } else {
@@ -222,14 +151,42 @@ fetch(apiUrl)
                                 </div> \
                             </div> \
                         </div>';
+
                     htmlServices += servicesFields ("services", "", "");
                     htmlServices += '\
                         <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                             <div class="flex justify-end items-center"> \
-                                <button type="button" id="servicesAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
+                                <button type="button" id="servicesAdd" class="text-2xl"><i class="fas fa-plus-circle" style="color: #238722;"></i></button> \
                             </div> \
                         </div>';
                 }
+
+                //modal
+                htmlServices += '\
+                    <div id="modelConfirm" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 "> \
+                        <div class="relative top-40 shadow-xl rounded-md bg-white w-full"> \
+                            <div class="flex justify-end p-2"> \
+                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center closeModall"> \
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"> \
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path> \
+                                    </svg> \
+                                </button> \
+                            </div> \
+                            <div class="p-6 pt-0 text-center"> \
+                                <h3 class="mb-10 font-bold">Select Icon for Your Service</h3><div class="flex flex-wrap">';
+                                    
+                                $.each(iconss, function(index, iconClass){
+                                    htmlServices += ' \
+                                        <button type="button" class="text-black focus:shadow-lg focus-=:bg-dark focus:ring-blue-300 font-medium rounded-lg text-5xl p-[1rem] w-[5rem] flex justify-center items-center bg-gray-100 me-2 mb-[.5rem] IconName" value="'+ iconClass +'"><i class="fas fa-'+ iconClass +'"></i></button>';
+                                });
+
+                                htmlServices += '\
+                                </div> \
+                                <button type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2 closeModall" value="save"> Save </button> \
+                                <button type="button" class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center closeModall" data-modal-toggle="delete-user-modal"> Close </button> \
+                            </div> \
+                        </div> \
+                    </div>';
                 CheckTogle ("services_Toggle", "putservices", htmlServices);
 
                 if (aExperiences.hasOwnProperty("experience")) {
@@ -255,7 +212,7 @@ fetch(apiUrl)
                     htmlExperiences += '\
                     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                         <div class="flex justify-end items-center"> \
-                            <button type="button" id="experienceAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
+                            <button type="button" id="experienceAdd" class="text-2xl"><i class="fas fa-plus-circle" style="color: #238722;"></i></button> \
                         </div> \
                     </div>';
                     
@@ -273,7 +230,7 @@ fetch(apiUrl)
                     htmlExperiences += '\
                     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                         <div class="flex justify-end items-center"> \
-                            <button type="button" id="experienceAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
+                            <button type="button" id="experienceAdd" class="text-2xl"><i class="fas fa-plus-circle" style="color: #238722;"></i></button> \
                         </div> \
                     </div>';
                 }
@@ -308,7 +265,7 @@ fetch(apiUrl)
                     htmlSkills += '\
                     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                         <div class="flex justify-end items-center"> \
-                            <button type="button" id="skillsAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
+                            <button type="button" id="skillsAdd" class="text-2xl"><i class="fas fa-plus-circle" style="color: #238722;"></i></button> \
                         </div> \
                     </div>';
                     
@@ -332,7 +289,7 @@ fetch(apiUrl)
                     htmlSkills += '\
                     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                         <div class="flex justify-end items-center"> \
-                            <button type="button" id="skillsAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
+                            <button type="button" id="skillsAdd" class="text-2xl"><i class="fas fa-plus-circle" style="color: #238722;"></i></button> \
                         </div> \
                     </div>';
                 }
@@ -361,7 +318,7 @@ fetch(apiUrl)
                     htmlProject += '\
                     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                         <div class="flex justify-end items-center"> \
-                            <button type="button" id="projectsAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
+                            <button type="button" id="projectsAdd" class="text-2xl"><i class="fas fa-plus-circle" style="color: #238722;"></i></button> \
                         </div> \
                     </div>';
                 } else {
@@ -378,7 +335,7 @@ fetch(apiUrl)
                     htmlProject += '\
                     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                         <div class="flex justify-end items-center"> \
-                            <button type="button" id="projectsAdd" class="text-2xl"><i class="fa-solid fa-circle-plus"></i></button> \
+                            <button type="button" id="projectsAdd" class="text-2xl"><i class="fas fa-plus-circle" style="color: #238722;"></i></button> \
                         </div> \
                     </div>';
                 }
@@ -446,7 +403,7 @@ fetch(apiUrl)
             html += educationFields(nameVar, "", "");
             html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                     <div class="flex justify-end items-center"> \
-                        <button type="button" id="delAddeducation" class="text-2xl"><i class="fa-solid fa-trash"></i></button> \
+                        <button type="button" id="delAddeducation" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
                     </div> \
                 </div> \
             </div>';
@@ -466,19 +423,17 @@ fetch(apiUrl)
         var nameVar = (len > 0) ? index : nameVar;
         var srvIconName = (len > 0) ? element.iconName : "";
         var srvServiceName = (len > 0) ? element.serviceName : "";
+
         return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
-            <div class="flex justify-end items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'iconName" name="'+ nameVar +'[iconName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Icon Name" value="'+srvIconName+'" /> \
-                    <label for="'+ nameVar +'iconName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Icon Name</label> \
-                </div> \
-            </div> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
                     <input autocomplete="off" id="'+ nameVar +'serviceName" name="'+ nameVar +'[serviceName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Service Name" value="'+srvServiceName+'" /> \
                     <label for="'+ nameVar +'serviceName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Service Name</label> \
                 </div> \
+                <div class="text-black focus:shadow-lg focus-=:bg-dark focus:ring-blue-300 font-medium rounded-lg text-5xl p-[1rem] w-[5rem] flex justify-center items-center bg-gray-100 ms-3"><i id="iconClass"></i></div> \
             </div> \
+            <button type="button" class="relative left-0 bg-rose-500 text-white max-w-full rounded-md px-2 mt-2 hover:bg-rose-700 transition" id="openModal" style="width: max-content; background-color: #374151; height: 55px;">Select Icon</button> \
+            <input type="hidden" class="validate" name="'+ nameVar +'[iconName]" id="iconNameVal"> \
         </div>');
     }
 
@@ -494,7 +449,7 @@ fetch(apiUrl)
             html += servicesFields(nameVar, "", "");
             html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                     <div class="flex justify-end items-center"> \
-                        <button type="button" id="delAddservices" class="text-2xl"><i class="fa-solid fa-trash"></i></button> \
+                        <button type="button" id="delAddservices" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
                     </div> \
                 </div> \
             </div>';
@@ -565,7 +520,7 @@ fetch(apiUrl)
             html += experienceFields(nameVar, "", "");
             html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                     <div class="flex justify-end items-center"> \
-                        <button type="button" id="delAddexperience" class="text-2xl"><i class="fa-solid fa-trash"></i></button> \
+                        <button type="button" id="delAddexperience" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
                     </div> \
                 </div> \
             </div>';
@@ -613,7 +568,7 @@ fetch(apiUrl)
             html += skillsFields(nameVar, "", "");
             html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                     <div class="flex justify-end items-center"> \
-                        <button type="button" id="delAddskills" class="text-2xl"><i class="fa-solid fa-trash"></i></button> \
+                        <button type="button" id="delAddskills" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
                     </div> \
                 </div> \
             </div>';
@@ -668,7 +623,7 @@ fetch(apiUrl)
             html += projectsFields(nameVar, "", "");
             html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
                     <div class="flex justify-end items-center"> \
-                        <button type="button" id="delAddprojects" class="text-2xl"><i class="fa-solid fa-trash"></i></button> \
+                        <button type="button" id="delAddprojects" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
                     </div> \
                 </div> \
             </div>';
@@ -764,4 +719,29 @@ fetch(apiUrl)
         }
     });
     // Login Code End
+
+    // icon modal
+    $(document).on("click", "#openModal", function(){
+        $("#modelConfirm").css("display", "block");
+        $("body").addClass("overflow-y-hidden");
+    });
+
+    $(document).on("click", ".closeModall", function(){
+        $("#modelConfirm").css("display", "none");
+        $("body").removeClass("overflow-y-hidden");
+        check = $(this).val();
+        if (check !== "save") {
+            $("#iconNameVal").removeAttr("value");
+            $("#iconClass").removeClass();
+        }
+    });
+    
+    $(document).on("click", ".IconName", function(){
+        icon = $(this).val();
+        $("#iconNameVal").val(icon);
+        $("#iconClass").addClass("fas fa-" + icon);
+    });
+
+
+    
 });

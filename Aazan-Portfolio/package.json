@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@preline/overlay": "^2.1.0"
+  }
+}

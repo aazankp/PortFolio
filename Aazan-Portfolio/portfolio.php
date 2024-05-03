@@ -2,11 +2,19 @@
     session_start();
     require_once "vendor/Database.php";
     $objDatabase = new Database;
-    $iUserId = $_SESSION["userInfo"]["userId"];
-    // $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
-    $fetchPortFolio = $objDatabase->fetchPortFolio (3);
+
+	if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
+	else if (isset($_REQUEST["pId"])) $iUserId = $_REQUEST["pId"];
+	else header("location: login");
+
+    $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
+    // $fetchPortFolio = $objDatabase->fetchPortFolio (3);
+
     if (mysqli_num_rows($fetchPortFolio) > 0) {
 		$aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
+
+		if ($aProfFolioData["password"] != $aProfFolioData["oldPassword"]) header("location: login");
+		
         $aAbout = json_decode($aProfFolioData["about"], true);
         $aContact = json_decode($aProfFolioData["contact"], true);
         $aEducation = json_decode($aProfFolioData["education"], true);
@@ -487,21 +495,6 @@
 			<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
 		</svg>
 	</div>
-
-	<!-- <script src="js/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
-	<script src="js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.easing.1.3.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/jquery.stellar.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/aos.js"></script>
-	<script src="js/jquery.animateNumber.min.js"></script>
-	<script src="js/scrollax.min.js"></script>
-	<script src="js/main.js"></script> -->
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>

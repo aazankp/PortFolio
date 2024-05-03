@@ -17,7 +17,7 @@ class Database {
 
     public function signup ($fname, $email, $address, $zipcode, $mobile, $dob, $password, $profile, $occupation, $myworkurl, $cvFile_name)
     {
-        $this->query = "INSERT INTO users (fullName, email, address, zipcode, mobile, DOB, password, profile, occupation, workUrl, resume) VALUES ('$fname', '$email', '$address', '$zipcode', '$mobile', '$dob', '$password', '$profile', '$occupation', '$myworkurl', '$cvFile_name')";
+        $this->query = "INSERT INTO users (fullName, email, address, zipcode, mobile, DOB, password, oldPassword, profile, occupation, workUrl, resume) VALUES ('$fname', '$email', '$address', '$zipcode', '$mobile', '$dob', '$password', '$password', '$profile', '$occupation', '$myworkurl', '$cvFile_name')";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }
