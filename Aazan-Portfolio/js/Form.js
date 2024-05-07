@@ -34,7 +34,7 @@ $(document).ready(function() {
     {
         while (true) {
             randNumb = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
-            randNumb = randNumb.toString().padStart(2);
+            randNumb = randNumb < 10 ? '0' + randNumb : randNumb.toString();
             if (!Arr.includes(randNumb)) Arr.push(randNumb);
             if (Arr.length >= Object.keys(ArrCount).length) break;
         }
@@ -71,7 +71,7 @@ $(document).ready(function() {
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                                 <div class="flex justify-end items-center"> \
                                     <div class="relative w-full"> \
-                                        <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description">'+ aEducation.education.description +'</textarea> \
+                                        <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate pt-1" placeholder="Description">'+ aEducation.education.description +'</textarea> \
                                         <label for="educationDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                                     </div> \
                                 </div> \
@@ -99,7 +99,7 @@ $(document).ready(function() {
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                             <div class="flex justify-end items-center"> \
                                 <div class="relative w-full"> \
-                                    <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description"></textarea> \
+                                    <textarea autocomplete="off" id="educationDescription" name="education[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate pt-1" placeholder="Description"></textarea> \
                                     <label for="educationDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                                 </div> \
                             </div> \
@@ -120,7 +120,7 @@ $(document).ready(function() {
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                             <div class="flex justify-end items-center"> \
                                 <div class="relative w-full"> \
-                                    <textarea autocomplete="off" id="servicesDescription" name="services[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description">'+aServices.services.description+'</textarea> \
+                                    <textarea autocomplete="off" id="servicesDescription" name="services[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate pt-1" placeholder="Description">'+aServices.services.description+'</textarea> \
                                     <label for="servicesDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                                 </div> \
                             </div> \
@@ -146,7 +146,7 @@ $(document).ready(function() {
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                             <div class="flex justify-end items-center"> \
                                 <div class="relative w-full"> \
-                                    <textarea autocomplete="off" id="servicesDescription" name="services[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description"></textarea> \
+                                    <textarea autocomplete="off" id="servicesDescription" name="services[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate pt-1" placeholder="Description"></textarea> \
                                     <label for="servicesDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                                 </div> \
                             </div> \
@@ -176,8 +176,10 @@ $(document).ready(function() {
                                 <h3 class="mb-10 font-bold">Select Icon for Your Service</h3><div class="flex flex-wrap">';
                                     
                                 $.each(iconss, function(index, iconClass){
+                                    numbservices = srvCount.length > 0 ? srvCount[srvCount.length-1] : "";
+                                    console.log(numbservices)
                                     htmlServices += ' \
-                                        <button type="button" class="text-black focus:shadow-lg focus-=:bg-dark focus:ring-blue-300 font-medium rounded-lg text-5xl p-[1rem] w-[5rem] flex justify-center items-center bg-gray-100 me-2 mb-[.5rem] IconName" value="'+ iconClass +'"><i class="fas fa-'+ iconClass +'"></i></button>';
+                                        <button type="button" class="text-black focus:shadow-lg focus-=:bg-dark focus:ring-blue-300 font-medium rounded-lg text-5xl p-[1rem] w-[5rem] flex justify-center items-center bg-gray-100 me-2 mb-[.5rem] IconNameServices'+ numbservices +'" value="'+ iconClass +'"><i class="fas fa-'+ iconClass +'"></i></button>';
                                 });
 
                                 htmlServices += '\
@@ -194,7 +196,7 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="experienceDescription" name="experience[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description">'+aExperiences.experience.description+'</textarea> \
+                                <textarea autocomplete="off" id="experienceDescription" name="experience[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate pt-1" placeholder="Description">'+aExperiences.experience.description+'</textarea> \
                                 <label for="experienceDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
@@ -221,7 +223,7 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="experienceDescription" name="experience[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description"></textarea> \
+                                <textarea autocomplete="off" id="experienceDescription" name="experience[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate pt-1" placeholder="Description"></textarea> \
                                 <label for="experienceDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
@@ -241,7 +243,7 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="skillsDescription" name="skills[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description">'+aSkills.skills.description+'</textarea> \
+                                <textarea autocomplete="off" id="skillsDescription" name="skills[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate pt-1" placeholder="Description">'+aSkills.skills.description+'</textarea> \
                                 <label for="skillsDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
@@ -274,7 +276,7 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="skillsDescription" name="skills[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description"></textarea> \
+                                <textarea autocomplete="off" id="skillsDescription" name="skills[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate pt-1" placeholder="Description"></textarea> \
                                 <label for="skillsDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
@@ -300,7 +302,7 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="projectsDescription" name="projects[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description">'+aProjects.projects.description+'</textarea> \
+                                <textarea autocomplete="off" id="projectsDescription" name="projects[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate pt-1" placeholder="Description">'+aProjects.projects.description+'</textarea> \
                                 <label for="projectsDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
@@ -326,7 +328,7 @@ $(document).ready(function() {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4"> \
                         <div class="flex justify-end items-center"> \
                             <div class="relative w-full"> \
-                                <textarea autocomplete="off" id="projectsDescription" name="projects[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate" placeholder="Description"></textarea> \
+                                <textarea autocomplete="off" id="projectsDescription" name="projects[description]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm leading-5 validate pt-1" placeholder="Description"></textarea> \
                                 <label for="projectsDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label> \
                             </div> \
                         </div> \
@@ -358,7 +360,7 @@ $(document).ready(function() {
         return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
                 <div class="flex justify-end items-center h-20"> \
                     <div class="relative w-full"> \
-                        <textarea autocomplete="off" id="'+ nameVar +'Description" name="'+ nameVar +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Education Description">'+eduDesc+'</textarea> \
+                        <textarea autocomplete="off" id="'+ nameVar +'Description" name="'+ nameVar +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate pt-1" placeholder="Education Description">'+eduDesc+'</textarea> \
                         <label for="'+ nameVar +'Description" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Education Description</label> \
                     </div> \
                 </div> \
@@ -395,9 +397,9 @@ $(document).ready(function() {
         $(document).on("click", "#education_Toggle", function() {
             DataCheck ();
         });
-        makeRandomNumb(eduCount, aEducation);
-        numbedu = aEducation.hasOwnProperty("education") ? eduCount[eduCount.length-1] : 1;
         $(document).on("click", "#educationAdd", function(){
+            makeRandomNumb(eduCount, aEducation);
+            numbedu = aEducation.hasOwnProperty("education") ? eduCount[eduCount.length-1] : "1";
             nameVar = "education"+numbedu;
             html = '<div class="forDeleteeducation">';
             html += educationFields(nameVar, "", "");
@@ -430,10 +432,10 @@ $(document).ready(function() {
                     <input autocomplete="off" id="'+ nameVar +'serviceName" name="'+ nameVar +'[serviceName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Service Name" value="'+srvServiceName+'" /> \
                     <label for="'+ nameVar +'serviceName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Service Name</label> \
                 </div> \
-                <div class="text-black focus:shadow-lg focus-=:bg-dark focus:ring-blue-300 font-medium rounded-lg text-5xl p-[1rem] w-[5rem] flex justify-center items-center bg-gray-100 ms-3"><i id="iconClass"></i></div> \
+                <div class="text-black focus:shadow-lg focus-=:bg-dark focus:ring-blue-300 font-medium rounded-lg text-5xl p-[1rem] w-[5rem] flex justify-center items-center bg-gray-100 ms-2"><i id="iconClass'+ nameVar +'"></i></div> \
             </div> \
-            <button type="button" class="relative left-0 bg-rose-500 text-white max-w-full rounded-md px-2 mt-2 hover:bg-rose-700 transition" id="openModal" style="width: max-content; background-color: #374151; height: 55px;">Select Icon</button> \
-            <input type="hidden" class="validate" name="'+ nameVar +'[iconName]" id="iconNameVal"> \
+            <button type="button" class="relative left-0 bg-rose-500 text-white max-w-full rounded-md px-2 mt-2 hover:bg-rose-700 transition" id="openModal" style="width: max-content; background-color: #374151; height: 45px; padding: 10px 30px 10px 30px;"> Select Icon </button> \
+            <input type="hidden" class="validate iconNameVal'+nameVar+'" name="'+nameVar+'[iconName]" id="iconNameVal'+nameVar+'"> \
         </div>');
     }
 
@@ -441,9 +443,10 @@ $(document).ready(function() {
         $(document).on("click", "#services_Toggle", function() {
             DataCheck ();
         });
-        makeRandomNumb(srvCount, aServices);
-        numbservices = aServices.hasOwnProperty("services") ? srvCount[srvCount.length-1] : 1;
+        
         $(document).on("click", "#servicesAdd", function(){
+            makeRandomNumb(srvCount, aServices);
+            numbservices = aServices.hasOwnProperty("services") ? srvCount[srvCount.length-1] : "1";
             nameVar = "services"+numbservices;
             html = '<div class="forDeleteservices">';
             html += servicesFields(nameVar, "", "");
@@ -487,7 +490,7 @@ $(document).ready(function() {
             </div> \
             <div class="flex justify-end items-center h-20"> \
                 <div class="relative w-full"> \
-                    <textarea autocomplete="off" id="'+ nameVar +'jobDescription" name="'+ nameVar +'[jobDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Job Description">'+expJobDescription+'</textarea> \
+                    <textarea autocomplete="off" id="'+ nameVar +'jobDescription" name="'+ nameVar +'[jobDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate pt-1" placeholder="Job Description">'+expJobDescription+'</textarea> \
                     <label for="'+ nameVar +'jobDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Job Description</label> \
                 </div> \
             </div> \
@@ -512,9 +515,10 @@ $(document).ready(function() {
         $(document).on("click", "#experience_Toggle", function() {
             DataCheck ();
         });
-        makeRandomNumb(expCount, aExperiences);
-        numbexp = aExperiences.hasOwnProperty("experience") ? expCount[expCount.length-1] : 1;
+        
         $(document).on("click", "#experienceAdd", function(){
+            makeRandomNumb(expCount, aExperiences);
+            numbexp = aExperiences.hasOwnProperty("experience") ? expCount[expCount.length-1] : "1";
             nameVar = "experience"+numbexp;
             html = '<div class="forDeleteexperience">';
             html += experienceFields(nameVar, "", "");
@@ -526,7 +530,7 @@ $(document).ready(function() {
             </div>';
     
             $("#putexperience").append(html);
-            numbexp = numbexp+1;
+            // numbexp = numbexp+1;
         });
         $(document).on("click", "#delAddexperience", function(){
             $(this).closest(".forDeleteexperience").remove();
@@ -560,9 +564,10 @@ $(document).ready(function() {
         $(document).on("click", "#skills_Toggle", function() {
             DataCheck ();
         });
-        makeRandomNumb(sklCount, aSkills);
-        numbskills = aSkills.hasOwnProperty("skills") ? sklCount[sklCount.length-1] : 1;
+        
         $(document).on("click", "#skillsAdd", function(){
+            makeRandomNumb(sklCount, aSkills);
+            numbskills = aSkills.hasOwnProperty("skills") ? sklCount[sklCount.length-1] : "1";
             nameVar = "skills"+numbskills;
             html = '<div class="forDeleteskills">';
             html += skillsFields(nameVar, "", "");
@@ -574,7 +579,7 @@ $(document).ready(function() {
             </div>';
     
             $("#putskills").append(html);
-            numbskills = numbskills+1;
+            // numbskills = numbskills+1;
         });
         $(document).on("click", "#delAddskills", function(){
             $(this).closest(".forDeleteskills").remove();
@@ -615,9 +620,10 @@ $(document).ready(function() {
         $(document).on("click", "#projects_Toggle", function() {
             DataCheck ();
         });
-        makeRandomNumb(prjCount, aProjects);
-        numbproj = aProjects.hasOwnProperty("projects") ? prjCount[prjCount.length-1] : 1;
+        
         $(document).on("click", "#projectsAdd", function(){
+            makeRandomNumb(prjCount, aProjects);
+            numbproj = aProjects.hasOwnProperty("projects") ? prjCount[prjCount.length-1] : "1";
             nameVar = "projects"+numbproj;
             html = '<div class="forDeleteprojects">';
             html += projectsFields(nameVar, "", "");
@@ -629,7 +635,7 @@ $(document).ready(function() {
             </div>';
     
             $("#putprojects").append(html);
-            numbproj = numbproj+1;
+            // numbproj = numbproj+1;
         });
         $(document).on("click", "#delAddprojects", function(){
             $(this).closest(".forDeleteprojects").remove();
@@ -720,27 +726,38 @@ $(document).ready(function() {
     });
     // Login Code End
 
+    service_icon_Id = '';
+    service_TagId = '';
+
     // icon modal
     $(document).on("click", "#openModal", function(){
         $("#modelConfirm").css("display", "block");
         $("body").addClass("overflow-y-hidden");
+
+        service_icon_Id = $(this).next('input[type="hidden"]').attr("id");
+        service_TagId = $(this).prev("div").find("i").attr("id");
     });
 
     $(document).on("click", ".closeModall", function(){
         $("#modelConfirm").css("display", "none");
         $("body").removeClass("overflow-y-hidden");
         check = $(this).val();
+        checkVal = $("#"+service_icon_Id).val();
+        // alert(checkVal)
+
         if (check !== "save") {
-            $("#iconNameVal").removeAttr("value");
-            $("#iconClass").removeClass();
+            $("#"+service_icon_Id).removeAttr("value");
+            $("#"+service_TagId).removeClass();
         }
     });
-    
-    $(document).on("click", ".IconName", function(){
+
+    $(document).on("click", ".IconNameServices", function(){
         icon = $(this).val();
-        $("#iconNameVal").val(icon);
-        $("#iconClass").addClass("fas fa-" + icon);
+        $("#"+service_icon_Id).val(icon);
+        $("#"+service_TagId).removeClass();
+        $("#"+service_TagId).addClass("fas fa-" + icon);
     });
+
 
 
     
