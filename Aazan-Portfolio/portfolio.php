@@ -35,7 +35,7 @@
 				$dateTo = explode("-", $value["educationTo"]);
 				$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . $dateTo[1] . "/" . $dateTo[0];
 				$eduCode .= '
-				<div class="col-md-6">
+				<div class="col-md-6 mb-5">
 					<div class="resume-wrap ftco-animate">
 						<span class="date">'. $fullDate .'</span>
 						<h2>'. $value["educationDegree"] .'</h2>
@@ -108,7 +108,7 @@
 				$dateTo = explode("-", $value["jobTo"]);
 				$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . $dateTo[1] . "/" . $dateTo[0];
 				$expCode .= '
-				<div class="col-md-6">
+				<div class="col-md-6 mb-5">
 					<div class="resume-wrap ftco-animate">
 						<span class="date">'. $fullDate .'</span>
 						<h2>'. $value["position"] .'</h2>
@@ -295,23 +295,22 @@
 				<div class="overlay"></div>
 				<div class="container">
 					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-						<!-- <div class="one-third js-fullheight order-md-last img" style="background-image:url(images/Profiles/7153_Profile.PNG);">
-							<div class="overlay"></div>
-						</div> -->
-						<div class="one-third js-fullheight order-md-last img home-img">
-							<img src="images/Profiles/7153_Profile.PNG">
-						</div>
-						<div class="one-forth d-flex  align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-							<div class="text">
-								<span class="subheading">Hello!</span>
-								<h1 class="mb-4 mt-3">I'm <span><?= $aProfFolioData["fullName"] ?></span></h1>
-								<h2 class="mb-4"><?= $aProfFolioData["occupation"] ?></h2>
-								<p>
-									<div class="ftco-nav">
-										<a href="#contact-input-section" class="btn btn-primary py-3 px-4">Hire me</a>
-										<a href="<?= $aProfFolioData["workUrl"] ?>" target="_blank" class="btn btn-white btn-outline-white py-3 px-4">My works</a>
-									</div>
-								</p>
+						<div class="one-forth d-flex align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+							<div class="container-home">
+								<div class="text">
+									<span class="subheading">Hello!</span>
+									<h1 class="mb-4 mt-3">I'm <span><?= $aProfFolioData["fullName"] ?></span></h1>
+									<h2 class="mb-4"><?= $aProfFolioData["occupation"] ?></h2>
+									<p>
+										<div class="ftco-nav">
+											<a href="#contact-input-section" class="btn btn-primary py-3 px-4">Hire me</a>
+											<a href="<?= $aProfFolioData["workUrl"] ?>" target="_blank" class="btn btn-white btn-outline-white py-3 px-4">My works</a>
+										</div>
+									</p>
+								</div>
+								<div class="home-img">
+									<img src="images/Profiles/7153_Profile.PNG">
+								</div>
 							</div>
 						</div>
 					</div>
@@ -323,31 +322,15 @@
 	<section class="ftco-about img ftco-section ftco-no-pb" id="about-section">
 		<div class="container">
 			<div class="row d-flex">
-				<div class="col-md-6 col-lg-5 d-flex">
-					<div class="img-about img d-flex align-items-stretch">
-						<div class="overlay"></div>
-						<div class="img d-flex align-self-stretch align-items-center"
-							style="background-image:url(images/Profile.PNG);">
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-7 pl-lg-5 pb-5">
+				<div class="col-md-12 pl-lg-5 pb-5">
 					<div class="row justify-content-start pb-3">
-						<div class="col-md-12 heading-section ftco-animate">
-							<h1 class="big">About</h1>
+						<div class="col-md-12 heading-section ftco-animate text-center">
+							<h1 class="big big-2">About</h1>
 							<h2 class="mb-4">About Me</h2>
 							<p><?= $aAbout["aboutDescription"]; ?></p>
-							<ul class="about-info mt-4 px-md-0 px-2">
-								<li class="d-flex"><span>Name:</span> <span><?= $aProfFolioData["fullName"] ?></span></li>
-								<li class="d-flex"><span>Date of birth:</span> <span><?= date("F j, Y", strtotime($aProfFolioData["DOB"])) ?></span></li>
-								<li class="d-flex"><span>Address:</span> <span><?= $aProfFolioData["address"] ?></span></li>
-								<li class="d-flex"><span>Zip code:</span> <span><?= $aProfFolioData["zipcode"] ?></span></li>
-								<li class="d-flex"><span>Email:</span> <span><?= $aProfFolioData["email"] ?></span></li>
-								<li class="d-flex"><span>Phone: </span> <span>+92-<?= preg_replace("/(\d{3})(\d{3})(\d{4})/", "$1-$2$3", substr($aProfFolioData["mobile"], 1)) ?></span></li>
-							</ul>
 						</div>
 					</div>
-					<div class="counter-wrap ftco-animate d-flex mt-md-3">
+					<div class="counter-wrap ftco-animate mt-md-3 text-center">
 						<div class="text">
 							<p><a href="vendor/Resumes/<?= $aProfFolioData["resume"] ?>" target="_blank" class="btn btn-primary py-3 px-3">Download CV</a></p>
 						</div>
@@ -438,7 +421,7 @@
 	<footer class="ftco-footer ftco-section">
 		<div class="container">
 			<div class="row mb-5">
-				<div class="col-md">
+				<!-- <div class="col-md">
 					<div class="ftco-footer-widget mb-4">
 						<h2 class="ftco-heading-2">About</h2>
 						<p><?= $aAbout["aboutDescription"]; ?></p>
@@ -448,20 +431,26 @@
 							<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
 						</ul>
 					</div>
-				</div>
+				</div> -->
 				<div class="col-md">
 					<div class="ftco-footer-widget mb-4 ml-md-4 ftco-nav">
 						<h2 class="ftco-heading-2">Links</h2>
-							<ul class="list-unstyled">
-								<li><a href="#home-section"><span class="icon-long-arrow-right mr-2"> Home</span></a></li>
-								<li><a href="#about-section"><span class="icon-long-arrow-right mr-2"> About</span></a></li>
-								<?= $edu_btm_Menu ?>
-								<?= $services_btm_Menu ?>
-								<?= $exp_btm_Menu ?>
-								<?= $skills_btm_Menu ?>
-								<?= $project_btm_Menu ?>
-								<li><a href="#contact-section"><span class="icon-long-arrow-right mr-2"> Contact</span></a></li>
-							</ul>
+						<ul class="list-unstyled">
+							<div class="row">
+								<div class="col-md-6">
+									<li><a href="#home-section"><span class="icon-long-arrow-right mr-2"> Home</span></a></li>
+									<li><a href="#about-section"><span class="icon-long-arrow-right mr-2"> About</span></a></li>
+									<?= $edu_btm_Menu ?>
+									<?= $services_btm_Menu ?>
+								</div>
+								<div class="col-md-6">
+									<?= $exp_btm_Menu ?>
+									<?= $skills_btm_Menu ?>
+									<?= $project_btm_Menu ?>
+									<li><a href="#contact-section"><span class="icon-long-arrow-right mr-2"> Contact</span></a></li>
+								</div>
+							</div>
+						</ul>
 					</div>
 				</div>
 				<div class="col-md">

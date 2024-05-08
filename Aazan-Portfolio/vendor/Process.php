@@ -12,15 +12,13 @@
         $fname = htmlspecialchars($_REQUEST["fname"]);
         $email = htmlspecialchars($_REQUEST["email"]);
         $address = htmlspecialchars($_REQUEST["address"]);
-        $zipcode = htmlspecialchars($_REQUEST["zipcode"]);
         $mobile = htmlspecialchars($_REQUEST["mobile"]);
-        $dob = htmlspecialchars($_REQUEST["dob"]);
         $password = htmlspecialchars($_REQUEST["password"]);
         $confirmpassword = htmlspecialchars($_REQUEST["confirmpassword"]);
         $occupation = htmlspecialchars($_REQUEST["occupation_title"]);
         $myworkurl = htmlspecialchars($_REQUEST["myworkurl"]);
 
-        if ($fname == "" || $email == "" || $address == "" || $zipcode == "" || $mobile == "" || $dob == "" || $password == "" || $occupation == "" || $myworkurl == "") {
+        if ($fname == "" || $email == "" || $address == "" || $mobile == "" || $password == "" || $occupation == "" || $myworkurl == "") {
             header("location: ../login/register.php?error=fields");
             exit;
         }
@@ -47,30 +45,8 @@
                 $dir = "../images/Profiles";
                 if (!is_dir($dir)) mkdir($dir, 0777, true);
                 $file_name = rand(0000,9999) . "_" . time() . ".PNG";
-
-                $fullImgPath = $dir."/".$file_name;
                 $ImgPath = $_FILES["profile"]["tmp_name"];
-                $boundary = uniqid();
-                
-                $Curl = curl_init("https://api.pixmiller.com/v1/remove");
-                
-                $Header = [
-                    'X-Api-Key: 11e701956059c9ee935c5e27d46c9d7e33af5aea',
-                    'Accept: application/json',
-                    'Content-Type: multipart/form-data; boundary='.$boundary
-                ];
-                
-                $Param = "--$boundary\r\n";
-                $Param .= 'Content-Disposition: form-data; name="image_file"; filename="' . $file_name . "\"\r\n";
-                $Param .= 'Content-Type: image/PNG' . "\r\n\r\n";
-                $Param .= file_get_contents($ImgPath) . "\r\n";
-                $Param .= "--$boundary--\r\n";
-
-                $Response = CURL ("POST", $Curl, $Param, $Header);
-                $Response = json_decode($Response, true);
-                $imageContent = file_get_contents($Response["url"]);
-                file_put_contents($fullImgPath, $imageContent);
-                // move_uploaded_file($ImgPath, $dir."/".$file_name);
+                move_uploaded_file($ImgPath, $dir."/".$file_name);
 
                 // Insertion
                 $res = $objDatabase->signup($fname, $email, $address, $zipcode, $mobile, $dob, $password, $file_name, $occupation, $myworkurl, $cvFile_name);
