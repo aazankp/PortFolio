@@ -1,0 +1,32 @@
+:root {
+    --primary-color: #93c5fd;
+    --theme-color: #85abff;
+}
+.toggles {
+    background-color: var(--primary-color);
+}
+#NavBar {
+    background-color: var(--theme-color);
+}
+
+.profile-img-pro img {
+    height: 200px;
+    width: 200px;
+    border: 5px solid var(--theme-color);
+    object-fit: cover;
+}
+
+#copyBtn:hover {
+    cursor: pointer;
+}
+
+#copyBtn {
+    width: 30px;
+    font-size: 18px;
+}
+
+@media (max-width: 767px) {
+    .prof-second-input {
+        margin-top: 15px;
+    }
+}

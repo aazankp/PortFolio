@@ -177,7 +177,6 @@ $(document).ready(function() {
                                     
                                 $.each(iconss, function(index, iconClass){
                                     numbservices = srvCount.length > 0 ? srvCount[srvCount.length-1] : "";
-                                    console.log(numbservices)
                                     htmlServices += ' \
                                         <button type="button" class="text-black focus:shadow-lg focus-=:bg-dark focus:ring-blue-300 font-medium rounded-lg text-5xl p-[1rem] w-[5rem] flex justify-center items-center bg-gray-100 me-2 mb-[.5rem] IconNameServices'+ numbservices +'" value="'+ iconClass +'"><i class="fas fa-'+ iconClass +'"></i></button>';
                                 });
@@ -743,7 +742,6 @@ $(document).ready(function() {
         $("body").removeClass("overflow-y-hidden");
         check = $(this).val();
         checkVal = $("#"+service_icon_Id).val();
-        // alert(checkVal)
 
         if (check !== "save") {
             $("#"+service_icon_Id).removeAttr("value");
@@ -758,6 +756,66 @@ $(document).ready(function() {
         $("#"+service_TagId).addClass("fas fa-" + icon);
     });
 
+    // Profile Form Submittion
+    $(document).on("submit", "#profile_Form_Submit", function(event) {
+        event.preventDefault();
+        var formdata = new FormData(this);
+      
+        var inputFields = $("#profile_Form_Submit input.validate_Pro");
+       
+        if (inputFields.length > 0) {
+            isEmpty = false;
+            inputFields.each(function() {
+                if ($(this).val().trim() === "") {
+                    isEmpty = true;
+                    return false;
+                }
+            });
+        }
+
+        if (isEmpty === false) {
+            $.ajax({
+                url: "../vendor/Process.php?action=profile_Submit",
+                type: "POST",
+                data: formdata,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(result){
+                    console.log(result)
+                    if(result == 1){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your Data has been Submitted!',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                    }
+                    else if (result == 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Warning...',
+                            text: 'Insertion Fail!'
+                        })
+                    }
+                }
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Warning...',
+                text: 'Please Fill All Fields Carefully!'
+            });
+        }
+    });
+
+    $(document).on("click", "#copyBtn", function(){
+        var textToCopy = $(".copyTxt").text();
+        navigator.clipboard.writeText(textToCopy).then(function() {
+            $("#copyStatus").text("Text copied!");
+        })
+    });
 
 
     

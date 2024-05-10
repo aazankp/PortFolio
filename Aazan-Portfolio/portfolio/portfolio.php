@@ -7,6 +7,7 @@
     $objLibrary->NavBar();
 
     if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
+	else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
 	else header("location: login");
 
     $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
@@ -37,10 +38,10 @@
     $btnValue = (mysqli_num_rows($fetchPortFolio) > 0) ? "update" : "insert";
 ?>
 
-<div class="bg-gray-100">
+<div class="portfolio_main">
     <div class="container mx-auto px-4 md:px-10 lg:px-20 xl:px-40 pt-7 text-center">
         <h1 class="font-bold text-2xl">Form For Resume</h1>
-        <form id="portFolio_Form_Submit" enctype="multipart/form-data">
+        <form id="portFolio_Form_Submit" enctype="multipart/form-data" class="mb-16">
             <!-- About -->
             <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-3xl toggles mt-7">
                 <div class="col-span-11 flex items-center">About</div>
@@ -136,7 +137,7 @@
 
             <input type="hidden" value="<?= $iUserId; ?>" name="userId">
             <input type="hidden" value="<?= $btnValue; ?>" name="btnValue">
-            <button type="submit" class="bg-emerald-500 text-white rounded-md px-2 py-2 mt-5" id="submitButton">Save</button>
+            <button type="submit" class="bg-emerald-500 text-white rounded-md px-10 py-2 mt-5" id="submitButton">Save</button>
         </form>
     </div>
 </div>

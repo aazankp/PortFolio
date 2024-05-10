@@ -12,20 +12,9 @@
                 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.min.css" rel="stylesheet">
-                <style>
-                    :root {
-                        --primary-color: #93c5fd;
-                        --theme-color: #85abff;
-                    }
-                    .toggles {
-                        background-color: var(--primary-color);
-                    }
-                    #NavBar {
-                        background-color: var(--theme-color);
-                    }
-                </style>
+                <link rel="stylesheet" href="../css/form.css">
             </head>
-            <body>
+            <body class="bg-gray-100">
             <?php
         }
 
@@ -62,8 +51,7 @@
                                 </button>
                             </div>
                             <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" id="user-menu" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                                <!-- Active: "bg-gray-100", Not Active: "" -->
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                <a href="../vendor/Profile.php" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Change Your Password</a>
                                 <a href="../vendor/Process.php?action=signOut" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
                             </div>

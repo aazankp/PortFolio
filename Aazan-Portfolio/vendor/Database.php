@@ -15,9 +15,9 @@ class Database {
         if (mysqli_connect_errno()) die("Connection Failed!");
     }
 
-    public function signup ($fname, $email, $address, $zipcode, $mobile, $dob, $password, $profile, $occupation, $myworkurl, $cvFile_name)
+    public function signup ($fname, $email, $address, $mobile, $password, $profile, $occupation, $myworkurl, $cvFile_name)
     {
-        $this->query = "INSERT INTO users (fullName, email, address, zipcode, mobile, DOB, password, oldPassword, profile, occupation, workUrl, resume) VALUES ('$fname', '$email', '$address', '$zipcode', '$mobile', '$dob', '$password', '$password', '$profile', '$occupation', '$myworkurl', '$cvFile_name')";
+        $this->query = "INSERT INTO users (fullName, email, address, mobile, password, oldPassword, profile, occupation, workUrl, resume) VALUES ('$fname', '$email', '$address', '$mobile', '$password', '$password', '$profile', '$occupation', '$myworkurl', '$cvFile_name')";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }
@@ -60,7 +60,20 @@ class Database {
     public function fetchPortFolio ($iUserId)
     {
         $this->query = "SELECT * FROM portfolioformdata AS PFD INNER JOIN users AS U ON U.userId = PFD.userId WHERE PFD.userId='$iUserId'";
-        // die($this->query);
+        $this->result = mysqli_query($this->conn, $this->query);
+        return $this->result;
+    }
+
+    public function fetchUser($iUserId)
+    {
+        $this->query = "SELECT * FROM users WHERE userId='$iUserId'";
+        $this->result = mysqli_query($this->conn, $this->query);
+        return $this->result;
+    }
+
+    public function updateUser($name, $email, $mobile, $occupation, $address, $profImg, $iUserId)
+    {
+        $this->query = "UPDATE users SET fullName='$name', email='$email', mobile='$mobile', occupation='$occupation', address='$address', profile='$profImg' WHERE userId='$iUserId'";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }

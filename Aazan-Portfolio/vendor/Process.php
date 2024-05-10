@@ -5,6 +5,9 @@
     $objDatabase = new Database;
 
     $action = $_REQUEST["action"];
+    if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
+	else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
+
     // echo "<pre>";
     // print_r($_REQUEST);
 
@@ -49,7 +52,7 @@
                 move_uploaded_file($ImgPath, $dir."/".$file_name);
 
                 // Insertion
-                $res = $objDatabase->signup($fname, $email, $address, $zipcode, $mobile, $dob, $password, $file_name, $occupation, $myworkurl, $cvFile_name);
+                $res = $objDatabase->signup($fname, $email, $address, $mobile, $password, $file_name, $occupation, $myworkurl, $cvFile_name);
                 if ($res) header("location: ../login/register.php?errorSuccess=signupSuccess");
             } else {
                 header("location: ../login/register.php?error=cvFormat");
@@ -67,6 +70,8 @@
         $password = md5($pass);
         $fetch = $objDatabase->signin ($email, $password);
 
+        // rememberMe
+        
         if (mysqli_num_rows($fetch) > 0) {
             $row = mysqli_fetch_assoc($fetch);
             $aUserInfo = array(
@@ -74,6 +79,11 @@
                 "email" => $row["email"],
                 "password" => $row["password"]
             );
+
+            if (isset($_REQUEST['rememberMe'])) {
+                setcookie("User", $row["userId"], time() + (86400 * 30), "/");
+            }
+    
             $_SESSION["userInfo"] = $aUserInfo;
             header("location: ../portfolio/portfolio.php");
         } else {
@@ -126,21 +136,49 @@
         if ($prjtArr == "[]") $prjtArr = "";
 
         if ($_REQUEST["btnValue"] == "insert") {
-            $result = $objDatabase->portFolioInsertion($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $_REQUEST["userId"]);
+            $result = $objDatabase->portFolioInsertion($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $iUserId);
             if ($result) echo 1;
             else echo 0;
         } else {
-            $result = $objDatabase->portFolioUpdate($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $_REQUEST["userId"]);
+            $result = $objDatabase->portFolioUpdate($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $iUserId);
             if ($result) echo 1;
             else echo 0;
+        }
+    }
+
+    elseif (isset($action) && $action == "profile_Submit")
+    {
+        $dir = "../images/Profiles";
+        
+        if ($_FILES["prof_img"]["name"] == "") {
+            $profImg = $_REQUEST['old_prof_img'];
+        } else {
+            if (file_exists($dir. "/" .$profImg)) {
+                unlink($dir. "/" .$profImg);
+            }
+            $profImg = rand(0000,9999) . "_" . time() . ".jpg";
+            if (!is_dir($dir)) mkdir($dir, 0777, true);
+        }
+
+        $name = $_REQUEST['name'];
+        $email = $_REQUEST['email'];
+        $mobile = $_REQUEST['mobile'];
+        $occupation = $_REQUEST['occupation'];
+        $address = $_REQUEST['address'];
+
+        $result = $objDatabase->updateUser($name, $email, $mobile, $occupation, $address, $profImg, $iUserId);
+
+        if ($result) {
+            move_uploaded_file($_FILES["prof_img"]["tmp_name"], $dir."/".$profImg);
+            echo "1";
+        } else {
+            echo "0";
         }
     }
 
     elseif (isset($action) && $action == "checkUserData")
     {
         $iUserId = $_SESSION["userInfo"]["userId"];
-        // $iUserId = 10;
-        // die("here". $iUserId);
         $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
         $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
         echo json_encode($aProfFolioData);
@@ -148,25 +186,11 @@
 
     elseif (isset($action) && $action == "signOut")
     {
-       session_unset();
-       session_destroy();
-       header("location: ../portfolio.php");
+        session_unset();
+        session_destroy();
+        unset($_COOKIE['User']); 
+        setcookie('User', '', -1, '/');
+        header("location: ../portfolio.php");
     }
-
-    function CURL ($Method, $Curl, $Param, $Header) {
-        if ($Method != "GET") {
-            curl_setopt($Curl, CURLOPT_POST, true);
-        }
-        if ($Param != "" || $Param != NULL)
-            curl_setopt($Curl, CURLOPT_POSTFIELDS, $Param);
-        curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);
-        if ($Header != "" || $Header != NULL)
-            curl_setopt($Curl, CURLOPT_HTTPHEADER, $Header);
-        $Response = curl_exec($Curl);
-        curl_close($Curl);
-        return $Response;
-    }
-
-
 
 ?>

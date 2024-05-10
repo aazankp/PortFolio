@@ -13,7 +13,7 @@
                     <div>
                         <h1 class="text-2xl font-semibold">SIGN UP</h1>
                     </div>
-                    <form action="../vendor/Process.php" method="POST" enctype="multipart/form-data">
+                    <form action="../vendor/Process.php" method="POST" enctype="multipart/form-data" class="mb-10">
                         <div class="divide-y divide-gray-200">
                             <div class="py-4 text-base leading-6 space-y-2 text-gray-700 sm:text-lg sm:leading-7">
                                 <div class="grid grid-cols-6 gap-4">
@@ -122,8 +122,8 @@
                                 </div>
 
                                 <div class="relative">
-                                    <button type="submit" class="bg-blue-500 text-white rounded-md px-2 py-1">Submit</button>
-                                    <a href="index.php" class="bg-green-700 text-white rounded-md px-2 py-1 float-right">SIGN IN Page</a>
+                                    <button type="submit" class="bg-blue-500 text-white rounded-md px-8 py-2 w-full">Submit</button>
+                                    <a href="index.php" class="bg-blue-600 text-white rounded-md px-8 py-2 float-right w-full mt-2 text-center">SIGN IN</a>
                                 </div>
                                 <input type="hidden" value="register" name="action">
                             </div>
