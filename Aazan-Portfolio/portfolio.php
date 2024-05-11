@@ -3,10 +3,13 @@
     require_once "vendor/Database.php";
     $objDatabase = new Database;
 
-	if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
-	else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
-	else if (isset($_REQUEST["pId"])) $iUserId = $_REQUEST["pId"];
-	else header("location: login");
+	// if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
+	// else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
+	if (isset($_REQUEST["pId"])) $iUserId = $_GET["pId"];
+	else {
+		echo "<script>alert('Please Give Corrrect Url!');</script>";
+	}
+	// else header("location: login");
 
     $fetchPortFolio = $objDatabase->fetchPortFolio($iUserId);
     // $fetchPortFolio = $objDatabase->fetchPortFolio (3);

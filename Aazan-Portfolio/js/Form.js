@@ -679,13 +679,21 @@ $(document).ready(function() {
                 processData: false,
                 contentType: false,
                 success: function(result){
+                    inputValue = $("#portfolioUrl").val();
                     if(result == 1){
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
                             title: 'Your Data has been Submitted!',
-                            showConfirmButton: false,
-                            timer: 2000
+                            input: "text",
+                            inputLabel: "Please save this URL to visit your PortFolio",
+                            inputValue,
+                            showConfirmButton: true,
+                            didOpen: function() {
+                                setTimeout(function() {
+                                  document.querySelector('.swal2-input').select();
+                                }, 0);
+                            }
                         })
                     }
                     else if (result == 0) {
@@ -814,9 +822,9 @@ $(document).ready(function() {
         var textToCopy = $(".copyTxt").text();
         navigator.clipboard.writeText(textToCopy).then(function() {
             $("#copyStatus").text("Text copied!");
-            // setTimeout(function() {
-            //     $("#copyStatus").text("");
-            // }, 1500);
+            setTimeout(function() {
+                $("#copyStatus").text("");
+            }, 1500);
         })
     });
 

@@ -29,7 +29,7 @@ class Database {
         return $this->result;
     }
 
-    public function portFolioInsertion ($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $iUserId)
+    public function portFolioInsertion ($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $portfolioUrl, $iUserId)
     {
         $about = mysqli_real_escape_string($this->conn, $about);
         $contact = mysqli_real_escape_string($this->conn, $contact);
@@ -38,12 +38,12 @@ class Database {
         $expArr = mysqli_real_escape_string($this->conn, $expArr);
         $sklArr = mysqli_real_escape_string($this->conn, $sklArr);
         $prjtArr = mysqli_real_escape_string($this->conn, $prjtArr);
-        $this->query = "INSERT INTO portfolioformdata (about, contact, education, services, experiences, skills, projects, userId) VALUES ('$about', '$contact', '$eduArr', '$srvArr', '$expArr', '$sklArr', '$prjtArr', '$iUserId')";
+        $this->query = "INSERT INTO portfolioformdata (about, contact, education, services, experiences, skills, projects, portfolioUrl, userId) VALUES ('$about', '$contact', '$eduArr', '$srvArr', '$expArr', '$sklArr', '$prjtArr', '$iUserId')";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }
 
-    public function portFolioUpdate ($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $iUserId)
+    public function portFolioUpdate ($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $portfolioUrl, $iUserId)
     {
         $about = mysqli_real_escape_string($this->conn, $about);
         $contact = mysqli_real_escape_string($this->conn, $contact);
@@ -52,7 +52,7 @@ class Database {
         $expArr = mysqli_real_escape_string($this->conn, $expArr);
         $sklArr = mysqli_real_escape_string($this->conn, $sklArr);
         $prjtArr = mysqli_real_escape_string($this->conn, $prjtArr);
-        $this->query = "UPDATE portfolioformdata SET about='$about', contact='$contact', education='$eduArr', services='$srvArr', experiences='$expArr', skills='$sklArr', projects='$prjtArr' WHERE userId='$iUserId'";
+        $this->query = "UPDATE portfolioformdata SET about='$about', contact='$contact', education='$eduArr', services='$srvArr', experiences='$expArr', skills='$sklArr', projects='$prjtArr', portfolioUrl='$portfolioUrl' WHERE userId='$iUserId'";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }

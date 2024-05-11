@@ -4,11 +4,12 @@
     require_once "../vendor/Database.php";
     $objDatabase = new Database;
     $objLibrary->Header("PortFolio");
-    $objLibrary->NavBar();
-
+    
     if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
 	else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
 	else header("location: login");
+
+    $objLibrary->NavBar($iUserId);
 
     $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
     if (mysqli_num_rows($fetchPortFolio) > 0) {
@@ -23,6 +24,7 @@
 
         $sAboutDesc = $aContact["Description"];
         $sContactDesc = $aAbout["aboutDescription"];
+        $portfolioUrl = $aProfFolioData["portfolioUrl"];
 
         // echo count($aEducation);
         // echo "<pre>";
@@ -33,6 +35,7 @@
         // die("No Data Found");
         $sAboutDesc = "";
         $sContactDesc = "";
+        $portfolioUrl = $objLibrary->host . "/new_work/Verge/PortFolio/Aazan-Portfolio/portfolio/portfolio.php?pId=" . $iUserId;
     }
 
     $btnValue = (mysqli_num_rows($fetchPortFolio) > 0) ? "update" : "insert";
@@ -137,6 +140,7 @@
 
             <input type="hidden" value="<?= $iUserId; ?>" name="userId">
             <input type="hidden" value="<?= $btnValue; ?>" name="btnValue">
+            <input type="hidden" id="portfolioUrl" value="<?= $portfolioUrl; ?>" name="portfolioUrl">
             <button type="submit" class="bg-emerald-500 text-white rounded-md px-10 py-2 mt-5" id="submitButton">Save</button>
         </form>
     </div>

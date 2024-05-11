@@ -4,14 +4,18 @@
     require_once "../vendor/Database.php";
     $objDatabase = new Database;
     $objLibrary->Header("PortFolio");
-    $objLibrary->NavBar();
-
+    
     if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
 	else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
 	else header("location: login");
 
+    $objLibrary->NavBar($iUserId);
+
     $userData = $objDatabase->fetchPortFolio($iUserId);
     $aUserData = mysqli_fetch_assoc($userData);
+    
+    $Prof_img = $aUserData['profile'];
+    if ($aUserData['profile'] == "") $Prof_img = "no-image.jpeg";
 ?>
 
 <div class="container mx-auto px-4 md:px-10 lg:px-20 xl:px-40 pt-7 text-center">
@@ -24,12 +28,12 @@
                         <h1 class="font-bold text-left min-w-max">PortFolio Url:</h1>
                         <div class="text-left copyTxt ms-1"><?= $aUserData['portfolioUrl']; ?> <i class="far fa-copy text-lg w-8" id="copyBtn"></i></div>
                     </div>
-                    <div id="copyStatus" class="text-slate-600 text-sm pt-1"></div>
+                    <div id="copyStatus" class="text-slate-600 text-sm pt-3 h-8"></div>
                 </div>
             </div>
             <div class="flex justify-end items-center h-50">
                 <div class="relative w-full profile-img-pro flex flex-col items-end">
-                    <img class="rounded-full float-right" src="../images/Profiles/<?= $aUserData['profile']; ?>" alt="Rounded avatar">
+                    <img class="rounded-full float-right" src="../images/Profiles/<?= $Prof_img; ?>" alt="Rounded avatar">
                     <input type="file" name="prof_img" class="border-b-2 border-teal-400 pb-2">
                     <input type="hidden" name="old_prof_img" value="<?= $aUserData['profile']; ?>">
                 </div>

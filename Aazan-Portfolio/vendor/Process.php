@@ -94,6 +94,7 @@
     elseif (isset($action) && $action == "portFolio_Submit") {
         $about = $_REQUEST["about"];
         $contact = $_REQUEST["contact"];
+        $portfolioUrl = $_REQUEST["portfolioUrl"];
         $eduArr = array();
         $srvArr = array();
         $expArr = array();
@@ -136,11 +137,11 @@
         if ($prjtArr == "[]") $prjtArr = "";
 
         if ($_REQUEST["btnValue"] == "insert") {
-            $result = $objDatabase->portFolioInsertion($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $iUserId);
+            $result = $objDatabase->portFolioInsertion($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $portfolioUrl, $iUserId);
             if ($result) echo 1;
             else echo 0;
         } else {
-            $result = $objDatabase->portFolioUpdate($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $iUserId);
+            $result = $objDatabase->portFolioUpdate($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $portfolioUrl, $iUserId);
             if ($result) echo 1;
             else echo 0;
         }
@@ -190,7 +191,7 @@
         session_destroy();
         unset($_COOKIE['User']); 
         setcookie('User', '', -1, '/');
-        header("location: ../portfolio.php");
+        header("location: ../login/");
     }
 
 ?>
