@@ -64,13 +64,6 @@ class Database {
         return $this->result;
     }
 
-    public function fetchUser($iUserId)
-    {
-        $this->query = "SELECT * FROM users WHERE userId='$iUserId'";
-        $this->result = mysqli_query($this->conn, $this->query);
-        return $this->result;
-    }
-
     public function updateUser($name, $email, $mobile, $occupation, $address, $profImg, $iUserId)
     {
         $this->query = "UPDATE users SET fullName='$name', email='$email', mobile='$mobile', occupation='$occupation', address='$address', profile='$profImg' WHERE userId='$iUserId'";

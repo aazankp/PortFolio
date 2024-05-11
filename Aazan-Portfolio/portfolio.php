@@ -8,14 +8,14 @@
 	else if (isset($_REQUEST["pId"])) $iUserId = $_REQUEST["pId"];
 	else header("location: login");
 
-    $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
+    $fetchPortFolio = $objDatabase->fetchPortFolio($iUserId);
     // $fetchPortFolio = $objDatabase->fetchPortFolio (3);
 
     if (mysqli_num_rows($fetchPortFolio) > 0) 
 	{
 		$aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
 
-		if ($aProfFolioData["password"] != $aProfFolioData["oldPassword"]) header("location: login");
+		// if ($aProfFolioData["password"] != $aProfFolioData["oldPassword"]) header("location: login");
 		
         $aAbout = json_decode($aProfFolioData["about"], true);
         $aContact = json_decode($aProfFolioData["contact"], true);
@@ -255,7 +255,7 @@
 	<title>PortFolio - Aazan Khan Pathan</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -469,7 +469,7 @@
 	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

@@ -10,7 +10,7 @@
 	else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
 	else header("location: login");
 
-    $userData = $objDatabase->fetchUser($iUserId);
+    $userData = $objDatabase->fetchPortFolio($iUserId);
     $aUserData = mysqli_fetch_assoc($userData);
 ?>
 
@@ -20,12 +20,14 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4">
             <div class="flex justify-end items-center h-50">
                 <div class="relative w-full">
-                    <h1 class="font-bold text-left">Profile Url:</h1>
-                    <div class="text-left copyTxt">asjdlasjdasjl <i class="far fa-copy text-lg w-8" id="copyBtn"></i></div>
+                    <div class="copy-Text-Div flex">
+                        <h1 class="font-bold text-left min-w-max">PortFolio Url:</h1>
+                        <div class="text-left copyTxt ms-1"><?= $aUserData['portfolioUrl']; ?> <i class="far fa-copy text-lg w-8" id="copyBtn"></i></div>
+                    </div>
+                    <div id="copyStatus" class="text-slate-600 text-sm pt-1"></div>
                 </div>
             </div>
             <div class="flex justify-end items-center h-50">
-                <!-- <h1 class="font-bold text-left  min-w-max">Profile Picture:</h1> -->
                 <div class="relative w-full profile-img-pro flex flex-col items-end">
                     <img class="rounded-full float-right" src="../images/Profiles/<?= $aUserData['profile']; ?>" alt="Rounded avatar">
                     <input type="file" name="prof_img" class="border-b-2 border-teal-400 pb-2">

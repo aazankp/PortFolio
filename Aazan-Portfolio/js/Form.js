@@ -814,6 +814,9 @@ $(document).ready(function() {
         var textToCopy = $(".copyTxt").text();
         navigator.clipboard.writeText(textToCopy).then(function() {
             $("#copyStatus").text("Text copied!");
+            // setTimeout(function() {
+            //     $("#copyStatus").text("");
+            // }, 1500);
         })
     });
 
