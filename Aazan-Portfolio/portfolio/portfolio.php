@@ -21,14 +21,14 @@
         $aExperiences = json_decode($aProfFolioData["experiences"], true);
         $aSkills = json_decode($aProfFolioData["skills"], true);
         $aProjects = json_decode($aProfFolioData["projects"], true);
-
+        
         $sAboutDesc = $aContact["Description"];
         $sContactDesc = $aAbout["aboutDescription"];
         $portfolioUrl = $aProfFolioData["portfolioUrl"];
 
         // echo count($aEducation);
         // echo "<pre>";
-        // print_r($aProfFolioData);
+        // print_r($aEducation);
         // print_r($sAboutDesc);
         // die();
     } else {

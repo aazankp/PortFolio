@@ -65,12 +65,10 @@
     }
 
     elseif (isset($action) && $action == "signIn") {
-        $email = $_REQUEST['email'];
-        $pass = $_REQUEST['password'];
+        $email = htmlspecialchars($_REQUEST['email']);
+        $pass = htmlspecialchars($_REQUEST['password']);
         $password = md5($pass);
         $fetch = $objDatabase->signin ($email, $password);
-
-        // rememberMe
         
         if (mysqli_num_rows($fetch) > 0) {
             $row = mysqli_fetch_assoc($fetch);
@@ -83,6 +81,8 @@
             if (isset($_REQUEST['rememberMe'])) {
                 setcookie("User", $row["userId"], time() + (86400 * 30), "/");
             }
+
+            $upd_Old_Pass = $objDatabase->updatePassword($row["password"], $row["password"], $row["userId"]);
     
             $_SESSION["userInfo"] = $aUserInfo;
             header("location: ../portfolio/portfolio.php");
@@ -94,7 +94,7 @@
     elseif (isset($action) && $action == "portFolio_Submit") {
         $about = $_REQUEST["about"];
         $contact = $_REQUEST["contact"];
-        $portfolioUrl = $_REQUEST["portfolioUrl"];
+        $portfolioUrl = htmlspecialchars($_REQUEST["portfolioUrl"]);
         $eduArr = array();
         $srvArr = array();
         $expArr = array();
@@ -116,9 +116,16 @@
             } else {
                 $dir = "../images/Projects";
                 if (!is_dir($dir)) mkdir($dir, 0777, true);
-                $file_name = rand(0000,9999) . "_" . time() . ".jpg";
-                move_uploaded_file($value["tmp_name"], $dir."/".$file_name);
-                $prjtArr[$key]["imageName"] = $file_name;
+                $path = pathinfo($value["name"]);
+                if (strtolower($path["extension"]) == "jpg" || strtolower($path["extension"]) == "jpeg" || strtolower($path["extension"]) == "png")
+                {
+                    $file_name = rand(0000,9999) . "_" . time() . ".jpg";
+                    move_uploaded_file($value["tmp_name"], $dir."/".$file_name);
+                    $prjtArr[$key]["imageName"] = $file_name;
+                } else {
+                    echo "invalid Service Img";
+                    exit;
+                }
             }
         }
 
@@ -149,23 +156,35 @@
 
     elseif (isset($action) && $action == "profile_Submit")
     {
+        $name = htmlspecialchars($_REQUEST['name']);
+        $email = htmlspecialchars($_REQUEST['email']);
+        $mobile = htmlspecialchars($_REQUEST['mobile']);
+        $occupation = htmlspecialchars($_REQUEST['occupation']);
+        $address = htmlspecialchars($_REQUEST['address']);
+
+        if ($name == "" || $email == "" || $mobile == "" || $occupation == "" || $address == "") {
+            echo "fill";
+            exit;
+        }
+        
         $dir = "../images/Profiles";
         
         if ($_FILES["prof_img"]["name"] == "") {
             $profImg = $_REQUEST['old_prof_img'];
         } else {
-            if (file_exists($dir. "/" .$profImg)) {
-                unlink($dir. "/" .$profImg);
+            $path = pathinfo($_FILES["prof_img"]["name"]);
+            if (strtolower($path["extension"]) == "jpg" || strtolower($path["extension"]) == "jpeg" || strtolower($path["extension"]) == "png") {
+                $old_ProfImg = $_REQUEST['old_prof_img'];
+                if (file_exists($dir. "/" .$old_ProfImg)) {
+                    unlink($dir. "/" .$old_ProfImg);
+                }
+                $profImg = rand(0000,9999) . "_" . time() . ".jpg";
+                if (!is_dir($dir)) mkdir($dir, 0777, true);
+            } else {
+                echo "imgError";
+                exit;
             }
-            $profImg = rand(0000,9999) . "_" . time() . ".jpg";
-            if (!is_dir($dir)) mkdir($dir, 0777, true);
         }
-
-        $name = $_REQUEST['name'];
-        $email = $_REQUEST['email'];
-        $mobile = $_REQUEST['mobile'];
-        $occupation = $_REQUEST['occupation'];
-        $address = $_REQUEST['address'];
 
         $result = $objDatabase->updateUser($name, $email, $mobile, $occupation, $address, $profImg, $iUserId);
 
@@ -177,9 +196,48 @@
         }
     }
 
+    elseif (isset($action) && $action == "password_Submit")
+    {
+        $current_pass = htmlspecialchars($_REQUEST['currentPass']);
+        $new_pass = htmlspecialchars($_REQUEST['newPass']);
+        $conf_pass = htmlspecialchars($_REQUEST['conf_pass']);
+
+        $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
+        $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
+        $password = $aProfFolioData["password"];
+
+        if ($current_pass == "" || $new_pass == "" || $conf_pass == "") {
+            echo "fill";
+            exit;
+        }
+
+        $current_pass = md5($current_pass);
+        $new_pass = md5($new_pass);
+        $conf_pass = md5($conf_pass);
+
+        if ($aProfFolioData["password"] != $current_pass)
+        {
+            echo "curr_pass";
+            exit;
+        }
+
+        if ($new_pass != $conf_pass)
+        {
+            echo "conf_pass";
+            exit;
+        }
+
+        $result = $objDatabase->updatePassword($current_pass, $new_pass, $iUserId);
+
+        if ($result) {
+            echo "1";
+        } else {
+            echo "0";
+        }
+    }
+
     elseif (isset($action) && $action == "checkUserData")
     {
-        $iUserId = $_SESSION["userInfo"]["userId"];
         $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
         $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
         echo json_encode($aProfFolioData);

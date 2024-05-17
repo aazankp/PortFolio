@@ -431,10 +431,10 @@ $(document).ready(function() {
                     <input autocomplete="off" id="'+ nameVar +'serviceName" name="'+ nameVar +'[serviceName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Service Name" value="'+srvServiceName+'" /> \
                     <label for="'+ nameVar +'serviceName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Service Name</label> \
                 </div> \
-                <div class="text-black focus:shadow-lg focus-=:bg-dark focus:ring-blue-300 font-medium rounded-lg text-5xl p-[1rem] w-[5rem] flex justify-center items-center bg-gray-100 ms-2"><i id="iconClass'+ nameVar +'"></i></div> \
+                <div class="text-black focus:shadow-lg focus-=:bg-dark focus:ring-blue-300 font-medium rounded-lg text-5xl p-[1rem] w-[5rem] flex justify-center items-center bg-gray-100 ms-2"><i id="iconClass'+ nameVar +'"></i><i id="removeIconiconNameVal'+ nameVar +'" class="fas fa-'+ srvIconName +'" data-iconName="'+ srvIconName +'"></i></div> \
             </div> \
             <button type="button" class="relative left-0 bg-rose-500 text-white max-w-full rounded-md px-2 mt-2 hover:bg-rose-700 transition" id="openModal" style="width: max-content; background-color: #374151; height: 45px; padding: 10px 30px 10px 30px;"> Select Icon </button> \
-            <input type="hidden" class="validate iconNameVal'+nameVar+'" name="'+nameVar+'[iconName]" id="iconNameVal'+nameVar+'"> \
+            <input type="hidden" class="validate iconNameVal'+nameVar+'" name="'+nameVar+'[iconName]" id="iconNameVal'+nameVar+'" value="'+ srvIconName +'" > \
         </div>');
     }
 
@@ -649,6 +649,7 @@ $(document).ready(function() {
       
         var inputFields = $("#portFolio_Form_Submit input.validate");
         var textareaFields = $("#portFolio_Form_Submit textarea.validate");
+        var IconInputFields = $("#portFolio_Form_Submit input.validate:hidden");
        
         if (inputFields.length > 0) {
             isEmpty = false;
@@ -670,6 +671,16 @@ $(document).ready(function() {
             });
         }
 
+        if (IconInputFields.length > 0) {
+            isEmpty = false;
+            IconInputFields.each(function() {
+                if ($(this).val().trim() === "") {
+                    isEmpty = true;
+                    return false;
+                }
+            });
+        }
+
         if (isEmpty === false) {
             $.ajax({
                 url: "../vendor/Process.php?action=portFolio_Submit",
@@ -679,6 +690,7 @@ $(document).ready(function() {
                 processData: false,
                 contentType: false,
                 success: function(result){
+                    console.log(result);
                     inputValue = $("#portfolioUrl").val();
                     if(result == 1){
                         Swal.fire({
@@ -690,9 +702,7 @@ $(document).ready(function() {
                             inputValue,
                             showConfirmButton: true,
                             didOpen: function() {
-                                setTimeout(function() {
-                                  document.querySelector('.swal2-input').select();
-                                }, 0);
+                                document.querySelector('.swal2-input').select();
                             }
                         })
                     }
@@ -710,6 +720,13 @@ $(document).ready(function() {
                             text: 'Please Upload Project Image!'
                         })
                     }
+                    else if (result == "invalid Service Img") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please Upload Valid Format of Image JPG, JPEG, PNG!'
+                        })
+                    }
                 }
             });
         } else {
@@ -724,11 +741,15 @@ $(document).ready(function() {
 
     // Login Code Start
     // Show Hide Password
-    $(document).on("click", "#showPass", function(){
+    $(document).on("click", "#showLoginPass", function(){
         if ($("#password").attr("type") === "password") {
             $("#password").attr("type", "text");
+            $("#showLoginPass").removeClass();
+            $("#showLoginPass").addClass("fas fa-eye absolute top-1/2 right-1 transform -translate-y-1/2 text-gray-400 showPass");
         } else {
             $("#password").attr("type", "password");
+            $("#showLoginPass").removeClass();
+            $("#showLoginPass").addClass("fas fa-eye-slash absolute top-1/2 right-1 transform -translate-y-1/2 text-gray-400 showPass");
         }
     });
     // Login Code End
@@ -745,15 +766,24 @@ $(document).ready(function() {
         service_TagId = $(this).prev("div").find("i").attr("id");
     });
 
+
     $(document).on("click", ".closeModall", function(){
         $("#modelConfirm").css("display", "none");
         $("body").removeClass("overflow-y-hidden");
         check = $(this).val();
-        checkVal = $("#"+service_icon_Id).val();
-
+        
         if (check !== "save") {
             $("#"+service_icon_Id).removeAttr("value");
+            PrevIcon = $("#removeIcon"+service_icon_Id).data("iconname");
+            
+            if (PrevIcon !== ""){
+                $("#"+service_icon_Id).val(PrevIcon);
+                $("#removeIcon"+service_icon_Id).css("display", "block");
+            }
+             
             $("#"+service_TagId).removeClass();
+        } else {
+            $("#removeIcon"+service_icon_Id).css("display", "none");
         }
     });
 
@@ -761,6 +791,9 @@ $(document).ready(function() {
         icon = $(this).val();
         $("#"+service_icon_Id).val(icon);
         $("#"+service_TagId).removeClass();
+        if ($("#"+service_icon_Id).val().trim() === "") {
+            $("#removeIcon"+service_icon_Id).remove();
+        }
         $("#"+service_TagId).addClass("fas fa-" + icon);
     });
 
@@ -769,18 +802,6 @@ $(document).ready(function() {
         event.preventDefault();
         var formdata = new FormData(this);
       
-        var inputFields = $("#profile_Form_Submit input.validate_Pro");
-       
-        if (inputFields.length > 0) {
-            isEmpty = false;
-            inputFields.each(function() {
-                if ($(this).val().trim() === "") {
-                    isEmpty = true;
-                    return false;
-                }
-            });
-        }
-
         if (isEmpty === false) {
             $.ajax({
                 url: "../vendor/Process.php?action=profile_Submit",
@@ -790,7 +811,6 @@ $(document).ready(function() {
                 processData: false,
                 contentType: false,
                 success: function(result){
-                    console.log(result)
                     if(result == 1){
                         Swal.fire({
                             position: 'center',
@@ -807,13 +827,21 @@ $(document).ready(function() {
                             text: 'Insertion Fail!'
                         })
                     }
+                    else if (result == "fill") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Warning...',
+                            text: 'Please Fill All Fields Carefully!'
+                        });
+                    }
+                    else if (result == "imgError") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Warning...',
+                            text: 'Please Upload Valid Format of Image JPG, JPEG, PNG!'
+                        });
+                    }
                 }
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Warning...',
-                text: 'Please Fill All Fields Carefully!'
             });
         }
     });
@@ -826,6 +854,97 @@ $(document).ready(function() {
                 $("#copyStatus").text("");
             }, 1500);
         })
+    });
+
+    // Passwords Form Submittion
+    $(document).on("submit", "#pass_Form_Submit", function(event) {
+        event.preventDefault();
+        var formdata = new FormData(this);
+      
+        $.ajax({
+            url: "../vendor/Process.php?action=password_Submit",
+            type: "POST",
+            data: formdata,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(result){
+                console.log(result);
+                if(result == 1){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Password Updated Successfully!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                }
+                else if (result == 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Warning...',
+                        text: 'Insertion Fail!'
+                    })
+                }
+                else if (result == "conf_pass") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Warning...',
+                        text: 'Password not Matched!'
+                    });
+                }
+                else if (result == "curr_pass") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Warning...',
+                        text: 'Invalid Current Password!'
+                    });
+                }
+                else if (result == "fill") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Warning...',
+                        text: 'Please Fill All Fields Carefully!'
+                    });
+                }
+            }
+        });
+    });
+
+    $(document).on("click", "#showCurrPass", function(){
+        if ($("#currentPass").attr("type") === "password") {
+            $("#currentPass").attr("type", "text");
+            $("#showCurrPass").removeClass();
+            $("#showCurrPass").addClass("fas fa-eye absolute top-1/2 right-1 transform -translate-y-1/2 text-gray-400 showPass");
+        } else {
+            $("#currentPass").attr("type", "password");
+            $("#showCurrPass").removeClass();
+            $("#showCurrPass").addClass("fas fa-eye-slash absolute top-1/2 right-1 transform -translate-y-1/2 text-gray-400 showPass");
+        }
+    });
+
+    $(document).on("click", "#showNewPass", function(){
+        if ($("#newPass").attr("type") === "password") {
+            $("#newPass").attr("type", "text");
+            $("#showNewPass").removeClass();
+            $("#showNewPass").addClass("fas fa-eye absolute top-1/2 right-1 transform -translate-y-1/2 text-gray-400 showPass");
+        } else {
+            $("#newPass").attr("type", "password");
+            $("#showNewPass").removeClass();
+            $("#showNewPass").addClass("fas fa-eye-slash absolute top-1/2 right-1 transform -translate-y-1/2 text-gray-400 showPass");
+        }
+    });
+
+    $(document).on("click", "#showConfPass", function(){
+        if ($("#conf_pass").attr("type") === "password") {
+            $("#conf_pass").attr("type", "text");
+            $("#showConfPass").removeClass();
+            $("#showConfPass").addClass("fas fa-eye absolute top-1/2 right-1 transform -translate-y-1/2 text-gray-400 showPass");
+        } else {
+            $("#conf_pass").attr("type", "password");
+            $("#showConfPass").removeClass();
+            $("#showConfPass").addClass("fas fa-eye-slash absolute top-1/2 right-1 transform -translate-y-1/2 text-gray-400 showPass");
+        }
     });
 
 

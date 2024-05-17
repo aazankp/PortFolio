@@ -8,6 +8,7 @@
 	if (isset($_REQUEST["pId"])) $iUserId = $_GET["pId"];
 	else {
 		echo "<script>alert('Please Give Corrrect Url!');</script>";
+		exit;
 	}
 	// else header("location: login");
 
@@ -16,10 +17,7 @@
 
     if (mysqli_num_rows($fetchPortFolio) > 0) 
 	{
-		$aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
-
-		// if ($aProfFolioData["password"] != $aProfFolioData["oldPassword"]) header("location: login");
-		
+		$aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);		
         $aAbout = json_decode($aProfFolioData["about"], true);
         $aContact = json_decode($aProfFolioData["contact"], true);
         $aEducation = json_decode($aProfFolioData["education"], true);
@@ -78,7 +76,7 @@
 				<div class="col-md-4 text-center d-flex ftco-animate">
 					<span class="services-1">
 						<span class="icon">
-							<i class="'. $value["iconName"] .'"></i>
+							<i class="fas fa-'. $value["iconName"] .'"></i>
 						</span>
 						<div class="desc">
 							<h3 class="mb-5">'. $value["serviceName"] .'</h3>
@@ -314,7 +312,7 @@
 									</p>
 								</div>
 								<div class="home-img">
-									<img src="images/Profiles/7153_Profile.PNG">
+									<img src="images/Profiles/<?= $aProfFolioData["profile"] ?>">
 								</div>
 							</div>
 						</div>

@@ -24,7 +24,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4">
             <div class="flex justify-end items-center h-50">
                 <div class="relative w-full">
-                    <div class="copy-Text-Div flex">
+                    <div class="copy-Text-Div flex flex-row flex-wrap">
                         <h1 class="font-bold text-left min-w-max">PortFolio Url:</h1>
                         <div class="text-left copyTxt ms-1"><?= $aUserData['portfolioUrl']; ?> <i class="far fa-copy text-lg w-8" id="copyBtn"></i></div>
                     </div>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="flex justify-end items-center h-50">
-                <div class="relative w-full profile-img-pro flex flex-col items-end">
+                <div class="relative w-full profile-img-pro flex flex-col items-end items-center mb-5">
                     <img class="rounded-full float-right" src="../images/Profiles/<?= $Prof_img; ?>" alt="Rounded avatar">
                     <input type="file" name="prof_img" class="border-b-2 border-teal-400 pb-2">
                     <input type="hidden" name="old_prof_img" value="<?= $aUserData['profile']; ?>">

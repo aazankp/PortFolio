@@ -28,6 +28,7 @@
                                 <div class="relative">
                                     <input autocomplete="off" id="password" name="password" type="password" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:borer-teal-600 text-base text-sm" placeholder="Password" />
                                     <label for="password" class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
+                                    <i class="fas fa-eye-slash absolute top-1/2 right-1 transform -translate-y-1/2 text-gray-400 showPass" id="showLoginPass"></i>
                                 </div>
                                 <div class="relative pr-3">
                                     <div class="inline-flex items-center">
@@ -47,27 +48,6 @@
                                         <label class="mt-px font-light text-gray-700 cursor-pointer select-none" htmlFor="link" for="rememberMe">
                                             <p class="flex font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
                                                 Remember me
-                                            </p>
-                                        </label>
-                                    </div>
-                                    <div class="inline-flex items-center float-right">
-                                        <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="showPass">
-                                            <input type="checkbox"
-                                            class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-green-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-green-500 before:opacity-0 before:transition-opacity checked:border-green-900 checked:bg-green-700 checked:before:bg-green-900 hover:before:opacity-10"
-                                            id="showPass" />
-                                            <span
-                                            class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor"
-                                                stroke="currentColor" stroke-width="1">
-                                                <path fill-rule="evenodd"
-                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                clip-rule="evenodd"></path>
-                                            </svg>
-                                            </span>
-                                        </label>
-                                        <label class="mt-px font-light text-gray-700 cursor-pointer select-none" htmlFor="link" for="showPass">
-                                            <p class="flex font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                                                Show Password
                                             </p>
                                         </label>
                                     </div>

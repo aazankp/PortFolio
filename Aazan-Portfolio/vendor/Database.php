@@ -17,6 +17,14 @@ class Database {
 
     public function signup ($fname, $email, $address, $mobile, $password, $profile, $occupation, $myworkurl, $cvFile_name)
     {
+        $fname = mysqli_real_escape_string($this->conn, $fname);
+        $email = mysqli_real_escape_string($this->conn, $email);
+        $address = mysqli_real_escape_string($this->conn, $address);
+        $mobile = mysqli_real_escape_string($this->conn, $mobile);
+        $password = mysqli_real_escape_string($this->conn, $password);
+        $occupation = mysqli_real_escape_string($this->conn, $occupation);
+        $myworkurl = mysqli_real_escape_string($this->conn, $myworkurl);
+
         $this->query = "INSERT INTO users (fullName, email, address, mobile, password, oldPassword, profile, occupation, workUrl, resume) VALUES ('$fname', '$email', '$address', '$mobile', '$password', '$password', '$profile', '$occupation', '$myworkurl', '$cvFile_name')";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
@@ -24,6 +32,9 @@ class Database {
 
     public function signin ($email, $password)
     {
+        $email = mysqli_real_escape_string($this->conn, $email);
+        $password = mysqli_real_escape_string($this->conn, $password);
+
         $this->query = "SELECT userId, email, password FROM users WHERE email='$email' AND password='$password'";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
@@ -38,6 +49,7 @@ class Database {
         $expArr = mysqli_real_escape_string($this->conn, $expArr);
         $sklArr = mysqli_real_escape_string($this->conn, $sklArr);
         $prjtArr = mysqli_real_escape_string($this->conn, $prjtArr);
+
         $this->query = "INSERT INTO portfolioformdata (about, contact, education, services, experiences, skills, projects, portfolioUrl, userId) VALUES ('$about', '$contact', '$eduArr', '$srvArr', '$expArr', '$sklArr', '$prjtArr', '$iUserId')";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
@@ -52,6 +64,7 @@ class Database {
         $expArr = mysqli_real_escape_string($this->conn, $expArr);
         $sklArr = mysqli_real_escape_string($this->conn, $sklArr);
         $prjtArr = mysqli_real_escape_string($this->conn, $prjtArr);
+
         $this->query = "UPDATE portfolioformdata SET about='$about', contact='$contact', education='$eduArr', services='$srvArr', experiences='$expArr', skills='$sklArr', projects='$prjtArr', portfolioUrl='$portfolioUrl' WHERE userId='$iUserId'";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
@@ -66,7 +79,23 @@ class Database {
 
     public function updateUser($name, $email, $mobile, $occupation, $address, $profImg, $iUserId)
     {
+        $name = mysqli_real_escape_string($this->conn, $name);
+        $email = mysqli_real_escape_string($this->conn, $email);
+        $mobile = mysqli_real_escape_string($this->conn, $mobile);
+        $occupation = mysqli_real_escape_string($this->conn, $occupation);
+        $address = mysqli_real_escape_string($this->conn, $address);
+
         $this->query = "UPDATE users SET fullName='$name', email='$email', mobile='$mobile', occupation='$occupation', address='$address', profile='$profImg' WHERE userId='$iUserId'";
+        $this->result = mysqli_query($this->conn, $this->query);
+        return $this->result;
+    }
+    
+    public function updatePassword($current_pass, $new_pass, $iUserId)
+    {
+        $current_pass = mysqli_real_escape_string($this->conn, $current_pass);
+        $new_pass = mysqli_real_escape_string($this->conn, $new_pass);
+
+        $this->query = "UPDATE users SET password='$new_pass', oldPassword='$current_pass' WHERE userId='$iUserId'";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }

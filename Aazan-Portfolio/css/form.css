@@ -20,6 +20,10 @@
     cursor: pointer;
 }
 
+.showPass:hover {
+    cursor: pointer;
+}
+
 #copyBtn {
     width: 30px;
     font-size: 18px;
@@ -29,4 +33,8 @@
     .prof-second-input {
         margin-top: 15px;
     }
+}
+
+.nav-menu-btn a:hover {
+    background-color: #e9e4e4;
 }
