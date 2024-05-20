@@ -40,12 +40,12 @@
         if (strtolower($path["extension"]) == "jpg" || strtolower($path["extension"]) == "jpeg" || strtolower($path["extension"]) == "png") {
             if (strtolower($cvPath["extension"]) == "pdf") {
                 // Resume
-                $cvDir = "../vendor/Resumes";
+                $cvDir = "../vendor/Resumes/User_".$iUserId;
                 if (!is_dir($cvDir)) mkdir($cvDir, 0777, true);
                 $cvFile_name = rand(0000,9999) . "_" .$_FILES["cv"]["name"];
                 move_uploaded_file($_FILES["cv"]["tmp_name"], $cvDir."/".$cvFile_name);
                 // Profile
-                $dir = "../images/Profiles";
+                $dir = "../images/Profiles/User_".$iUserId;
                 if (!is_dir($dir)) mkdir($dir, 0777, true);
                 $file_name = rand(0000,9999) . "_" . time() . ".PNG";
                 $ImgPath = $_FILES["profile"]["tmp_name"];
@@ -109,22 +109,33 @@
             if (stripos($key, "projects") === 0) $prjtArr[$key] = $value;
         }
 
-        foreach ($_FILES as $key => $value) {
-            if ($value["name"] == "") {
+        $dir = "../images/Projects/User_".$iUserId;
+
+        foreach ($_FILES as $key => $value)
+        {
+            if ($value["name"] == "" && $prjtArr[$key]["imageName"] == "") {
                 echo "projectImg";
                 exit;
             } else {
-                $dir = "../images/Projects";
                 if (!is_dir($dir)) mkdir($dir, 0777, true);
-                $path = pathinfo($value["name"]);
-                if (strtolower($path["extension"]) == "jpg" || strtolower($path["extension"]) == "jpeg" || strtolower($path["extension"]) == "png")
-                {
-                    $file_name = rand(0000,9999) . "_" . time() . ".jpg";
-                    move_uploaded_file($value["tmp_name"], $dir."/".$file_name);
-                    $prjtArr[$key]["imageName"] = $file_name;
-                } else {
-                    echo "invalid Service Img";
-                    exit;
+
+                if ($value["name"] != "") {
+                    $path = pathinfo($value["name"]);
+                    if (strtolower($path["extension"]) == "jpg" || strtolower($path["extension"]) == "jpeg" || strtolower($path["extension"]) == "png")
+                    {
+                        $old_ProfImg = $prjtArr[$key]["imageName"];
+                        if ($old_ProfImg != "") {
+                            if (file_exists($dir. "/" .$old_ProfImg)) {
+                                unlink($dir. "/" .$old_ProfImg);
+                            }
+                        }
+                        $file_name = rand(0000,9999) . "_" . time() . ".jpg";
+                        move_uploaded_file($value["tmp_name"], $dir."/".$file_name);
+                        $prjtArr[$key]["imageName"] = $file_name;
+                    } else {
+                        echo "invalid Service Img";
+                        exit;
+                    }
                 }
             }
         }
@@ -142,6 +153,15 @@
         if ($expArr == "[]") $expArr = "";
         if ($sklArr == "[]") $sklArr = "";
         if ($prjtArr == "[]") $prjtArr = "";
+
+        if ($prjtArr == "") {
+            $files = glob($dir . "/*");
+            foreach ($files as $file) {
+                if (is_file($file)) {
+                    unlink($file);
+                }
+            }
+        }
 
         if ($_REQUEST["btnValue"] == "insert") {
             $result = $objDatabase->portFolioInsertion($about, $contact, $eduArr, $srvArr, $expArr, $sklArr, $prjtArr, $portfolioUrl, $iUserId);
@@ -250,6 +270,17 @@
         unset($_COOKIE['User']); 
         setcookie('User', '', -1, '/');
         header("location: ../login/");
+    }
+
+    elseif (isset($action) && $action == "SendEmail")
+    {
+        $name = $_REQUEST['name'];
+        $email = $_REQUEST['email'];
+        $subject = $_REQUEST['subject'];
+        $message = $_REQUEST['message'];
+        require_once "PHPMailer/vendor/index.php";
+        $res = SendMail($name, $email, $subject, $message, $iUserId);
+        echo $res;
     }
 
 ?>

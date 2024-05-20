@@ -589,10 +589,11 @@ $(document).ready(function() {
     // Projects Code Start
     function projectsFields (nameVar, index, element) {
         len = Object.keys(element).length
+        console.log(element)
         var nameVar = (len > 0) ? index : nameVar;
         var prjProjectsName = (len > 0) ? element.projectsName : "";
         var prjProjectsType = (len > 0) ? element.projectsType : "";
-        var prjPrev_Image = (len > 0) ? element.prev_Image : "";
+        var prjPrev_Image = (len > 0) ? element.imageName : "";
         return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
@@ -609,7 +610,7 @@ $(document).ready(function() {
             <div class="flex justify-end items-center"> \
                 <div class="relative w-full"> \
                     <input autocomplete="off" id="'+ nameVar +'projectsImage" name="'+ nameVar +'" type="file" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 validate" /> \
-                    <input name="'+ nameVar +'[prev_Image]" type="hidden" value="'+prjPrev_Image+'" /> \
+                    <input name="'+ nameVar +'[imageName]" type="hidden" value="'+prjPrev_Image+'" /> \
                 </div> \
             </div> \
         </div>');
@@ -690,7 +691,6 @@ $(document).ready(function() {
                 processData: false,
                 contentType: false,
                 success: function(result){
-                    console.log(result);
                     inputValue = $("#portfolioUrl").val();
                     if(result == 1){
                         Swal.fire({
@@ -802,48 +802,46 @@ $(document).ready(function() {
         event.preventDefault();
         var formdata = new FormData(this);
       
-        if (isEmpty === false) {
-            $.ajax({
-                url: "../vendor/Process.php?action=profile_Submit",
-                type: "POST",
-                data: formdata,
-                cache: false,
-                processData: false,
-                contentType: false,
-                success: function(result){
-                    if(result == 1){
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Your Data has been Submitted!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        })
-                    }
-                    else if (result == 0) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Warning...',
-                            text: 'Insertion Fail!'
-                        })
-                    }
-                    else if (result == "fill") {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Warning...',
-                            text: 'Please Fill All Fields Carefully!'
-                        });
-                    }
-                    else if (result == "imgError") {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Warning...',
-                            text: 'Please Upload Valid Format of Image JPG, JPEG, PNG!'
-                        });
-                    }
+        $.ajax({
+            url: "../vendor/Process.php?action=profile_Submit",
+            type: "POST",
+            data: formdata,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(result){
+                if(result == 1){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Your Data has been Submitted!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
                 }
-            });
-        }
+                else if (result == 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Warning...',
+                        text: 'Insertion Fail!'
+                    })
+                }
+                else if (result == "fill") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Warning...',
+                        text: 'Please Fill All Fields Carefully!'
+                    });
+                }
+                else if (result == "imgError") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Warning...',
+                        text: 'Please Upload Valid Format of Image JPG, JPEG, PNG!'
+                    });
+                }
+            }
+        });
     });
 
     $(document).on("click", "#copyBtn", function(){
@@ -869,7 +867,6 @@ $(document).ready(function() {
             processData: false,
             contentType: false,
             success: function(result){
-                console.log(result);
                 if(result == 1){
                     Swal.fire({
                         position: 'center',
@@ -946,7 +943,4 @@ $(document).ready(function() {
             $("#showConfPass").addClass("fas fa-eye-slash absolute top-1/2 right-1 transform -translate-y-1/2 text-gray-400 showPass");
         }
     });
-
-
-    
 });

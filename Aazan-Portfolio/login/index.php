@@ -65,4 +65,6 @@
         </div>
     </div>
 
-<?php $objLibrary->Footer(); ?>
+    <script src="https://cdn.tailwindcss.com"></script>
+</body>
+</html>

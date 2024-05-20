@@ -201,7 +201,7 @@
 			foreach ($aProjects as $key => $value) {
 				$projCode .= '
 				<div class="col-md-6">
-					<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/Projects/'.$value["imageName"].');">
+					<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url(images/Projects/User_'.$iUserId. "/" .$value["imageName"].');">
 						<div class="overlay"></div>
 						<div class="text text-center p-4">
 							<h3><a href="#">'.$value["projectsName"].'</a></h3>
@@ -268,6 +268,7 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -312,7 +313,7 @@
 									</p>
 								</div>
 								<div class="home-img">
-									<img src="images/Profiles/<?= $aProfFolioData["profile"] ?>">
+									<img src="images/Profiles/User_<?= $iUserId. "/" .$aProfFolioData["profile"] ?>">
 								</div>
 							</div>
 						</div>
@@ -392,19 +393,18 @@
 
 			<div class="row no-gutters block-9 ftco-section ftco-no-pb" id="contact-input-section">
 				<div class="col-md-6 order-md-last d-flex">
-					<form action="#" class="bg-light p-4 p-md-5 contact-form">
+					<form id="SendEmail" class="bg-light p-4 p-md-5 contact-form">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Your Name">
+							<input type="text" class="form-control" placeholder="Your Name" name="name">
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Your Email">
+							<input type="text" class="form-control" placeholder="Your Email" name="email">
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Subject">
+							<input type="text" class="form-control" placeholder="Subject" name="subject">
 						</div>
 						<div class="form-group">
-							<textarea name="" id="" cols="30" rows="7" class="form-control"
-								placeholder="Message"></textarea>
+							<textarea name="message" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
 						</div>
 						<div class="form-group">
 							<input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
@@ -483,6 +483,65 @@
 	<script src="js/jquery.animateNumber.min.js"></script>
 	<script src="js/scrollax.min.js"></script>
 	<script src="js/main.js"></script>
-
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.all.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			// SendEmail Form Submittion
+			$(document).on("submit", "#SendEmail", function(event) {
+				event.preventDefault();
+				var formdata = new FormData(this);
+			
+				$.ajax({
+					url: "vendor/Process.php?action=SendEmail",
+					type: "POST",
+					data: formdata,
+					cache: false,
+					processData: false,
+					contentType: false,
+					success: function(result){
+						console.log(result)
+						// if(result == 1){
+						// 	Swal.fire({
+						// 		position: 'center',
+						// 		icon: 'success',
+						// 		title: 'Password Updated Successfully!',
+						// 		showConfirmButton: false,
+						// 		timer: 2000
+						// 	})
+						// }
+						// else if (result == 0) {
+						// 	Swal.fire({
+						// 		icon: 'error',
+						// 		title: 'Warning...',
+						// 		text: 'Insertion Fail!'
+						// 	})
+						// }
+						// else if (result == "conf_pass") {
+						// 	Swal.fire({
+						// 		icon: 'error',
+						// 		title: 'Warning...',
+						// 		text: 'Password not Matched!'
+						// 	});
+						// }
+						// else if (result == "curr_pass") {
+						// 	Swal.fire({
+						// 		icon: 'error',
+						// 		title: 'Warning...',
+						// 		text: 'Invalid Current Password!'
+						// 	});
+						// }
+						// else if (result == "fill") {
+						// 	Swal.fire({
+						// 		icon: 'error',
+						// 		title: 'Warning...',
+						// 		text: 'Please Fill All Fields Carefully!'
+						// 	});
+						// }
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>

@@ -9701,8 +9701,8 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
-    
-  @media screen and (min-device-width: 481px) and (max-device-width: 991px) { 
+
+  @media (max-width: 991px) {
     .d-flex {
       display: flex !important;
       justify-content: center !important;
@@ -9715,7 +9715,8 @@ textarea.form-control {
       object-fit: cover;
     }
   }
-  @media screen and (min-device-width: 992px) and (max-device-width: 1099px) { 
+  
+  @media (min-width: 992px) and (max-width: 1099px) { 
     .d-flex {
       display: flex !important;
       justify-content: space-around !important;
@@ -9729,7 +9730,7 @@ textarea.form-control {
       margin-left: 380px;
     }
   }
-  @media screen and (min-device-width: 1100px) and (max-device-width: 1250px) { 
+  @media (min-width: 1100px) and (max-width: 1250px) { 
     .d-flex {
       display: flex !important;
       justify-content: space-around !important;
