@@ -8,11 +8,11 @@
     //Load Composer's autoloader
     require 'autoload.php';
 
-    function SendMail ($FromName, $FromEmail, $FromSub, $FromMsg, $iUserId)
+    function SendMail ($FromName, $FromEmail, $FromSub, $FromMsg, $iUserId, $sAction2)
     {
         global $objDatabase;
 
-        $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
+        $fetchPortFolio = $objDatabase->fetchUser ($iUserId);
         $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
 
         $ToName = $aProfFolioData["fullName"];
@@ -46,17 +46,27 @@
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = $FromSub;
-            $mail->Body    = $FromName.' want\'s to contact you through your Portfolio. <br>
-            Email comes form this email address: '.$FromEmail.'. <br>
-            If you want to reply this email then please send your reply on '.$FromEmail.'<br><br>
-            Message From '.$FromName.' is: <br>'.$FromMsg;
+            if ($sAction2 == "verifyEmail") 
+            {
+                $otp = rand(000000,999999);
+                $insOtp = $objDatabase->insOTP($otp, $iUserId);
+
+                $mail->Subject = "Account verification via E-mail";
+                $mail->Body    = "Your account verification OTP is: ".$otp;
+            } else {
+                $mail->Subject = $FromSub;
+                $mail->Body    = $FromName.' want\'s to contact you through your Portfolio. <br>
+                Mail comes form this email address: '.$FromEmail.'. <br>
+                If you want to reply this email then please send your reply on '.$FromEmail.'<br><br>
+                Message From '.$FromName.' is: <br>'.$FromMsg;
+            }
             // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             $mail->send();
+            if ($sAction2 == "verifyEmail") return 1;
             echo '1';
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            echo "0";
         }
     }
 

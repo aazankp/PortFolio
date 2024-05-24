@@ -50,7 +50,7 @@ class Database {
         $sklArr = mysqli_real_escape_string($this->conn, $sklArr);
         $prjtArr = mysqli_real_escape_string($this->conn, $prjtArr);
 
-        $this->query = "INSERT INTO portfolioformdata (about, contact, education, services, experiences, skills, projects, portfolioUrl, userId) VALUES ('$about', '$contact', '$eduArr', '$srvArr', '$expArr', '$sklArr', '$prjtArr', '$iUserId')";
+        $this->query = "INSERT INTO portfolioformdata (about, contact, education, services, experiences, skills, projects, portfolioUrl, userId) VALUES ('$about', '$contact', '$eduArr', '$srvArr', '$expArr', '$sklArr', '$prjtArr', '$portfolioUrl', '$iUserId')";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }
@@ -72,7 +72,15 @@ class Database {
 
     public function fetchPortFolio ($iUserId)
     {
-        $this->query = "SELECT * FROM portfolioformdata AS PFD INNER JOIN users AS U ON U.userId = PFD.userId WHERE PFD.userId='$iUserId'";
+        $this->query = "SELECT * FROM portfolioformdata WHERE userId='$iUserId'";
+        $this->result = mysqli_query($this->conn, $this->query);
+        // die($this->query);
+        return $this->result;
+    }
+
+    public function fetchUser ($iUserId)
+    {
+        $this->query = "SELECT * FROM users WHERE userId='$iUserId'";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }
@@ -96,6 +104,23 @@ class Database {
         $new_pass = mysqli_real_escape_string($this->conn, $new_pass);
 
         $this->query = "UPDATE users SET password='$new_pass', oldPassword='$current_pass' WHERE userId='$iUserId'";
+        $this->result = mysqli_query($this->conn, $this->query);
+        return $this->result;
+    }
+
+    public function verifyEmail($email)
+    {
+        $email = mysqli_real_escape_string($this->conn, $email);
+
+        $this->query = "SELECT userId, email FROM users WHERE email='$email'";
+        // die($this->query);
+        $this->result = mysqli_query($this->conn, $this->query);
+        return $this->result;
+    }
+
+    public function insOTP($otp, $iUserId)
+    {
+        $this->query = "UPDATE users SET otp='$otp' WHERE userId='$iUserId'";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }

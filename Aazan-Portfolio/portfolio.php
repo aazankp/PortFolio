@@ -13,11 +13,12 @@
 	// else header("location: login");
 
     $fetchPortFolio = $objDatabase->fetchPortFolio($iUserId);
+    $fetchUser = $objDatabase->fetchUser($iUserId);
     // $fetchPortFolio = $objDatabase->fetchPortFolio (3);
 
     if (mysqli_num_rows($fetchPortFolio) > 0) 
 	{
-		$aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);		
+		$aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
         $aAbout = json_decode($aProfFolioData["about"], true);
         $aContact = json_decode($aProfFolioData["contact"], true);
         $aEducation = json_decode($aProfFolioData["education"], true);
@@ -249,6 +250,13 @@
 	$project_btm_Menu = (isset($aProjects["projects"]["projects_Toggle"])) ? '<li><a href="#projects-section"><span class="icon-long-arrow-right mr-2"> Projects</span></a></li>' : "";
 	// bottom menu code end
 
+	$profile = "no-image.jpeg";
+	if (mysqli_num_rows($fetchPortFolio) > 0)
+	{
+		$aUserData = mysqli_fetch_assoc($fetchUser);
+		if ($aUserData["profile"] != "") $profile = "User_". $iUserId ."/".$aUserData['profile'];
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -303,17 +311,17 @@
 							<div class="container-home">
 								<div class="text">
 									<span class="subheading">Hello!</span>
-									<h1 class="mb-4 mt-3">I'm <span><?= $aProfFolioData["fullName"] ?></span></h1>
-									<h2 class="mb-4"><?= $aProfFolioData["occupation"] ?></h2>
+									<h1 class="mb-4 mt-3">I'm <span><?= $aUserData["fullName"] ?></span></h1>
+									<h2 class="mb-4"><?= $aUserData["occupation"] ?></h2>
 									<p>
 										<div class="ftco-nav">
 											<a href="#contact-input-section" class="btn btn-primary py-3 px-4">Hire me</a>
-											<a href="<?= $aProfFolioData["workUrl"] ?>" target="_blank" class="btn btn-white btn-outline-white py-3 px-4">My works</a>
+											<a href="<?= $aUserData["workUrl"] ?>" target="_blank" class="btn btn-white btn-outline-white py-3 px-4">My works</a>
 										</div>
 									</p>
 								</div>
 								<div class="home-img">
-									<img src="images/Profiles/User_<?= $iUserId. "/" .$aProfFolioData["profile"] ?>">
+									<img src="images/Profiles/<?= $profile ?>">
 								</div>
 							</div>
 						</div>
@@ -368,7 +376,7 @@
 							<span class="icon-map-signs"></span>
 						</div>
 						<h3 class="mb-4">Address</h3>
-						<p><?= $aProfFolioData["address"] ?></p>
+						<p><?= $aUserData["address"] ?></p>
 					</div>
 				</div>
 				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
@@ -377,7 +385,7 @@
 							<span class="icon-phone2"></span>
 						</div>
 						<h3 class="mb-4">Contact Number</h3>
-						<p><a href="tel://923118679523">+ 92-<?= preg_replace("/(\d{3})(\d{3})(\d{4})/", "$1-$2$3", substr($aProfFolioData["mobile"], 1)) ?> <br /><br /><br /></a></p>
+						<p><a href="tel://923118679523">+ 92-<?= preg_replace("/(\d{3})(\d{3})(\d{4})/", "$1-$2$3", substr($aUserData["mobile"], 1)) ?> <br /><br /><br /></a></p>
 					</div>
 				</div>
 				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
@@ -386,7 +394,7 @@
 							<span class="icon-paper-plane"></span>
 						</div>
 						<h3 class="mb-4">Email Address</h3>
-						<p><a href="#"><?= $aProfFolioData["email"] ?> <br /><br /><br /></a></p>
+						<p><a href="#"><?= $aUserData["email"] ?> <br /><br /><br /></a></p>
 					</div>
 				</div>
 			</div>
@@ -450,9 +458,9 @@
 						<h2 class="ftco-heading-2">Have a Questions?</h2>
 						<div class="block-23 mb-3">
 							<ul>
-								<li><span class="icon icon-map-marker"></span><span class="text"><?= $aProfFolioData["address"] ?></span></li>
-								<li><a href="#"><span class="icon icon-phone"></span><span class="text">+ 92-<?= preg_replace("/(\d{3})(\d{3})(\d{4})/", "$1-$2$3", substr($aProfFolioData["mobile"], 1)) ?></span></a></li>
-								<li><a href="#"><span class="icon icon-envelope"></span><span class="text"><?= $aProfFolioData["email"] ?></span></a></li>
+								<li><span class="icon icon-map-marker"></span><span class="text"><?= $aUserData["address"] ?></span></li>
+								<li><a href="#"><span class="icon icon-phone"></span><span class="text">+ 92-<?= preg_replace("/(\d{3})(\d{3})(\d{4})/", "$1-$2$3", substr($aUserData["mobile"], 1)) ?></span></a></li>
+								<li><a href="#"><span class="icon icon-envelope"></span><span class="text"><?= $aUserData["email"] ?></span></a></li>
 							</ul>
 						</div>
 					</div>
@@ -491,6 +499,24 @@
 			$(document).on("submit", "#SendEmail", function(event) {
 				event.preventDefault();
 				var formdata = new FormData(this);
+
+				let timerInterval;
+				Swal.fire({
+				title: "Loading!",
+				// html: "I will close in <b></b> milliseconds.",
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: () => {
+					Swal.showLoading();
+					const timer = Swal.getPopup().querySelector("b");
+					timerInterval = setInterval(() => {
+					timer.textContent = `${Swal.getTimerLeft()}`;
+					}, 100);
+				},
+				willClose: () => {
+					clearInterval(timerInterval);
+				}
+				})
 			
 				$.ajax({
 					url: "vendor/Process.php?action=SendEmail",
@@ -501,43 +527,60 @@
 					contentType: false,
 					success: function(result){
 						console.log(result)
-						// if(result == 1){
-						// 	Swal.fire({
-						// 		position: 'center',
-						// 		icon: 'success',
-						// 		title: 'Password Updated Successfully!',
-						// 		showConfirmButton: false,
-						// 		timer: 2000
-						// 	})
-						// }
-						// else if (result == 0) {
-						// 	Swal.fire({
-						// 		icon: 'error',
-						// 		title: 'Warning...',
-						// 		text: 'Insertion Fail!'
-						// 	})
-						// }
-						// else if (result == "conf_pass") {
-						// 	Swal.fire({
-						// 		icon: 'error',
-						// 		title: 'Warning...',
-						// 		text: 'Password not Matched!'
-						// 	});
-						// }
-						// else if (result == "curr_pass") {
-						// 	Swal.fire({
-						// 		icon: 'error',
-						// 		title: 'Warning...',
-						// 		text: 'Invalid Current Password!'
-						// 	});
-						// }
-						// else if (result == "fill") {
-						// 	Swal.fire({
-						// 		icon: 'error',
-						// 		title: 'Warning...',
-						// 		text: 'Please Fill All Fields Carefully!'
-						// 	});
-						// }
+						
+						if(result == 1){
+							const Toast = Swal.mixin({
+							toast: true,
+							position: "top-end",
+							showConfirmButton: false,
+							timer: 3000,
+							timerProgressBar: true,
+							didOpen: (toast) => {
+								toast.onmouseenter = Swal.stopTimer;
+								toast.onmouseleave = Swal.resumeTimer;
+							}
+							});
+							Toast.fire({
+							icon: "success",
+							title: "E-mail Sent successfully!"
+							});
+
+							$("#SendEmail").trigger("reset");
+						}		
+						else if (result == 0) {
+							const Toast = Swal.mixin({
+							toast: true,
+							position: "top-end",
+							showConfirmButton: false,
+							timer: 3000,
+							timerProgressBar: true,
+							didOpen: (toast) => {
+								toast.onmouseenter = Swal.stopTimer;
+								toast.onmouseleave = Swal.resumeTimer;
+							}
+							});
+							Toast.fire({
+							icon: "error",
+							title: "E-mail Sending Fail!"
+							});
+						}
+						else if (result == "fill") {
+							const Toast = Swal.mixin({
+							toast: true,
+							position: "top-end",
+							showConfirmButton: false,
+							timer: 3000,
+							timerProgressBar: true,
+							didOpen: (toast) => {
+								toast.onmouseenter = Swal.stopTimer;
+								toast.onmouseleave = Swal.resumeTimer;
+							}
+							});
+							Toast.fire({
+							icon: "error",
+							title: "Please Fill All Fields Carefully!"
+							});
+						}
 					}
 				});
 			});

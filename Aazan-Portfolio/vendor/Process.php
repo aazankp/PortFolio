@@ -187,7 +187,7 @@
             exit;
         }
         
-        $dir = "../images/Profiles";
+        $dir = "../images/Profiles/User_".$iUserId;
         
         if ($_FILES["prof_img"]["name"] == "") {
             $profImg = $_REQUEST['old_prof_img'];
@@ -278,9 +278,91 @@
         $email = $_REQUEST['email'];
         $subject = $_REQUEST['subject'];
         $message = $_REQUEST['message'];
+
+        if ($name == "" || $email == "" || $subject == "" || $message == "") {
+            echo "fill";
+            exit;
+        }
+        
         require_once "PHPMailer/vendor/index.php";
-        $res = SendMail($name, $email, $subject, $message, $iUserId);
+        $res = SendMail($name, $email, $subject, $message, $iUserId, "");
         echo $res;
+    }
+
+    elseif (isset($action) && $action == "emailVerify")
+    {
+        $email = htmlspecialchars($_REQUEST['email']);
+
+        if ($email == "") {
+            header("location: ../login/verify.php?error=validEmail");
+        }
+
+        $fetchEmail = $objDatabase->verifyEmail($email);
+        $afetchEmail = mysqli_fetch_assoc($fetchEmail);
+
+        if (mysqli_num_rows($fetchEmail) > 0) {
+            $userId = $afetchEmail["userId"];
+            require_once "PHPMailer/vendor/index.php";
+            $res = SendMail('', '', '', '', $userId, "verifyEmail");
+            if ($res == 1)
+            {
+                $_SESSION['OTP_UserId'] = $userId;
+                header("location: ../login/otp.php?errorSuccess=otpSend");
+            }
+        } else {
+            header("location: ../login/verify.php?error=emailExist");
+        }
+    }
+
+    elseif (isset($action) && $action == "verifyOtp")
+    {
+        $otp = htmlspecialchars($_REQUEST['otp']);
+
+        if ($otp == "") {
+            header("location: ../login/otp.php?error=fillOTP");
+        }
+
+        $OTP_UserId = $_SESSION['OTP_UserId'];
+        $fetchUser_OTP = $objDatabase->fetchUser($OTP_UserId);
+
+        if (mysqli_num_rows($fetchUser_OTP) > 0)
+        {
+            $afetchUser_OTP = mysqli_fetch_assoc($fetchUser_OTP);
+            $userOTP = $afetchUser_OTP["otp"];
+            if ($userOTP == $otp) header("location: ../login/changePassword.php?errorSuccess=otpVerified");
+            else header("location: ../login/otp.php?error=invalidOtp");
+        } else {
+            header("location: ../login/otp.php?error=wrong");
+        }
+    }
+
+    elseif (isset($action) && $action == "changePass")
+    {
+        $new_password = htmlspecialchars($_REQUEST['new_password']);
+        $conf_password = htmlspecialchars($_REQUEST['conf_password']);
+
+        if ($new_password == "" && $conf_password == "") {
+            header("location: ../login/changePassword.php?error=fillPass");
+        }
+
+        $new_password = md5($new_password);
+        $conf_password = md5($conf_password);
+
+        if ($new_password == $conf_password) {
+            $OTP_UserId = $_SESSION['OTP_UserId'];
+            $updUserPass = $objDatabase->updatePassword($new_password, $new_password, $OTP_UserId);
+    
+            if ($updUserPass)
+            {
+                session_unset();
+                session_destroy();
+                header("location: ../login/index.php?errorSuccess=passChanged");
+            }
+            else header("location: ../login/changePassword.php?error=wrong");
+        } else
+        {
+            header("location: ../login/changePassword.php?error=passMisMatch");
+        }
     }
 
 ?>

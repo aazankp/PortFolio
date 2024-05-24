@@ -11,11 +11,18 @@
 
     $objLibrary->NavBar($iUserId);
 
-    $userData = $objDatabase->fetchPortFolio($iUserId);
+    $userData = $objDatabase->fetchUser($iUserId);
     $aUserData = mysqli_fetch_assoc($userData);
+
+    $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
+    $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
     
-    $Prof_img = $aUserData['profile'];
-    if ($aUserData['profile'] == "") $Prof_img = "no-image.jpeg";
+    $Prof_img = "User_".$iUserId."/".$aUserData['profile'];
+    if ($aUserData['profile'] == "" || mysqli_num_rows($userData) < 1) $Prof_img = "no-image.jpeg";
+
+    $ProfileUrl= "";
+    if (mysqli_num_rows($fetchPortFolio) > 0) $ProfileUrl = $aProfFolioData['portfolioUrl'];
+
 ?>
 
 <div class="container mx-auto px-4 md:px-10 lg:px-20 xl:px-40 pt-7 text-center">
@@ -26,14 +33,14 @@
                 <div class="relative w-full">
                     <div class="copy-Text-Div flex flex-row flex-wrap">
                         <h1 class="font-bold text-left min-w-max">PortFolio Url:</h1>
-                        <div class="text-left copyTxt ms-1"><?= $aUserData['portfolioUrl']; ?> <i class="far fa-copy text-lg w-8" id="copyBtn"></i></div>
+                        <div class="text-left copyTxt ms-1"><?= $ProfileUrl; ?> <i class="far fa-copy text-lg w-8" id="copyBtn"></i></div>
                     </div>
                     <div id="copyStatus" class="text-slate-600 text-sm pt-3 h-8"></div>
                 </div>
             </div>
             <div class="flex justify-end items-center h-50">
                 <div class="relative w-full profile-img-pro flex flex-col items-end items-center mb-5">
-                    <img class="rounded-full float-right" src="../images/Profiles/User_<?= $iUserId. "/" . $Prof_img; ?>" alt="Rounded avatar">
+                    <img class="rounded-full float-right" src="../images/Profiles/<?= $Prof_img; ?>" alt="Rounded avatar">
                     <input type="file" name="prof_img" class="border-b-2 border-teal-400 pb-2">
                     <input type="hidden" name="old_prof_img" value="<?= $aUserData['profile']; ?>">
                 </div>

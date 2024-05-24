@@ -5,7 +5,17 @@ $error = [
     "image" => "Please Select Valid Format of Image!",
     "signupSuccess" => "SIGN UP Successfully...",
     "cvFormat" => "Please Upload PDF Format Only!",
-    "signinfail" => "Your Email or Password is Incorrect!"
+    "signinfail" => "Your Email or Password is Incorrect!",
+    "validEmail" => "Please provide valild Email!",
+    "emailExist" => "Email doesn't exist!",
+    "otpSend" => "OTP sent Successfully!",
+    "fillOTP" => "Please provide OTP!",
+    "invalidOtp" => "Invalid OTP!",
+    "wrong" => "Something Went Wrong!",
+    "otpVerified" => "OTP Verified Successfully!",
+    "fillPass" => "Fill fields carefully!",
+    "passChanged" => "Password Changed Successfully!",
+    "passMisMatch" => "Password Doesn't Match!"
 ];
 
 if (isset($_REQUEST["error"]) ) $check = $_REQUEST["error"];

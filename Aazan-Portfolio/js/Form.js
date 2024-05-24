@@ -345,303 +345,309 @@ $(document).ready(function() {
             }
         });
     }
-    DataCheck ();
 
-    // Education Code Start
-    function educationFields (nameVar, index, element) {
-        len = Object.keys(element).length
-        var nameVar = (len > 0) ? index : nameVar;
-        var eduDesc = (len > 0) ? element.educationDescription : "";
-        var eduDegree = (len > 0) ? element.educationDegree : "";
-        var eduInstitute = (len > 0) ? element.educationInstitute : "";
-        var eduFrom = (len > 0) ? element.educationFrom : "";
-        var eduTo = (len > 0) ? element.educationTo : "";
-        return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
-                <div class="flex justify-end items-center h-20"> \
-                    <div class="relative w-full"> \
-                        <textarea autocomplete="off" id="'+ nameVar +'Description" name="'+ nameVar +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate pt-1" placeholder="Education Description">'+eduDesc+'</textarea> \
-                        <label for="'+ nameVar +'Description" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Education Description</label> \
+    var pathname = window.location.pathname;
+    pathArr = pathname.split('/');
+    fileName = pathArr[pathArr.length-1];
+
+    if (fileName == "portfolio.php") {
+        DataCheck ();
+        // Education Code Start
+        function educationFields (nameVar, index, element) {
+            len = Object.keys(element).length
+            var nameVar = (len > 0) ? index : nameVar;
+            var eduDesc = (len > 0) ? element.educationDescription : "";
+            var eduDegree = (len > 0) ? element.educationDegree : "";
+            var eduInstitute = (len > 0) ? element.educationInstitute : "";
+            var eduFrom = (len > 0) ? element.educationFrom : "";
+            var eduTo = (len > 0) ? element.educationTo : "";
+            return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
+                    <div class="flex justify-end items-center h-20"> \
+                        <div class="relative w-full"> \
+                            <textarea autocomplete="off" id="'+ nameVar +'Description" name="'+ nameVar +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate pt-1" placeholder="Education Description">'+eduDesc+'</textarea> \
+                            <label for="'+ nameVar +'Description" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Education Description</label> \
+                        </div> \
+                    </div> \
+                    <div class="flex items-center"> \
+                        <div class="relative w-full"> \
+                            <input autocomplete="off" id="'+ nameVar +'degree" name="'+ nameVar +'[educationDegree]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Degree" value="'+ eduDegree +'" /> \
+                            <label for="'+ nameVar +'degree" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Degree</label> \
+                        </div> \
+                    </div> \
+                    <div class="flex justify-end items-center"> \
+                        <div class="relative w-full"> \
+                            <input autocomplete="off" id="'+ nameVar +'institute" name="'+ nameVar +'[educationInstitute]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Institution Name" value="'+ eduInstitute +'" /> \
+                            <label for="'+ nameVar +'institute" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Institution Name</label> \
+                        </div> \
                     </div> \
                 </div> \
-                <div class="flex items-center"> \
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
+                    <div class="flex items-center"> \
+                        <div class="relative w-full"> \
+                            <input autocomplete="off" id="'+ nameVar+'from" name="'+ nameVar +'[educationFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="From" value="'+ eduFrom +'" /> \
+                            <label for="'+ nameVar+'from" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">From</label> \
+                        </div> \
+                    </div> \
+                    <div class="flex items-center"> \
+                        <div class="relative w-full"> \
+                            <input autocomplete="off" id="'+ nameVar+'to" name="'+ nameVar +'[educationTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="To" value="'+ eduTo +'" /> \
+                            <label for="'+ nameVar+'to" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
+                        </div> \
+                    </div> \
+                </div>');
+        }
+
+        PortFolioData.then(function () {
+            $(document).on("click", "#education_Toggle", function() {
+                DataCheck ();
+            });
+            $(document).on("click", "#educationAdd", function(){
+                makeRandomNumb(eduCount, aEducation);
+                numbedu = aEducation.hasOwnProperty("education") ? eduCount[eduCount.length-1] : "1";
+                nameVar = "education"+numbedu;
+                html = '<div class="forDeleteeducation">';
+                html += educationFields(nameVar, "", "");
+                html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
+                        <div class="flex justify-end items-center"> \
+                            <button type="button" id="delAddeducation" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
+                        </div> \
+                    </div> \
+                </div>';
+        
+                $("#puteducation").append(html);
+                numbedu = numbedu+1;
+            });
+            $(document).on("click", "#delAddeducation", function(){
+                $(this).closest(".forDeleteeducation").remove();
+            });
+        })
+        // Education Code End
+
+        //  Services Code Start
+        function servicesFields (nameVar, index, element) {
+            len = Object.keys(element).length
+            var nameVar = (len > 0) ? index : nameVar;
+            var srvIconName = (len > 0) ? element.iconName : "";
+            var srvServiceName = (len > 0) ? element.serviceName : "";
+
+            return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
+                <div class="flex justify-end items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar +'degree" name="'+ nameVar +'[educationDegree]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Degree" value="'+ eduDegree +'" /> \
-                        <label for="'+ nameVar +'degree" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Degree</label> \
+                        <input autocomplete="off" id="'+ nameVar +'serviceName" name="'+ nameVar +'[serviceName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Service Name" value="'+srvServiceName+'" /> \
+                        <label for="'+ nameVar +'serviceName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Service Name</label> \
+                    </div> \
+                    <div class="text-black focus:shadow-lg focus-=:bg-dark focus:ring-blue-300 font-medium rounded-lg text-5xl p-[1rem] w-[5rem] flex justify-center items-center bg-gray-100 ms-2"><i id="iconClass'+ nameVar +'"></i><i id="removeIconiconNameVal'+ nameVar +'" class="fas fa-'+ srvIconName +'" data-iconName="'+ srvIconName +'"></i></div> \
+                </div> \
+                <button type="button" class="relative left-0 bg-rose-500 text-white max-w-full rounded-md px-2 mt-2 hover:bg-rose-700 transition" id="openModal" style="width: max-content; background-color: #374151; height: 45px; padding: 10px 30px 10px 30px;"> Select Icon </button> \
+                <input type="hidden" class="validate iconNameVal'+nameVar+'" name="'+nameVar+'[iconName]" id="iconNameVal'+nameVar+'" value="'+ srvIconName +'" > \
+            </div>');
+        }
+
+        PortFolioData.then(function () {
+            $(document).on("click", "#services_Toggle", function() {
+                DataCheck ();
+            });
+            
+            $(document).on("click", "#servicesAdd", function(){
+                makeRandomNumb(srvCount, aServices);
+                numbservices = aServices.hasOwnProperty("services") ? srvCount[srvCount.length-1] : "1";
+                nameVar = "services"+numbservices;
+                html = '<div class="forDeleteservices">';
+                html += servicesFields(nameVar, "", "");
+                html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
+                        <div class="flex justify-end items-center"> \
+                            <button type="button" id="delAddservices" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
+                        </div> \
+                    </div> \
+                </div>';
+        
+                $("#putservices").append(html);
+                numbservices = numbservices+1;
+            });
+            $(document).on("click", "#delAddservices", function(){
+                $(this).closest(".forDeleteservices").remove();
+            });
+        })
+        // Services Code End
+
+        //  Experience Code Start
+        function experienceFields (nameVar, index, element) {
+            len = Object.keys(element).length
+            var nameVar = (len > 0) ? index : nameVar;
+            var expPosition = (len > 0) ? element.position : "";
+            var expCompanyName = (len > 0) ? element.companyName : "";
+            var expJobDescription = (len > 0) ? element.jobDescription : "";
+            var expJobFrom = (len > 0) ? element.jobFrom : "";
+            var expJobTo = (len > 0) ? element.jobTo : "";
+            return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
+                <div class="flex justify-end items-center"> \
+                    <div class="relative w-full"> \
+                        <input autocomplete="off" id="'+ nameVar +'position" name="'+ nameVar +'[position]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Position" value="'+expPosition+'" /> \
+                        <label for="'+ nameVar +'position" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Position</label> \
                     </div> \
                 </div> \
                 <div class="flex justify-end items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar +'institute" name="'+ nameVar +'[educationInstitute]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Institution Name" value="'+ eduInstitute +'" /> \
-                        <label for="'+ nameVar +'institute" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Institution Name</label> \
+                        <input autocomplete="off" id="'+ nameVar +'companyName" name="'+ nameVar +'[companyName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Company Name" value="'+expCompanyName+'" /> \
+                        <label for="'+ nameVar +'companyName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Company Name</label> \
+                    </div> \
+                </div> \
+                <div class="flex justify-end items-center h-20"> \
+                    <div class="relative w-full"> \
+                        <textarea autocomplete="off" id="'+ nameVar +'jobDescription" name="'+ nameVar +'[jobDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate pt-1" placeholder="Job Description">'+expJobDescription+'</textarea> \
+                        <label for="'+ nameVar +'jobDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Job Description</label> \
                     </div> \
                 </div> \
             </div> \
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
                 <div class="flex items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar+'from" name="'+ nameVar +'[educationFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="From" value="'+ eduFrom +'" /> \
-                        <label for="'+ nameVar+'from" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">From</label> \
+                        <input autocomplete="off" id="'+ nameVar+'jobFrom" name="'+ nameVar +'[jobFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="From" value="'+expJobFrom+'" /> \
+                        <label for="'+ nameVar+'jobFrom" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">From</label> \
                     </div> \
                 </div> \
                 <div class="flex items-center"> \
                     <div class="relative w-full"> \
-                        <input autocomplete="off" id="'+ nameVar+'to" name="'+ nameVar +'[educationTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="To" value="'+ eduTo +'" /> \
-                        <label for="'+ nameVar+'to" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
+                        <input autocomplete="off" id="'+ nameVar+'jobTo" name="'+ nameVar +'[jobTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="To" value="'+expJobTo+'" /> \
+                        <label for="'+ nameVar+'jobTo" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
                     </div> \
                 </div> \
             </div>');
-    }
+        }
 
-    PortFolioData.then(function () {
-        $(document).on("click", "#education_Toggle", function() {
-            DataCheck ();
-        });
-        $(document).on("click", "#educationAdd", function(){
-            makeRandomNumb(eduCount, aEducation);
-            numbedu = aEducation.hasOwnProperty("education") ? eduCount[eduCount.length-1] : "1";
-            nameVar = "education"+numbedu;
-            html = '<div class="forDeleteeducation">';
-            html += educationFields(nameVar, "", "");
-            html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
-                    <div class="flex justify-end items-center"> \
-                        <button type="button" id="delAddeducation" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
+        PortFolioData.then(function () {
+            $(document).on("click", "#experience_Toggle", function() {
+                DataCheck ();
+            });
+            
+            $(document).on("click", "#experienceAdd", function(){
+                makeRandomNumb(expCount, aExperiences);
+                numbexp = aExperiences.hasOwnProperty("experience") ? expCount[expCount.length-1] : "1";
+                nameVar = "experience"+numbexp;
+                html = '<div class="forDeleteexperience">';
+                html += experienceFields(nameVar, "", "");
+                html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
+                        <div class="flex justify-end items-center"> \
+                            <button type="button" id="delAddexperience" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
+                        </div> \
                     </div> \
-                </div> \
-            </div>';
-    
-            $("#puteducation").append(html);
-            numbedu = numbedu+1;
-        });
-        $(document).on("click", "#delAddeducation", function(){
-            $(this).closest(".forDeleteeducation").remove();
-        });
-    })
-    // Education Code End
-
-    //  Services Code Start
-    function servicesFields (nameVar, index, element) {
-        len = Object.keys(element).length
-        var nameVar = (len > 0) ? index : nameVar;
-        var srvIconName = (len > 0) ? element.iconName : "";
-        var srvServiceName = (len > 0) ? element.serviceName : "";
-
-        return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
-            <div class="flex justify-end items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'serviceName" name="'+ nameVar +'[serviceName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Service Name" value="'+srvServiceName+'" /> \
-                    <label for="'+ nameVar +'serviceName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Service Name</label> \
-                </div> \
-                <div class="text-black focus:shadow-lg focus-=:bg-dark focus:ring-blue-300 font-medium rounded-lg text-5xl p-[1rem] w-[5rem] flex justify-center items-center bg-gray-100 ms-2"><i id="iconClass'+ nameVar +'"></i><i id="removeIconiconNameVal'+ nameVar +'" class="fas fa-'+ srvIconName +'" data-iconName="'+ srvIconName +'"></i></div> \
-            </div> \
-            <button type="button" class="relative left-0 bg-rose-500 text-white max-w-full rounded-md px-2 mt-2 hover:bg-rose-700 transition" id="openModal" style="width: max-content; background-color: #374151; height: 45px; padding: 10px 30px 10px 30px;"> Select Icon </button> \
-            <input type="hidden" class="validate iconNameVal'+nameVar+'" name="'+nameVar+'[iconName]" id="iconNameVal'+nameVar+'" value="'+ srvIconName +'" > \
-        </div>');
-    }
-
-    PortFolioData.then(function () {
-        $(document).on("click", "#services_Toggle", function() {
-            DataCheck ();
-        });
+                </div>';
         
-        $(document).on("click", "#servicesAdd", function(){
-            makeRandomNumb(srvCount, aServices);
-            numbservices = aServices.hasOwnProperty("services") ? srvCount[srvCount.length-1] : "1";
-            nameVar = "services"+numbservices;
-            html = '<div class="forDeleteservices">';
-            html += servicesFields(nameVar, "", "");
-            html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
-                    <div class="flex justify-end items-center"> \
-                        <button type="button" id="delAddservices" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
+                $("#putexperience").append(html);
+                // numbexp = numbexp+1;
+            });
+            $(document).on("click", "#delAddexperience", function(){
+                $(this).closest(".forDeleteexperience").remove();
+            });
+        })
+        // Experience Code Ends
+
+        // Skills Code Start
+        function skillsFields (nameVar, index, element) {
+            len = Object.keys(element).length
+            var nameVar = (len > 0) ? index : nameVar;
+            var sklSkillName = (len > 0) ? element.skillName : "";
+            var sklSkillPercentage = (len > 0) ? element.skillPercentage : "";
+            return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
+                <div class="flex justify-end items-center"> \
+                    <div class="relative w-full"> \
+                        <input autocomplete="off" id="'+ nameVar +'skillName" name="'+ nameVar +'[skillName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Skill Name" value="'+sklSkillName+'" /> \
+                        <label for="'+ nameVar +'skillName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Skill Name</label> \
                     </div> \
                 </div> \
-            </div>';
-    
-            $("#putservices").append(html);
-            numbservices = numbservices+1;
-        });
-        $(document).on("click", "#delAddservices", function(){
-            $(this).closest(".forDeleteservices").remove();
-        });
-    })
-    // Services Code End
+                <div class="flex justify-end items-center"> \
+                    <div class="relative w-full"> \
+                        <input autocomplete="off" id="'+ nameVar +'skillPercentage" name="'+ nameVar +'[skillPercentage]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Skill Percentage" value="'+sklSkillPercentage+'" /> \
+                        <label for="'+ nameVar +'skillPercentage" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Skill Percentage</label> \
+                    </div> \
+                </div> \
+            </div>');
+        }
 
-    //  Experience Code Start
-    function experienceFields (nameVar, index, element) {
-        len = Object.keys(element).length
-        var nameVar = (len > 0) ? index : nameVar;
-        var expPosition = (len > 0) ? element.position : "";
-        var expCompanyName = (len > 0) ? element.companyName : "";
-        var expJobDescription = (len > 0) ? element.jobDescription : "";
-        var expJobFrom = (len > 0) ? element.jobFrom : "";
-        var expJobTo = (len > 0) ? element.jobTo : "";
-        return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
-            <div class="flex justify-end items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'position" name="'+ nameVar +'[position]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Position" value="'+expPosition+'" /> \
-                    <label for="'+ nameVar +'position" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Position</label> \
-                </div> \
-            </div> \
-            <div class="flex justify-end items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'companyName" name="'+ nameVar +'[companyName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Company Name" value="'+expCompanyName+'" /> \
-                    <label for="'+ nameVar +'companyName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Company Name</label> \
-                </div> \
-            </div> \
-            <div class="flex justify-end items-center h-20"> \
-                <div class="relative w-full"> \
-                    <textarea autocomplete="off" id="'+ nameVar +'jobDescription" name="'+ nameVar +'[jobDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate pt-1" placeholder="Job Description">'+expJobDescription+'</textarea> \
-                    <label for="'+ nameVar +'jobDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm validate">Job Description</label> \
-                </div> \
-            </div> \
-        </div> \
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
-            <div class="flex items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar+'jobFrom" name="'+ nameVar +'[jobFrom]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="From" value="'+expJobFrom+'" /> \
-                    <label for="'+ nameVar+'jobFrom" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">From</label> \
-                </div> \
-            </div> \
-            <div class="flex items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar+'jobTo" name="'+ nameVar +'[jobTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="To" value="'+expJobTo+'" /> \
-                    <label for="'+ nameVar+'jobTo" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
-                </div> \
-            </div> \
-        </div>');
-    }
-
-    PortFolioData.then(function () {
-        $(document).on("click", "#experience_Toggle", function() {
-            DataCheck ();
-        });
+        PortFolioData.then(function () {
+            $(document).on("click", "#skills_Toggle", function() {
+                DataCheck ();
+            });
+            
+            $(document).on("click", "#skillsAdd", function(){
+                makeRandomNumb(sklCount, aSkills);
+                numbskills = aSkills.hasOwnProperty("skills") ? sklCount[sklCount.length-1] : "1";
+                nameVar = "skills"+numbskills;
+                html = '<div class="forDeleteskills">';
+                html += skillsFields(nameVar, "", "");
+                html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
+                        <div class="flex justify-end items-center"> \
+                            <button type="button" id="delAddskills" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
+                        </div> \
+                    </div> \
+                </div>';
         
-        $(document).on("click", "#experienceAdd", function(){
-            makeRandomNumb(expCount, aExperiences);
-            numbexp = aExperiences.hasOwnProperty("experience") ? expCount[expCount.length-1] : "1";
-            nameVar = "experience"+numbexp;
-            html = '<div class="forDeleteexperience">';
-            html += experienceFields(nameVar, "", "");
-            html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
-                    <div class="flex justify-end items-center"> \
-                        <button type="button" id="delAddexperience" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
+                $("#putskills").append(html);
+                // numbskills = numbskills+1;
+            });
+            $(document).on("click", "#delAddskills", function(){
+                $(this).closest(".forDeleteskills").remove();
+            });
+        })
+        // Skills Code Ends
+
+        // Projects Code Start
+        function projectsFields (nameVar, index, element) {
+            len = Object.keys(element).length
+            console.log(element)
+            var nameVar = (len > 0) ? index : nameVar;
+            var prjProjectsName = (len > 0) ? element.projectsName : "";
+            var prjProjectsType = (len > 0) ? element.projectsType : "";
+            var prjPrev_Image = (len > 0) ? element.imageName : "";
+            return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
+                <div class="flex justify-end items-center"> \
+                    <div class="relative w-full"> \
+                        <input autocomplete="off" id="'+ nameVar +'projectsName" name="'+ nameVar +'[projectsName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Projects Name" value="'+prjProjectsName+'" /> \
+                        <label for="'+ nameVar +'projectsName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Projects Name</label> \
                     </div> \
                 </div> \
-            </div>';
-    
-            $("#putexperience").append(html);
-            // numbexp = numbexp+1;
-        });
-        $(document).on("click", "#delAddexperience", function(){
-            $(this).closest(".forDeleteexperience").remove();
-        });
-    })
-    // Experience Code Ends
-
-    // Skills Code Start
-    function skillsFields (nameVar, index, element) {
-        len = Object.keys(element).length
-        var nameVar = (len > 0) ? index : nameVar;
-        var sklSkillName = (len > 0) ? element.skillName : "";
-        var sklSkillPercentage = (len > 0) ? element.skillPercentage : "";
-        return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
-            <div class="flex justify-end items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'skillName" name="'+ nameVar +'[skillName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Skill Name" value="'+sklSkillName+'" /> \
-                    <label for="'+ nameVar +'skillName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Skill Name</label> \
+                <div class="flex justify-end items-center"> \
+                    <div class="relative w-full"> \
+                        <input autocomplete="off" id="'+ nameVar +'projectsType" name="'+ nameVar +'[projectsType]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Projects Type" value="'+prjProjectsType+'" /> \
+                        <label for="'+ nameVar +'projectsType" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Project Type</label> \
+                    </div> \
                 </div> \
-            </div> \
-            <div class="flex justify-end items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'skillPercentage" name="'+ nameVar +'[skillPercentage]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Skill Percentage" value="'+sklSkillPercentage+'" /> \
-                    <label for="'+ nameVar +'skillPercentage" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Skill Percentage</label> \
+                <div class="flex justify-end items-center"> \
+                    <div class="relative w-full"> \
+                        <input autocomplete="off" id="'+ nameVar +'projectsImage" name="'+ nameVar +'" type="file" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 validate" /> \
+                        <input name="'+ nameVar +'[imageName]" type="hidden" value="'+prjPrev_Image+'" /> \
+                    </div> \
                 </div> \
-            </div> \
-        </div>');
-    }
+            </div>');
+        }
 
-    PortFolioData.then(function () {
-        $(document).on("click", "#skills_Toggle", function() {
-            DataCheck ();
-        });
+        PortFolioData.then(function () {
+            $(document).on("click", "#projects_Toggle", function() {
+                DataCheck ();
+            });
+            
+            $(document).on("click", "#projectsAdd", function(){
+                makeRandomNumb(prjCount, aProjects);
+                numbproj = aProjects.hasOwnProperty("projects") ? prjCount[prjCount.length-1] : "1";
+                nameVar = "projects"+numbproj;
+                html = '<div class="forDeleteprojects">';
+                html += projectsFields(nameVar, "", "");
+                html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
+                        <div class="flex justify-end items-center"> \
+                            <button type="button" id="delAddprojects" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
+                        </div> \
+                    </div> \
+                </div>';
         
-        $(document).on("click", "#skillsAdd", function(){
-            makeRandomNumb(sklCount, aSkills);
-            numbskills = aSkills.hasOwnProperty("skills") ? sklCount[sklCount.length-1] : "1";
-            nameVar = "skills"+numbskills;
-            html = '<div class="forDeleteskills">';
-            html += skillsFields(nameVar, "", "");
-            html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
-                    <div class="flex justify-end items-center"> \
-                        <button type="button" id="delAddskills" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
-                    </div> \
-                </div> \
-            </div>';
-    
-            $("#putskills").append(html);
-            // numbskills = numbskills+1;
-        });
-        $(document).on("click", "#delAddskills", function(){
-            $(this).closest(".forDeleteskills").remove();
-        });
-    })
-    // Skills Code Ends
-
-    // Projects Code Start
-    function projectsFields (nameVar, index, element) {
-        len = Object.keys(element).length
-        console.log(element)
-        var nameVar = (len > 0) ? index : nameVar;
-        var prjProjectsName = (len > 0) ? element.projectsName : "";
-        var prjProjectsType = (len > 0) ? element.projectsType : "";
-        var prjPrev_Image = (len > 0) ? element.imageName : "";
-        return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
-            <div class="flex justify-end items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'projectsName" name="'+ nameVar +'[projectsName]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Projects Name" value="'+prjProjectsName+'" /> \
-                    <label for="'+ nameVar +'projectsName" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Projects Name</label> \
-                </div> \
-            </div> \
-            <div class="flex justify-end items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'projectsType" name="'+ nameVar +'[projectsType]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Projects Type" value="'+prjProjectsType+'" /> \
-                    <label for="'+ nameVar +'projectsType" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Project Type</label> \
-                </div> \
-            </div> \
-            <div class="flex justify-end items-center"> \
-                <div class="relative w-full"> \
-                    <input autocomplete="off" id="'+ nameVar +'projectsImage" name="'+ nameVar +'" type="file" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 validate" /> \
-                    <input name="'+ nameVar +'[imageName]" type="hidden" value="'+prjPrev_Image+'" /> \
-                </div> \
-            </div> \
-        </div>');
+                $("#putprojects").append(html);
+                // numbproj = numbproj+1;
+            });
+            $(document).on("click", "#delAddprojects", function(){
+                $(this).closest(".forDeleteprojects").remove();
+            });
+        })
+        // Projects Code Ends        
     }
-
-    PortFolioData.then(function () {
-        $(document).on("click", "#projects_Toggle", function() {
-            DataCheck ();
-        });
-        
-        $(document).on("click", "#projectsAdd", function(){
-            makeRandomNumb(prjCount, aProjects);
-            numbproj = aProjects.hasOwnProperty("projects") ? prjCount[prjCount.length-1] : "1";
-            nameVar = "projects"+numbproj;
-            html = '<div class="forDeleteprojects">';
-            html += projectsFields(nameVar, "", "");
-            html += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 h-8"> \
-                    <div class="flex justify-end items-center"> \
-                        <button type="button" id="delAddprojects" class="text-2xl"><i class="fas fa-trash" style="color: #ca1c1c;"></i></button> \
-                    </div> \
-                </div> \
-            </div>';
-    
-            $("#putprojects").append(html);
-            // numbproj = numbproj+1;
-        });
-        $(document).on("click", "#delAddprojects", function(){
-            $(this).closest(".forDeleteprojects").remove();
-        });
-    })
-    // Projects Code Ends
 
     // PortFolio Form Submittion
     $(document).on("submit", "#portFolio_Form_Submit", function(event) {

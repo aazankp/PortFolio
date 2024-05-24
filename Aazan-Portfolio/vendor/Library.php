@@ -22,11 +22,11 @@
         public function NavBar($iUserId){
 
             global $objDatabase;
-            $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
+            $fetchPortFolio = $objDatabase->fetchUser ($iUserId);
             $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
             if ($aProfFolioData["password"] != $aProfFolioData["oldPassword"]) header("location: ../vendor/Process.php?action=signOut");
-            $Prof_img = $aProfFolioData['profile'];
-            if ($aProfFolioData['profile'] == "") $Prof_img = "no-image.jpeg";
+            $Prof_img = "User_".$iUserId."/".$aProfFolioData['profile'];
+            if ($aProfFolioData['profile'] == "" || mysqli_num_rows($fetchPortFolio) < 1) $Prof_img = "no-image.jpeg";
 
             ?>
                 <nav id="NavBar">
@@ -62,7 +62,7 @@
                                 <button type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">Open user menu</span>
-                                <img class="h-8 w-8 rounded-full" src="../images/Profiles/User_<?= $iUserId. "/" .$Prof_img; ?>">
+                                <img class="h-8 w-8 rounded-full" src="../images/Profiles/<?= $Prof_img; ?>">
                                 </button>
                             </div>
                             <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden nav-menu-btn" id="user-menu" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
