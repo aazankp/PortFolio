@@ -8,9 +8,6 @@
     if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
 	else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
 
-    // echo "<pre>";
-    // print_r($_REQUEST);
-
     if (isset($action) && $action == "register") {
         $fname = htmlspecialchars($_REQUEST["fname"]);
         $email = htmlspecialchars($_REQUEST["email"]);
@@ -21,7 +18,7 @@
         $occupation = htmlspecialchars($_REQUEST["occupation_title"]);
         $myworkurl = htmlspecialchars($_REQUEST["myworkurl"]);
 
-        if ($fname == "" || $email == "" || $address == "" || $mobile == "" || $password == "" || $occupation == "" || $myworkurl == "") {
+        if ($fname == "" || $email == "" || $address == "" || $mobile == "" || $password == "" || $occupation == "") {
             header("location: ../login/register.php?error=fields");
             exit;
         }
@@ -307,6 +304,7 @@
             if ($res == 1)
             {
                 $_SESSION['OTP_UserId'] = $userId;
+                $otpStatus = $objDatabase->otpSendStatus('1', '0', $userId);
                 header("location: ../login/otp.php?errorSuccess=otpSend");
             }
         } else {
@@ -329,7 +327,11 @@
         {
             $afetchUser_OTP = mysqli_fetch_assoc($fetchUser_OTP);
             $userOTP = $afetchUser_OTP["otp"];
-            if ($userOTP == $otp) header("location: ../login/changePassword.php?errorSuccess=otpVerified");
+            if ($userOTP == $otp)
+            {
+                $otpStatus = $objDatabase->otpSendStatus('1', '1', $OTP_UserId);
+                header("location: ../login/changePassword.php?errorSuccess=otpVerified");
+            }
             else header("location: ../login/otp.php?error=invalidOtp");
         } else {
             header("location: ../login/otp.php?error=wrong");
@@ -354,6 +356,7 @@
     
             if ($updUserPass)
             {
+                $otpStatus = $objDatabase->otpSendStatus('0', '0', $OTP_UserId);
                 session_unset();
                 session_destroy();
                 header("location: ../login/index.php?errorSuccess=passChanged");

@@ -124,6 +124,14 @@ class Database {
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }
+
+    public function otpSendStatus($otpStatus, $otpVerifed, $iUserId)
+    {
+        $this->query = "UPDATE users SET otpSend='$otpStatus', otpVerified='$otpVerifed' WHERE userId='$iUserId'";
+        $this->result = mysqli_query($this->conn, $this->query);
+        return $this->result;
+    }
+
 }
 
 ?>

@@ -71,7 +71,7 @@
                                     <div class="sm:col-span-12 xl:col-span-3 h-12">
                                         <div class="relative">
                                             <input autocomplete="off" id="myworkurl" name="myworkurl" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 text-gray-900 focus:outline-none focus:borer-teal-600 text-base" placeholder="My Work Url" />
-                                            <label for="myworkurl" class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">My Work Url</label>
+                                            <label for="myworkurl" class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">My Work Url <small>( If any )</small></label>
                                         </div>
                                     </div>
                                 </div>

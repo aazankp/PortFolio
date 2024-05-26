@@ -1,9 +1,24 @@
 <?php
     require_once "../vendor/errors.php";
     require_once "../vendor/Library.php";
+    require_once "../vendor/Database.php";
+    $objDatabase = new Database;
     $objLibrary = new Library;
     $objLibrary->Header("PortFolio");
-    if (!isset($_SESSION['OTP_UserId'])) header("location: ../index.php");
+    if (!isset($_SESSION['OTP_UserId'])) header("location: verify.php");
+    else
+    {
+        $fetchUser_OTP = $objDatabase->fetchUser($_SESSION['OTP_UserId']);
+        $afetchUser_OTP = mysqli_fetch_assoc($fetchUser_OTP);
+        if (mysqli_num_rows($fetchUser_OTP) > 0)
+        {
+            $user_OtpStatus = $afetchUser_OTP['otpSend'];
+            if ($afetchUser_OTP['otpSend'] == 0 || $afetchUser_OTP['otpVerified'] == 0) header("location: otp.php");
+        } else
+        {
+            header("location: changePassword.php?error=wrong");
+        }
+    }
 ?>
 
     <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
