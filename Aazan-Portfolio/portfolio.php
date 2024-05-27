@@ -250,11 +250,11 @@
 	$project_btm_Menu = (isset($aProjects["projects"]["projects_Toggle"])) ? '<li><a href="#projects-section"><span class="icon-long-arrow-right mr-2"> Projects</span></a></li>' : "";
 	// bottom menu code end
 
-	$profile = "no-image.jpeg";
+	$profile = "no-image.jpg";
 	if (mysqli_num_rows($fetchPortFolio) > 0)
 	{
 		$aUserData = mysqli_fetch_assoc($fetchUser);
-		if ($aUserData["profile"] != "") $profile = "User_". $iUserId ."/".$aUserData['profile'];
+		if ($aUserData["profile"] != "") $profile = "/".$aUserData['profile'];
 	}
 
 ?>

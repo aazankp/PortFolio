@@ -17,8 +17,8 @@
     $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
     $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
     
-    $Prof_img = "User_".$iUserId."/".$aUserData['profile'];
-    if ($aUserData['profile'] == "" || mysqli_num_rows($userData) < 1) $Prof_img = "no-image.jpeg";
+    $Prof_img = "/".$aUserData['profile'];
+    if ($aUserData['profile'] == "" || mysqli_num_rows($userData) < 1) $Prof_img = "no-image.jpg";
 
     $ProfileUrl= "";
     if (mysqli_num_rows($fetchPortFolio) > 0) $ProfileUrl = $aProfFolioData['portfolioUrl'];

@@ -14,7 +14,7 @@
         $address = htmlspecialchars($_REQUEST["address"]);
         $mobile = htmlspecialchars($_REQUEST["mobile"]);
         $password = htmlspecialchars($_REQUEST["password"]);
-        $confirmpassword = htmlspecialchars($_REQUEST["confirmpassword"]);
+        $confirmpassword = htmlspecialchars($_REQUEST["conf_pass"]);
         $occupation = htmlspecialchars($_REQUEST["occupation_title"]);
         $myworkurl = htmlspecialchars($_REQUEST["myworkurl"]);
 
@@ -37,12 +37,12 @@
         if (strtolower($path["extension"]) == "jpg" || strtolower($path["extension"]) == "jpeg" || strtolower($path["extension"]) == "png") {
             if (strtolower($cvPath["extension"]) == "pdf") {
                 // Resume
-                $cvDir = "../vendor/Resumes/User_".$iUserId;
+                $cvDir = "../vendor/Resumes/";
                 if (!is_dir($cvDir)) mkdir($cvDir, 0777, true);
-                $cvFile_name = rand(0000,9999) . "_" .$_FILES["cv"]["name"];
+                $cvFile_name = rand(0000,9999) . "_" .time().".".$cvPath["extension"];
                 move_uploaded_file($_FILES["cv"]["tmp_name"], $cvDir."/".$cvFile_name);
                 // Profile
-                $dir = "../images/Profiles/User_".$iUserId;
+                $dir = "../images/Profiles/";
                 if (!is_dir($dir)) mkdir($dir, 0777, true);
                 $file_name = rand(0000,9999) . "_" . time() . ".PNG";
                 $ImgPath = $_FILES["profile"]["tmp_name"];

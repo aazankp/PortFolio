@@ -19,14 +19,17 @@
             <?php
         }
 
-        public function NavBar($iUserId){
-
+        public function NavBar($iUserId)
+        {
             global $objDatabase;
+
             $fetchPortFolio = $objDatabase->fetchUser ($iUserId);
             $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
+            $fetchPortFolioo = $objDatabase->fetchPortFolio ($iUserId);
+
             if ($aProfFolioData["password"] != $aProfFolioData["oldPassword"]) header("location: ../vendor/Process.php?action=signOut");
-            $Prof_img = "User_".$iUserId."/".$aProfFolioData['profile'];
-            if ($aProfFolioData['profile'] == "" || mysqli_num_rows($fetchPortFolio) < 1) $Prof_img = "no-image.jpeg";
+            $Prof_img = "/".$aProfFolioData['profile'];
+            if ($aProfFolioData['profile'] == "" || mysqli_num_rows($fetchPortFolio) < 1) $Prof_img = "no-image.jpg";
 
             ?>
                 <nav id="NavBar">
@@ -45,12 +48,11 @@
                             </button>
                         </div>
                         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                            <div class="flex flex-shrink-0 items-center">
-                                <img class="h-8 w-auto" src="../images/Logo.png" alt="Your Company">
-                            </div>
                             <div class="hidden sm:ml-6 sm:block">
                                 <div class="flex space-x-4">
-                                    <a href="../portfolio.php?pId=<?= $iUserId; ?>" class="bg-blue-600 text-white rounded-md px-3 py-2 text-sm font-medium">Portfolio</a>
+                                    <?php if (mysqli_num_rows($fetchPortFolioo) > 0){ ?>
+                                        <a href="../portfolio.php?pId=<?= $iUserId; ?>" class="bg-blue-600 text-white rounded-md px-3 py-2 text-sm font-medium">Portfolio</a>
+                                    <?php } ?>
                                     <a href="../portfolio/portfolio.php" class="bg-blue-600 text-white rounded-md px-3 py-2 text-sm font-medium">Home</a>
                                 </div>
                             </div>
@@ -76,7 +78,10 @@
                     </div>
                     <div class="sm:hidden hidden" id="mobile-menu">
                         <div class="space-y-1 px-2 pb-3 pt-2">
-                            <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Home</a>
+                            <?php if (mysqli_num_rows($fetchPortFolioo) > 0){ ?>
+                                <a href="../portfolio.php?pId=<?= $iUserId; ?>" class="bg-blue-600 text-white block rounded-md px-3 py-2 text-base font-medium">Portfolio</a>
+                            <?php } ?>
+                            <a href="../portfolio/portfolio.php" class="bg-blue-600 text-white block rounded-md px-3 py-2 text-base font-medium">Home</a>
                         </div>
                     </div>
                 </nav>

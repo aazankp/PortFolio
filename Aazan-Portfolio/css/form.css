@@ -8,33 +8,30 @@
 #NavBar {
     background-color: var(--theme-color);
 }
-
 .profile-img-pro img {
     height: 200px;
     width: 200px;
     border: 5px solid var(--theme-color);
     object-fit: cover;
 }
-
 #copyBtn:hover {
     cursor: pointer;
 }
-
 .showPass:hover {
     cursor: pointer;
 }
-
 #copyBtn {
     width: 30px;
     font-size: 18px;
 }
-
 @media (max-width: 767px) {
     .prof-second-input {
         margin-top: 15px;
     }
 }
-
 .nav-menu-btn a:hover {
     background-color: #e9e4e4;
+}
+#regPass svg {
+    font-size: 14px;
 }

@@ -11,7 +11,7 @@
 
     $objLibrary->NavBar($iUserId);
 
-    $userData = $objDatabase->fetchPortFolio($iUserId);
+    $userData = $objDatabase->fetchUser($iUserId);
     $aUserData = mysqli_fetch_assoc($userData);
     
     $Prof_img = $aUserData['profile'];
