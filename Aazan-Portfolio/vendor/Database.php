@@ -74,7 +74,6 @@ class Database {
     {
         $this->query = "SELECT * FROM portfolioformdata WHERE userId='$iUserId'";
         $this->result = mysqli_query($this->conn, $this->query);
-        // die($this->query);
         return $this->result;
     }
 
