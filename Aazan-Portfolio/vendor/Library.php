@@ -1,7 +1,6 @@
 <?php
     session_start();
     class Library{
-        public $host = "localhost";
         public function Header($title){
             ?>
             <!DOCTYPE html>
@@ -22,6 +21,9 @@
         public function NavBar($iUserId)
         {
             global $objDatabase;
+
+            $url = explode("/", $_SERVER['REQUEST_URI']);
+            if ($url[count($url)-1] == "") header("location: ../../vendor/404.php");
 
             $fetchPortFolio = $objDatabase->fetchUser ($iUserId);
             $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);

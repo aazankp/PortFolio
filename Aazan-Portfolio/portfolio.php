@@ -3,18 +3,17 @@
     require_once "vendor/Database.php";
     $objDatabase = new Database;
 
-	// if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
-	// else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
+    $url = explode("/", $_SERVER['REQUEST_URI']);
+	if ($url[count($url)-1] == "") die("No Data Found");
+
 	if (isset($_REQUEST["pId"])) $iUserId = $_GET["pId"];
 	else {
 		echo "<script>alert('Please Give Corrrect Url!');</script>";
 		exit;
 	}
-	// else header("location: login");
 
     $fetchPortFolio = $objDatabase->fetchPortFolio($iUserId);
     $fetchUser = $objDatabase->fetchUser($iUserId);
-    // $fetchPortFolio = $objDatabase->fetchPortFolio (3);
 
     if (mysqli_num_rows($fetchPortFolio) > 0) 
 	{
@@ -150,7 +149,7 @@
 					<div class="progress-wrap ftco-animate">
 						<h3>'. $value['skillName'] .'</h3>
 						<div class="progress">
-							<div class="progress-bar color-1" role="progressbar" aria-valuenow="'.$perc.'" aria-valuemin="0"
+							<div class="progress-bar color-1" id="progress-bar-'. $value['skillName'] .'" role="progressbar" aria-valuenow="'.$perc.'" aria-valuemin="0"
 								aria-valuemax="'.$perc.'" style="width:'. $perc .'%">
 								<span>'. $perc .'%</span>
 							</div>
@@ -181,7 +180,7 @@
 						<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
 							<div class="block-18">
 								<div class="text">
-									<strong class="number" data-number="12">'. $aSkills["skills"]["completeProjects"] .'</strong>
+									<strong class="number" data-number="'. $aSkills["skills"]["completeProjects"] .'">'. $aSkills["skills"]["completeProjects"] .'</strong>
 									<span>Complete Projects</span>
 								</div>
 							</div>
@@ -277,6 +276,7 @@
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.min.css" rel="stylesheet">
+	<style id="skills-Style"></style>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -344,7 +344,7 @@
 					</div>
 					<div class="counter-wrap ftco-animate mt-md-3 text-center">
 						<div class="text">
-							<p><a href="vendor/Resumes/<?= $aProfFolioData["resume"] ?>" target="_blank" class="btn btn-primary py-3 px-3">Download CV</a></p>
+							<p><a href="vendor/Resumes/<?= $aUserData["resume"] ?>" target="_blank" class="btn btn-primary py-3 px-3">Download CV</a></p>
 						</div>
 					</div>
 				</div>
@@ -495,6 +495,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.all.min.js"></script>
 	<script>
 		$(document).ready(function(){
+
 			// SendEmail Form Submittion
 			$(document).on("submit", "#SendEmail", function(event) {
 				event.preventDefault();
