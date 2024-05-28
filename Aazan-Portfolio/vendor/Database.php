@@ -24,8 +24,9 @@ class Database {
         $password = mysqli_real_escape_string($this->conn, $password);
         $occupation = mysqli_real_escape_string($this->conn, $occupation);
         $myworkurl = mysqli_real_escape_string($this->conn, $myworkurl);
+        $UId = $this->generateUUID();
 
-        $this->query = "INSERT INTO users (fullName, email, address, mobile, password, oldPassword, profile, occupation, workUrl, resume) VALUES ('$fname', '$email', '$address', '$mobile', '$password', '$password', '$profile', '$occupation', '$myworkurl', '$cvFile_name')";
+        $this->query = "INSERT INTO users (userId, fullName, email, address, mobile, password, oldPassword, profile, occupation, workUrl, resume) VALUES ('$UId', '$fname', '$email', '$address', '$mobile', '$password', '$password', '$profile', '$occupation', '$myworkurl', '$cvFile_name')";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }
@@ -49,8 +50,9 @@ class Database {
         $expArr = mysqli_real_escape_string($this->conn, $expArr);
         $sklArr = mysqli_real_escape_string($this->conn, $sklArr);
         $prjtArr = mysqli_real_escape_string($this->conn, $prjtArr);
+        $PId = $this->generateUUID();
 
-        $this->query = "INSERT INTO portfolioformdata (about, contact, education, services, experiences, skills, projects, portfolioUrl, userId) VALUES ('$about', '$contact', '$eduArr', '$srvArr', '$expArr', '$sklArr', '$prjtArr', '$portfolioUrl', '$iUserId')";
+        $this->query = "INSERT INTO portfolioformdata (PortFolio_Id, about, contact, education, services, experiences, skills, projects, portfolioUrl, userId) VALUES ('$PId', '$about', '$contact', '$eduArr', '$srvArr', '$expArr', '$sklArr', '$prjtArr', '$portfolioUrl', '$iUserId')";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }
@@ -112,7 +114,6 @@ class Database {
         $email = mysqli_real_escape_string($this->conn, $email);
 
         $this->query = "SELECT userId, email FROM users WHERE email='$email'";
-        // die($this->query);
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }
@@ -129,6 +130,14 @@ class Database {
         $this->query = "UPDATE users SET otpSend='$otpStatus', otpVerified='$otpVerifed' WHERE userId='$iUserId'";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
+    }
+
+    public function generateUUID() {
+        $data = random_bytes(16);
+        $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
+        $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+    
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
 
 }

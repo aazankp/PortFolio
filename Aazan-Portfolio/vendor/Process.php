@@ -184,7 +184,7 @@
             exit;
         }
         
-        $dir = "../images/Profiles/User_".$iUserId;
+        $dir = "../images/Profiles/";
         
         if ($_FILES["prof_img"]["name"] == "") {
             $profImg = $_REQUEST['old_prof_img'];
@@ -219,7 +219,7 @@
         $new_pass = htmlspecialchars($_REQUEST['newPass']);
         $conf_pass = htmlspecialchars($_REQUEST['conf_pass']);
 
-        $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
+        $fetchPortFolio = $objDatabase->fetchUser ($iUserId);
         $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
         $password = $aProfFolioData["password"];
 
@@ -255,6 +255,7 @@
 
     elseif (isset($action) && $action == "checkUserData")
     {
+        if (isset($_GET['pId'])) $iUserId = $_GET['pId'];
         $fetchPortFolio = $objDatabase->fetchPortFolio ($iUserId);
         $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
         echo json_encode($aProfFolioData);

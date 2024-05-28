@@ -7,7 +7,7 @@
     
     if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
 	else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
-	else header("location: login");
+    else header("location: ../login/index.php");
 
     $objLibrary->NavBar($iUserId);
 
@@ -25,17 +25,11 @@
         $sAboutDesc = $aContact["Description"];
         $sContactDesc = $aAbout["aboutDescription"];
         $portfolioUrl = $aProfFolioData["portfolioUrl"];
-
-        // echo count($aEducation);
-        // echo "<pre>";
-        // print_r($aEducation);
-        // print_r($sAboutDesc);
-        // die();
     } else {
-        // die("No Data Found");
         $sAboutDesc = "";
         $sContactDesc = "";
-        $portfolioUrl = $objLibrary->host . "/new_work/Verge/PortFolio/Aazan-Portfolio/portfolio/portfolio.php?pId=" . $iUserId;
+        $portfolioUrl = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] . "?pId=" . $iUserId;
+        $portfolioUrl = str_replace('portfolio/', '', $portfolioUrl);
     }
 
     $btnValue = (mysqli_num_rows($fetchPortFolio) > 0) ? "update" : "insert";

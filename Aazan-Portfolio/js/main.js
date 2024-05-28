@@ -187,7 +187,7 @@ AOS.init({
 					 {
 					   number: num,
 					   numberStep: comma_separator_number_step
-					 }, 7000
+					 }, 1000
 				   );
 			   });
 			   
@@ -277,6 +277,38 @@ AOS.init({
 //       });
 //     }
 //   });
+
+$('#skills-section').one('mouseenter',function(){
+	$.ajax({
+		url: 'vendor/Process.php',
+		type: 'POST',
+		data: { action: 'checkUserData' },
+		success: function(result){
+			var aData = JSON.parse(result);
+			var aSkills = (aData !== null && aData.skills != "") ? JSON.parse(aData.skills) : "";
+			$.each(aSkills, function (index, element) {                     
+				$("#progress-bar-"+element.skillName).addClass("progress-bar-"+element.skillName);
+				const styles = `
+					.progress-bar-`+element.skillName+` {
+						width: `+element.skillPercentage+`%;
+						animation: progress-bar-`+element.skillName+` 3s;
+					}
+					@keyframes progress-bar-`+element.skillName+` {
+						0% {
+							width: 0%;
+						}
+						100% {
+							width: `+element.skillPercentage+`%;
+						}
+					}
+				`;
+
+				$("#skills-Style").append(styles);
+			});
+
+		}
+	});
+})
 
 
 
