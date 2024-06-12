@@ -688,7 +688,12 @@ $(document).ready(function() {
             });
         }
 
-        if (isEmpty === false) {
+        
+        if (isEmpty === false)
+        {
+            $('#submitButton').prop('disabled', true);
+            $('#submitButton').addClass('bg-gray-400');
+
             $.ajax({
                 url: "../vendor/Process.php?action=portFolio_Submit",
                 type: "POST",
@@ -733,6 +738,8 @@ $(document).ready(function() {
                             text: 'Please Upload Valid Format of Image JPG, JPEG, PNG!'
                         })
                     }
+                    $('#submitButton').prop('disabled', false);
+                    $('#submitButton').removeClass('bg-gray-400');
                 }
             });
         } else {
@@ -807,7 +814,9 @@ $(document).ready(function() {
     $(document).on("submit", "#profile_Form_Submit", function(event) {
         event.preventDefault();
         var formdata = new FormData(this);
-      
+        $('#submitBtnProf').prop('disabled', true);
+        $('#submitBtnProf').addClass('bg-gray-400');
+
         $.ajax({
             url: "../vendor/Process.php?action=profile_Submit",
             type: "POST",
@@ -846,6 +855,15 @@ $(document).ready(function() {
                         text: 'Please Upload Valid Format of Image JPG, JPEG, PNG!'
                     });
                 }
+                else if (result == "cvError") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Warning...',
+                        text: 'Please Upload Valid Format of Resume PDF!'
+                    });
+                }
+                $('#submitBtnProf').prop('disabled', false);
+                $('#submitBtnProf').removeClass('bg-gray-400');
             }
         });
     });
@@ -864,6 +882,8 @@ $(document).ready(function() {
     $(document).on("submit", "#pass_Form_Submit", function(event) {
         event.preventDefault();
         var formdata = new FormData(this);
+        $('#chngPass').prop('disabled', true);
+        $('#chngPass').addClass('bg-gray-400');
       
         $.ajax({
             url: "../vendor/Process.php?action=password_Submit",
@@ -910,6 +930,8 @@ $(document).ready(function() {
                         text: 'Please Fill All Fields Carefully!'
                     });
                 }
+                $('#chngPass').prop('disabled', false);
+                $('#chngPass').removeClass('bg-gray-400');
             }
         });
     });

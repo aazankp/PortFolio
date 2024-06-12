@@ -263,6 +263,7 @@
 	<title>PortFolio - Aazan Khan Pathan</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" type="image/png" href="images/logo.png"/>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
@@ -316,7 +317,9 @@
 									<p>
 										<div class="ftco-nav">
 											<a href="#contact-input-section" class="btn btn-primary py-3 px-4">Hire me</a>
-											<a href="<?= $aUserData["workUrl"] ?>" target="_blank" class="btn btn-white btn-outline-white py-3 px-4">My works</a>
+											<?php if($aUserData["workUrl"] != '') {?>
+												<a href="<?= $aUserData["workUrl"] ?>" target="_blank" class="btn btn-white btn-outline-white py-3 px-4">My works</a>
+											<?php } ?>
 										</div>
 									</p>
 								</div>
@@ -344,7 +347,9 @@
 					</div>
 					<div class="counter-wrap ftco-animate mt-md-3 text-center">
 						<div class="text">
-							<p><a href="vendor/Resumes/<?= $aUserData["resume"] ?>" target="_blank" class="btn btn-primary py-3 px-3">Download CV</a></p>
+							<?php if($aUserData["resume"] != '') {?>
+								<p><a href="vendor/Resumes/<?= $aUserData["resume"] ?>" target="_blank" class="btn btn-primary py-3 px-3">Download CV</a></p>
+							<?php } ?>
 						</div>
 					</div>
 				</div>

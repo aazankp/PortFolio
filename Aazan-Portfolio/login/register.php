@@ -99,7 +99,7 @@
                                                 <p class="pl-1 text-black">or drag and drop</p>
                                             </div>
                                             <p class="text-xs text-black">
-                                                PNG, JPG, JPEG up to 10MB
+                                                PNG, JPG, JPEG
                                             </p>
                                         </div>
                                     </div>
@@ -128,8 +128,8 @@
                                 </div>
 
                                 <div class="relative">
-                                    <button type="submit" class="bg-blue-500 text-white rounded-md px-8 py-2 w-full">Submit</button>
-                                    <a href="index.php" class="bg-blue-600 text-white rounded-md px-8 py-2 float-right w-full mt-2 text-center">SIGN IN</a>
+                                    <button type="submit" class="bg-blue-500 text-white rounded-md px-8 py-2 w-full">SIGN UP</button>
+                                    <a href="index.php" class="bg-blue-600 text-white rounded-md px-8 py-2 float-right w-full mt-2 text-center">Back to SIGN IN</a>
                                 </div>
                                 <input type="hidden" value="register" name="action">
                             </div>

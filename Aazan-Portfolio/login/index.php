@@ -51,7 +51,7 @@
                                             </p>
                                         </label>
                                     </div>
-                                    <a href="verify.php" class="text-base hover:border-b-2 border-teal-400 float-end">Forget Password ?</a>
+                                    <a href="verify.php" class="text-base hover:border-b-2 border-teal-400 float-end mt-2.5">Forget Password ?</a>
 
                                 </div>
                                 <div class="relative">

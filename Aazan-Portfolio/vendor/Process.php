@@ -33,32 +33,34 @@
         $path = pathinfo($_FILES["profile"]["name"]);
         $cvPath = pathinfo($_FILES["cv"]["name"]);
 
-
-        if (strtolower($path["extension"]) == "jpg" || strtolower($path["extension"]) == "jpeg" || strtolower($path["extension"]) == "png") {
-            if (strtolower($cvPath["extension"]) == "pdf") {
-                // Resume
-                $cvDir = "../vendor/Resumes/";
-                if (!is_dir($cvDir)) mkdir($cvDir, 0777, true);
-                $cvFile_name = rand(0000,9999) . "_" .time().".".$cvPath["extension"];
-                move_uploaded_file($_FILES["cv"]["tmp_name"], $cvDir."/".$cvFile_name);
-                // Profile
+        // Profile
+        if ($_FILES["profile"]["name"] != '')
+            if (strtolower($path["extension"]) == "jpg" || strtolower($path["extension"]) == "jpeg" || strtolower($path["extension"]) == "png") {
                 $dir = "../images/Profiles/";
                 if (!is_dir($dir)) mkdir($dir, 0777, true);
                 $file_name = rand(0000,9999) . "_" . time() . ".PNG";
                 $ImgPath = $_FILES["profile"]["tmp_name"];
                 move_uploaded_file($ImgPath, $dir."/".$file_name);
+            } else {
+                header("location: ../login/register.php?error=image");
+                exit;
+            }
 
-                // Insertion
-                $res = $objDatabase->signup($fname, $email, $address, $mobile, $password, $file_name, $occupation, $myworkurl, $cvFile_name);
-                if ($res) header("location: ../login/register.php?errorSuccess=signupSuccess");
+        // Resume
+        if ($_FILES["cv"]["name"] != '')
+            if (strtolower($cvPath["extension"]) == "pdf") {
+                $cvDir = "../vendor/Resumes/";
+                if (!is_dir($cvDir)) mkdir($cvDir, 0777, true);
+                $cvFile_name = rand(0000,9999) . "_" .time().".".$cvPath["extension"];
+                move_uploaded_file($_FILES["cv"]["tmp_name"], $cvDir."/".$cvFile_name);
             } else {
                 header("location: ../login/register.php?error=cvFormat");
                 exit;
             }
-        } else {
-            header("location: ../login/register.php?error=image");
-            exit;
-        }
+
+        // Insertion
+        $res = $objDatabase->signup($fname, $email, $address, $mobile, $password, $file_name, $occupation, $myworkurl, $cvFile_name);
+        if ($res) header("location: ../login/register.php?errorSuccess=signupSuccess");
     }
 
     elseif (isset($action) && $action == "signIn") {
@@ -177,6 +179,7 @@
         $email = htmlspecialchars($_REQUEST['email']);
         $mobile = htmlspecialchars($_REQUEST['mobile']);
         $occupation = htmlspecialchars($_REQUEST['occupation']);
+        $workUrl = htmlspecialchars($_REQUEST['workUrl']);
         $address = htmlspecialchars($_REQUEST['address']);
 
         if ($name == "" || $email == "" || $mobile == "" || $occupation == "" || $address == "") {
@@ -192,9 +195,10 @@
             $path = pathinfo($_FILES["prof_img"]["name"]);
             if (strtolower($path["extension"]) == "jpg" || strtolower($path["extension"]) == "jpeg" || strtolower($path["extension"]) == "png") {
                 $old_ProfImg = $_REQUEST['old_prof_img'];
-                if (file_exists($dir. "/" .$old_ProfImg)) {
-                    unlink($dir. "/" .$old_ProfImg);
-                }
+                if ($old_ProfImg != '')
+                    if (file_exists($dir. "/" .$old_ProfImg)) {
+                        unlink($dir. "/" .$old_ProfImg);
+                    }
                 $profImg = rand(0000,9999) . "_" . time() . ".jpg";
                 if (!is_dir($dir)) mkdir($dir, 0777, true);
             } else {
@@ -203,10 +207,31 @@
             }
         }
 
-        $result = $objDatabase->updateUser($name, $email, $mobile, $occupation, $address, $profImg, $iUserId);
+        $cv_dir = "../vendor/Resumes/";
+
+        if ($_FILES["resume"]["name"] == "") {
+            $resume = $_REQUEST['old_resume'];
+        } else {
+            $path = pathinfo($_FILES["resume"]["name"]);
+            if (strtolower($path["extension"]) == "pdf") {
+                $old_resume = $_REQUEST['old_resume'];
+                if ($old_resume != '')
+                    if (file_exists($cv_dir. "/" .$old_resume)) {
+                        unlink($cv_dir. "/" .$old_resume);
+                    }
+                $resume = rand(0000,9999) . "_" . time() . ".pdf";
+                if (!is_dir($cv_dir)) mkdir($cv_dir, 0777, true);
+            } else {
+                echo "cvError";
+                exit;
+            }
+        }
+
+        $result = $objDatabase->updateUser($name, $email, $mobile, $occupation, $workUrl, $address, $profImg, $resume, $iUserId);
 
         if ($result) {
             move_uploaded_file($_FILES["prof_img"]["tmp_name"], $dir."/".$profImg);
+            move_uploaded_file($_FILES["resume"]["tmp_name"], $cv_dir."/".$resume);
             echo "1";
         } else {
             echo "0";

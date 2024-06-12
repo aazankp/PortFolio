@@ -86,15 +86,16 @@ class Database {
         return $this->result;
     }
 
-    public function updateUser($name, $email, $mobile, $occupation, $address, $profImg, $iUserId)
+    public function updateUser($name, $email, $mobile, $occupation, $workUrl, $address, $profImg, $resume, $iUserId)
     {
         $name = mysqli_real_escape_string($this->conn, $name);
         $email = mysqli_real_escape_string($this->conn, $email);
         $mobile = mysqli_real_escape_string($this->conn, $mobile);
         $occupation = mysqli_real_escape_string($this->conn, $occupation);
+        $workUrl = mysqli_real_escape_string($this->conn, $workUrl);
         $address = mysqli_real_escape_string($this->conn, $address);
 
-        $this->query = "UPDATE users SET fullName='$name', email='$email', mobile='$mobile', occupation='$occupation', address='$address', profile='$profImg' WHERE userId='$iUserId'";
+        $this->query = "UPDATE users SET fullName='$name', email='$email', mobile='$mobile', occupation='$occupation', workUrl='$workUrl', address='$address', profile='$profImg', resume='$resume' WHERE userId='$iUserId'";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }
