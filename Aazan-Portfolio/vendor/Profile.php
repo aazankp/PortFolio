@@ -35,7 +35,14 @@
                         <h1 class="font-bold text-left min-w-max">PortFolio Url:</h1>
                         <div class="text-left copyTxt ms-1"><?= $ProfileUrl; ?> <i class="far fa-copy text-lg w-8" id="copyBtn"></i></div>
                     </div>
-                    <div id="copyStatus" class="text-slate-600 text-sm pt-3 h-8"></div>
+                    <div id="copyStatus" class="text-slate-600 text-sm pt-3 h-8 mb-2"></div>
+                    <?php if($aUserData["resume"] != '') {?>
+                        <a href="../vendor/Resumes/<?= $aUserData['resume']; ?>" target="_blank" class="float-left hover:text-blue-600 mt-2">View your uploaded resume <i class="fa fa-external-link-alt"></i></a>
+                    <?php } else { ?>
+                        <h3 class="float-left hover:text-blue-600 mt-2 font-bold">Uploaded resume: </h3>
+                    <?php } ?>
+                    <input type="file" name="resume" class="border-b-2 border-teal-400 pb-2">
+                    <input type="hidden" name="old_resume" value="<?= $aUserData['resume']; ?>">
                 </div>
             </div>
             <div class="flex justify-end items-center h-50">
@@ -74,7 +81,13 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-1 gap-4 p-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4">
+            <div class="flex justify-end items-center h-8">
+                <div class="relative w-full">
+                    <input autocomplete="off" id="WorkUrl" name="workUrl" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate_Pro" placeholder="Work Url" value="<?= $aUserData['workUrl']; ?>" />
+                    <label for="WorkUrl" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Work Url</label>
+                </div>
+            </div>
             <div class="flex justify-end items-center h-8">
                 <div class="relative w-full">
                     <input autocomplete="off" id="address" name="address" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate_Pro" placeholder="Address" value="<?= $aUserData['address']; ?>" />

@@ -9,6 +9,7 @@
                 <title><?= $title; ?></title>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="icon" type="image/png" href="../images/logo.png"/>
                 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.min.css" rel="stylesheet">
@@ -53,7 +54,7 @@
                             <div class="hidden sm:ml-6 sm:block">
                                 <div class="flex space-x-4">
                                     <?php if (mysqli_num_rows($fetchPortFolioo) > 0){ ?>
-                                        <a href="../portfolio.php?pId=<?= $iUserId; ?>" class="bg-blue-600 text-white rounded-md px-3 py-2 text-sm font-medium">Portfolio</a>
+                                        <a href="../portfolio.php?pId=<?= $iUserId; ?>" class="bg-blue-600 text-white rounded-md px-3 py-2 text-sm font-medium">View Portfolio</a>
                                     <?php } ?>
                                     <a href="../portfolio/portfolio.php" class="bg-blue-600 text-white rounded-md px-3 py-2 text-sm font-medium">Home</a>
                                 </div>

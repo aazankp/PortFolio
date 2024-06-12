@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="bg-emerald-500 text-white rounded-md px-10 py-2 mt-5">Change Password</button>
+        <button type="submit" class="bg-emerald-500 text-white rounded-md px-10 py-2 mt-5" id="chngPass">Change Password</button>
     </form>
 </div>
 
