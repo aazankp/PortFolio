@@ -971,4 +971,10 @@ $(document).ready(function() {
             $("#showConfPass").addClass("fas fa-eye-slash absolute top-1/2 right-1 transform -translate-y-1/2 text-gray-400 showPass");
         }
     });
+
+    var table = $('#viewUsers').DataTable({
+        responsive: true
+    })
+    .columns.adjust()
+    .responsive.recalc();
 });

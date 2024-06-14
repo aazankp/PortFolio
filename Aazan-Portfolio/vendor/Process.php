@@ -8,7 +8,8 @@
     if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
 	else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
 
-    if (isset($action) && $action == "register") {
+    if (isset($action) && $action == "register")
+    {
         $fname = htmlspecialchars($_REQUEST["fname"]);
         $email = htmlspecialchars($_REQUEST["email"]);
         $address = htmlspecialchars($_REQUEST["address"]);
@@ -22,7 +23,10 @@
             header("location: ../login/register.php?error=fields");
             exit;
         }
-        
+
+        $userData = $objDatabase->verifyEmail($email);
+        if (mysqli_num_rows($userData) > 0) header("location: ../login/register.php?error=emailExist");
+
         if ($password != $confirmpassword) {
             header("location: ../login/register.php?error=password");
             exit;
@@ -63,7 +67,8 @@
         if ($res) header("location: ../login/register.php?errorSuccess=signupSuccess");
     }
 
-    elseif (isset($action) && $action == "signIn") {
+    elseif (isset($action) && $action == "signIn") 
+    {
         $email = htmlspecialchars($_REQUEST['email']);
         $pass = htmlspecialchars($_REQUEST['password']);
         $password = md5($pass);
@@ -90,7 +95,8 @@
         }
     }
 
-    elseif (isset($action) && $action == "portFolio_Submit") {
+    elseif (isset($action) && $action == "portFolio_Submit")
+    {
         $about = $_REQUEST["about"];
         $contact = $_REQUEST["contact"];
         $portfolioUrl = htmlspecialchars($_REQUEST["portfolioUrl"]);
