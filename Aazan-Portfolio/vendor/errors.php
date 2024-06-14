@@ -15,7 +15,8 @@ $error = [
     "otpVerified" => "OTP Verified Successfully!",
     "fillPass" => "Fill fields carefully!",
     "passChanged" => "Password Changed Successfully!",
-    "passMisMatch" => "Password Doesn't Match!"
+    "passMisMatch" => "Password Doesn't Match!",
+    "emailExist" => "Email Already Registered!"
 ];
 
 if (isset($_REQUEST["error"]) ) $check = $_REQUEST["error"];
@@ -31,7 +32,7 @@ if (isset($check)) {
                 $alertColor = "green";
             }
             echo '<div class="relative">
-                <div class="bg-'.$alertColor.'-200 border-l-4 border-'.$alertColor.'-500 text-'.$alertColor.'-700 p-2 xl:absolute xl:inset-0 xl:z-auto xl:w-1/4 xl:rounded-e-2xl" role="alert" style="height: 75px;">
+                <div class="bg-'.$alertColor.'-200 border-l-4 border-'.$alertColor.'-500 text-'.$alertColor.'-700 p-2 xl:absolute xl:inset-0 xl:z-40 xl:w-1/4 xl:rounded-e-2xl" role="alert" style="height: 75px;">
                     <p class="font-bold">'.$alertType.'</p>
                     <p>'.$msg.'</p>
                 </div>

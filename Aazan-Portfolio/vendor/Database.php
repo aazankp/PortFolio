@@ -1,5 +1,4 @@
 <?php
-
 class Database {
     private $hostname = "localhost";
     private $rootname = "root";
@@ -129,6 +128,20 @@ class Database {
     public function otpSendStatus($otpStatus, $otpVerifed, $iUserId)
     {
         $this->query = "UPDATE users SET otpSend='$otpStatus', otpVerified='$otpVerifed' WHERE userId='$iUserId'";
+        $this->result = mysqli_query($this->conn, $this->query);
+        return $this->result;
+    }
+
+    public function fetchAllUser()
+    {
+        $this->query = "SELECT * FROM users";
+        $this->result = mysqli_query($this->conn, $this->query);
+        return $this->result;
+    }
+
+    public function deleteUser($iUserId)
+    {
+        $this->query = "DELETE FROM users WHERE userId='$iUserId'";
         $this->result = mysqli_query($this->conn, $this->query);
         return $this->result;
     }

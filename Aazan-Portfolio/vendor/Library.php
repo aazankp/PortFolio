@@ -13,6 +13,8 @@
                 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.min.css" rel="stylesheet">
+                <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+                <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
                 <link rel="stylesheet" href="../css/form.css">
             </head>
             <body class="bg-gray-100">
@@ -30,6 +32,7 @@
             $aProfFolioData = mysqli_fetch_assoc($fetchPortFolio);
             $fetchPortFolioo = $objDatabase->fetchPortFolio ($iUserId);
 
+            if($aProfFolioData['email'] == 'aazank517@gmail.com') $viewUsers = '';
             if ($aProfFolioData["password"] != $aProfFolioData["oldPassword"]) header("location: ../vendor/Process.php?action=signOut");
             $Prof_img = "/".$aProfFolioData['profile'];
             if ($aProfFolioData['profile'] == "" || mysqli_num_rows($fetchPortFolio) < 1) $Prof_img = "no-image.jpg";
@@ -57,6 +60,9 @@
                                         <a href="../portfolio.php?pId=<?= $iUserId; ?>" class="bg-blue-600 text-white rounded-md px-3 py-2 text-sm font-medium">View Portfolio</a>
                                     <?php } ?>
                                     <a href="../portfolio/portfolio.php" class="bg-blue-600 text-white rounded-md px-3 py-2 text-sm font-medium">Home</a>
+                                    <?php if($aProfFolioData['email'] == 'aazank517@gmail.com') { ?>
+                                        <a href="../vendor/viewUsers.php" class="bg-blue-600 text-white rounded-md px-3 py-2 text-sm font-medium">View Users</a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -85,6 +91,9 @@
                                 <a href="../portfolio.php?pId=<?= $iUserId; ?>" class="bg-blue-600 text-white block rounded-md px-3 py-2 text-base font-medium">Portfolio</a>
                             <?php } ?>
                             <a href="../portfolio/portfolio.php" class="bg-blue-600 text-white block rounded-md px-3 py-2 text-base font-medium">Home</a>
+                            <?php if($aProfFolioData['email'] == 'aazank517@gmail.com') { ?>
+                                <a href="../vendor/viewUsers.php" class="bg-blue-600 text-white block rounded-md px-3 py-2 text-base font-medium">View Users</a>
+                            <?php } ?>
                         </div>
                     </div>
                 </nav>
@@ -98,6 +107,8 @@
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.6/sweetalert2.all.min.js"></script>
                     <script src="../fonts/icons/icons.js"></script>
+                    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+                    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
                     <script src="../js/Form.js"></script>
                 </body>
                 </html>
