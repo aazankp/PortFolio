@@ -4,8 +4,6 @@
     else if (isset($_COOKIE['User'])) $iUserId = $_COOKIE['User'];
     else header("location: ../login/");
     
-    require_once "../vendor/errors_new.php";
-    $objErrors = new Errors;
     require_once "../vendor/Library.php";
     $objLibrary = new Library;
     require_once "../vendor/Database.php";
@@ -32,7 +30,7 @@
 
         if($aUserData["resume"] != '')
         {
-            $showResume = '<a href="../vendor/Resumes/'. $aUserData['fullName'] .'" target="_blank" class="float-left hover:text-blue-600 mt-2">View your uploaded resume <i class="fa fa-external-link-alt"></i></a>';
+            $showResume = '<a href="../vendor/Resumes/'. $aUserData['resume'] .'" target="_blank" class="float-left hover:text-blue-600 mt-2">View your uploaded resume <i class="fa fa-external-link-alt"></i></a>';
         } else {
             $showResume = '';
         }
@@ -107,13 +105,8 @@
     }
     elseif (isset($_REQUEST['action']) && $_REQUEST['action'] == 'delete')
     {
-        $res = $objDatabase->deleteUser($iUserId);
-        if ($res == 1)
-        {
-            $objErrors->setError('UserDel', ['1', 'User Record Deleted Successfully...']);
-            header("location: ../vendor/viewUsers.php");
-        }
-    } 
+        header("location: ../vendor/Process.php?action=deleteUser&userId=$iUserId");
+    }
     else
     {
         header("location: ../vendor/viewUsers.php");

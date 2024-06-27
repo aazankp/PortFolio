@@ -3,6 +3,8 @@
     date_default_timezone_set("Asia/Karachi");
     require_once "Database.php";
     $objDatabase = new Database;
+    require_once "../vendor/errors_new.php";
+    $objErrors = new Errors;
 
     $action = $_REQUEST["action"];
     if (isset($_SESSION["userInfo"]["userId"])) $iUserId = $_SESSION["userInfo"]["userId"];
@@ -187,6 +189,7 @@
         $occupation = htmlspecialchars($_REQUEST['occupation']);
         $workUrl = htmlspecialchars($_REQUEST['workUrl']);
         $address = htmlspecialchars($_REQUEST['address']);
+        $iUserId = htmlspecialchars($_REQUEST['userId']);
 
         if ($name == "" || $email == "" || $mobile == "" || $occupation == "" || $address == "") {
             echo "fill";
@@ -397,6 +400,28 @@
         } else
         {
             header("location: ../login/changePassword.php?error=passMisMatch");
+        }
+    }
+
+    elseif (isset($action) && $action == "deleteUser")
+    {
+        $iUserId = $_REQUEST['userId'];
+        $fetchUser = $objDatabase->fetchUser ($iUserId);
+        $afetchUser = mysqli_fetch_assoc($fetchUser);
+        $Cv = "../vendor/Resumes/$afetchUser[resume]";
+        $proImg = "../images/Profiles/$afetchUser[profile]";
+        
+        $res = $objDatabase->deleteUser($iUserId);
+        if ($res == 1)
+        {
+            if ($afetchUser['resume'] != '')
+                if (file_exists($Cv)) unlink($Cv);
+
+            if ($afetchUser['profile'] != '')
+                if (file_exists($proImg)) unlink($proImg);
+                
+            $objErrors->setError('UserDel', ['1', 'User Record Deleted Successfully...']);
+            header("location: ../vendor/viewUsers.php");
         }
     }
 

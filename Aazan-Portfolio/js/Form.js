@@ -1,6 +1,17 @@
 // import preline from '@preline';
 // preline
-$(document).ready(function() {
+$(document).ready(function()
+{
+    $(document).on('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    $(document).on('keydown', function(e) {
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+            e.preventDefault();
+        }
+    });
+
     // Navbar Code
     $('[aria-controls="mobile-menu"]').click(function() {
         $('#mobile-menu').toggleClass('hidden');
@@ -27,6 +38,23 @@ $(document).ready(function() {
             $("#"+target).html(html);
         } else {
             $("#"+target).html("");
+        }
+    }
+
+    function disbaleToDate(check, disabled, value)
+    {
+        let toggle = $('#'+check).prop('checked');
+        if (toggle === true) {
+            $('#'+disabled).prop('disabled', true);
+            $('#'+disabled).addClass('border-b-2 border-gray-400');
+            $('#'+disabled).removeClass('validate');
+            $('#'+check).val(value);
+        } else {
+            $('#'+disabled).prop('disabled', false);
+            $('#'+disabled).removeClass('border-b-2 border-gray-400');
+            $('#'+disabled).addClass('border-b-2 border-teal-400');
+            $('#'+disabled).addClass('validate');
+            $('#'+check).val('');
         }
     }
 
@@ -361,7 +389,10 @@ $(document).ready(function() {
             var eduInstitute = (len > 0) ? element.educationInstitute : "";
             var eduFrom = (len > 0) ? element.educationFrom : "";
             var eduTo = (len > 0) ? element.educationTo : "";
-            return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
+            var checked = element.hasOwnProperty("Continue") ? 'checked' : '';
+
+
+            var eduWork = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
                     <div class="flex justify-end items-center h-20"> \
                         <div class="relative w-full"> \
                             <textarea autocomplete="off" id="'+ nameVar +'Description" name="'+ nameVar +'[educationDescription]" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate pt-1" placeholder="Education Description">'+eduDesc+'</textarea> \
@@ -393,11 +424,38 @@ $(document).ready(function() {
                             <input autocomplete="off" id="'+ nameVar+'to" name="'+ nameVar +'[educationTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="To" value="'+ eduTo +'" /> \
                             <label for="'+ nameVar+'to" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
                         </div> \
-                    </div> \
-                </div>');
+                    </div>';
+
+                if (nameVar+'Continue' == 'educationContinue')
+                    eduWork += '<div class="flex items-center"> \
+                        <div class="relative w-full"> \
+                            <div class="inline-flex items-center float-left"> \
+                                <label class="relative flex p-3 rounded-full cursor-pointer"> \
+                                    <input type="checkbox" name="education[Continue]" id="educationContinue" class="before:content[""] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-green-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-green-500 before:opacity-0 before:transition-opacity checked:border-green-900 checked:bg-green-700 checked:before:bg-green-900 hover:before:opacity-10" '+ checked +' /> \
+                                    <span class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100"> \
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1"> \
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> \
+                                        </svg> \
+                                    </span> \
+                                </label> \
+                                <label class="mt-px font-light text-gray-700 cursor-pointer select-none" for="educationContinue"> \
+                                    <p class="flex font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900"> Continue </p> \
+                                </label> \
+                            </div> \
+                        </div> \
+                    </div>';
+                eduWork += '</div>';
+                return(eduWork);
         }
 
-        PortFolioData.then(function () {
+        PortFolioData.then(function ()
+        {
+            disbaleToDate('educationContinue', 'educationto', 'Continue');
+
+            $(document).on("click", "#educationContinue", function() {
+                disbaleToDate('educationContinue', 'educationto', 'Continue');
+            });
+
             $(document).on("click", "#education_Toggle", function() {
                 DataCheck ();
             });
@@ -479,7 +537,10 @@ $(document).ready(function() {
             var expJobDescription = (len > 0) ? element.jobDescription : "";
             var expJobFrom = (len > 0) ? element.jobFrom : "";
             var expJobTo = (len > 0) ? element.jobTo : "";
-            return('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
+
+            var checked = element.hasOwnProperty("CurrentlyWorking") ? 'checked' : '';
+
+            var expWork = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4"> \
                 <div class="flex justify-end items-center"> \
                     <div class="relative w-full"> \
                         <input autocomplete="off" id="'+ nameVar +'position" name="'+ nameVar +'[position]" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="Position" value="'+expPosition+'" /> \
@@ -511,11 +572,38 @@ $(document).ready(function() {
                         <input autocomplete="off" id="'+ nameVar+'jobTo" name="'+ nameVar +'[jobTo]" type="date" class="peer placeholder-transparent h-10 w-full border-b-2 border-teal-400 focus:outline-none focus:borer-teal-600 text-base bg-gray-100 text-sm validate" placeholder="To" value="'+expJobTo+'" /> \
                         <label for="'+ nameVar+'jobTo" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">To</label> \
                     </div> \
-                </div> \
-            </div>');
+                </div>';
+                if (nameVar+'CurrentlyWorking' == 'experienceCurrentlyWorking')
+                expWork += '<div class="flex items-center"> \
+                    <div class="relative w-full"> \
+                        <div class="inline-flex items-center float-left"> \
+                            <label class="relative flex p-3 rounded-full cursor-pointer"> \
+                                <input type="checkbox" name="experience[CurrentlyWorking]" id="experienceCurrentlyWorking" class="before:content[""] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-green-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-green-500 before:opacity-0 before:transition-opacity checked:border-green-900 checked:bg-green-700 checked:before:bg-green-900 hover:before:opacity-10" '+ checked +' /> \
+                                <span class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100"> \
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1"> \
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> \
+                                    </svg> \
+                                </span> \
+                            </label> \
+                            <label class="mt-px font-light text-gray-700 cursor-pointer select-none" for="experienceCurrentlyWorking"> \
+                                <p class="flex font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900"> Currently Working </p> \
+                            </label> \
+                        </div> \
+                    </div> \
+                </div>';
+
+            expWork += '</div>';
+            return(expWork);
         }
 
-        PortFolioData.then(function () {
+        PortFolioData.then(function ()
+        {
+            disbaleToDate('experienceCurrentlyWorking', 'experiencejobTo', 'Currently Working');
+
+            $(document).on("click", "#experienceCurrentlyWorking", function() {
+                disbaleToDate('experienceCurrentlyWorking', 'experiencejobTo', 'Currently Working');
+            });
+
             $(document).on("click", "#experience_Toggle", function() {
                 DataCheck ();
             });
@@ -657,7 +745,7 @@ $(document).ready(function() {
         var inputFields = $("#portFolio_Form_Submit input.validate");
         var textareaFields = $("#portFolio_Form_Submit textarea.validate");
         var IconInputFields = $("#portFolio_Form_Submit input.validate:hidden");
-       
+
         if (inputFields.length > 0) {
             isEmpty = false;
             inputFields.each(function() {
@@ -668,6 +756,7 @@ $(document).ready(function() {
             });
         }
         
+        if (isEmpty == false)
         if (textareaFields.length > 0) {
             isEmpty = false;
             textareaFields.each(function() {
@@ -678,6 +767,7 @@ $(document).ready(function() {
             });
         }
 
+        if (isEmpty == false)
         if (IconInputFields.length > 0) {
             isEmpty = false;
             IconInputFields.each(function() {

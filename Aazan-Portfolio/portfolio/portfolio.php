@@ -22,8 +22,8 @@
         $aSkills = json_decode($aProfFolioData["skills"], true);
         $aProjects = json_decode($aProfFolioData["projects"], true);
         
-        $sAboutDesc = $aContact["Description"];
-        $sContactDesc = $aAbout["aboutDescription"];
+        $sAboutDesc = $aAbout["aboutDescription"];
+        $sContactDesc = $aContact["Description"];
         $portfolioUrl = $aProfFolioData["portfolioUrl"];
     } else {
         $sAboutDesc = "";
@@ -46,7 +46,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4">
                 <div class="flex justify-end items-center">
                     <div class="relative w-full">
-                        <textarea autocomplete="off" id="aboutDescription" name="about[aboutDescription]" type="text" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:border-teal-600 text-sm leading-5 bg-gray-100 validate pt-1" placeholder="Description"><?= $sContactDesc; ?></textarea>
+                        <textarea autocomplete="off" id="aboutDescription" name="about[aboutDescription]" type="text" class="peer placeholder-transparent h-11 w-full border-b-2 border-teal-400 focus:outline-none focus:border-teal-600 text-sm leading-5 bg-gray-100 validate pt-1" placeholder="Description"><?= $sAboutDesc; ?></textarea>
                         <label for="aboutDescription" class="absolute left-0 -top-3.5 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-sm">Description</label>
                     </div>
                 </div>

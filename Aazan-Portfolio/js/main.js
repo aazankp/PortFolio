@@ -286,14 +286,17 @@ $('#skills-section').one('mouseenter',function(){
 		success: function(result){
 			var aData = JSON.parse(result);
 			var aSkills = (aData !== null && aData.skills != "") ? JSON.parse(aData.skills) : "";
-			$.each(aSkills, function (index, element) {                     
-				$("#progress-bar-"+element.skillName).addClass("progress-bar-"+element.skillName);
+			var search = [' ', '-', '_', '\'', '@', '"'];
+
+			$.each(aSkills, function (index, element) {
+				var skillName = search.reduce((acc, char) => acc.split(char).join(''), element.skillName);
+				$("#progress-bar-"+skillName).addClass("progress-bar-"+skillName);
 				const styles = `
-					.progress-bar-`+element.skillName+` {
+					.progress-bar-`+skillName+` {
 						width: `+element.skillPercentage+`%;
-						animation: progress-bar-`+element.skillName+` 3s;
+						animation: progress-bar-`+skillName+` 3s;
 					}
-					@keyframes progress-bar-`+element.skillName+` {
+					@keyframes progress-bar-`+skillName+` {
 						0% {
 							width: 0%;
 						}
