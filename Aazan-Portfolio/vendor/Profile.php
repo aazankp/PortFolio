@@ -52,7 +52,7 @@
                     <div id="copyStatus" class="text-slate-600 text-sm pt-3 h-8 mb-2"></div>
                     <div class="flex flex-wrap justify-between">
                         <?php if($aUserData["resume"] != '') {?>
-                            <a href="../vendor/Resumes/<?= $aUserData['resume']; ?>" target="_blank" class="float-left hover:text-blue-600 mt-2">View your uploaded resume <i class="fa fa-external-link-alt"></i></a>
+                            <a href="../vendor/Resumes/<?= $aUserData['resume']  ?>" target="_blank" class="float-left hover:text-blue-600 mt-2">View your uploaded resume <i class="fa fa-external-link-alt"></i></a>
                         <?php } else { ?>
                             <h3 class="float-left hover:text-blue-600 mt-2 font-bold">Uploaded resume: </h3>
                         <?php } ?>
@@ -111,6 +111,7 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" value="<?= $aUserData['userId'] ?>" name="userId">
         <button type="submit" class="bg-emerald-500 text-white rounded-md px-10 py-2 mt-5" id="submitBtnProf">Save</button>
     </form>
 </div>

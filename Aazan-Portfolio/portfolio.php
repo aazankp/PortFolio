@@ -35,8 +35,9 @@
 			$eduCode = "";
 			foreach ($aEducation as $key => $value) {
 				$dateFrom = explode("-", $value["educationFrom"]);
-				$dateTo = explode("-", $value["educationTo"]);
-				$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . $dateTo[1] . "/" . $dateTo[0];
+				$dateTo = isset($value['Continue']) ? 'Continue' : explode("-", $value["educationTo"]);
+				$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . (isset($value['Continue']) ? $dateTo : $dateTo[1] . "/" . $dateTo[0]);
+
 				$eduCode .= '
 				<div class="col-md-6 mb-5">
 					<div class="resume-wrap ftco-animate">
@@ -108,8 +109,8 @@
 			$expCode = "";
 			foreach ($aExperiences as $key => $value) {
 				$dateFrom = explode("-", $value["jobFrom"]);
-				$dateTo = explode("-", $value["jobTo"]);
-				$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . $dateTo[1] . "/" . $dateTo[0];
+				$dateTo = isset($value['CurrentlyWorking']) ? 'Currently Working' : explode("-", $value["jobTo"]);
+				$fullDate = $dateFrom[1] . "/" . $dateFrom[0] . " - " . (isset($value['CurrentlyWorking']) ? $dateTo : $dateTo[1] . "/" . $dateTo[0]);
 				$expCode .= '
 				<div class="col-md-6 mb-5">
 					<div class="resume-wrap ftco-animate">
@@ -142,14 +143,17 @@
 		// Skills Code Start
 		if (isset($aSkills["skills"])) {
 			$sklCode = "";
+			$search = [' ', '-', '_', '\'', '@', '"'];
+
 			foreach ($aSkills as $key => $value) {
 				$perc = str_replace("%", "", $value['skillPercentage']);
+				$skillName = str_replace($search, '', $value['skillName']);
 				$sklCode .= '
 				<div class="col-md-6 animate-box">
 					<div class="progress-wrap ftco-animate">
 						<h3>'. $value['skillName'] .'</h3>
 						<div class="progress">
-							<div class="progress-bar color-1" id="progress-bar-'. $value['skillName'] .'" role="progressbar" aria-valuenow="'.$perc.'" aria-valuemin="0"
+							<div class="progress-bar color-1" id="progress-bar-'. $skillName .'" role="progressbar" aria-valuenow="'.$perc.'" aria-valuemin="0"
 								aria-valuemax="'.$perc.'" style="width:'. $perc .'%">
 								<span>'. $perc .'%</span>
 							</div>
