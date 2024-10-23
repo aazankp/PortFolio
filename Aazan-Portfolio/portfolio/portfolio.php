@@ -40,7 +40,7 @@
         <h1 class="font-bold text-2xl">Form For Resume</h1>
         <form id="portFolio_Form_Submit" enctype="multipart/form-data" class="mb-16">
             <!-- About -->
-            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-3xl toggles mt-7">
+            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-2xl toggles mt-7 heading-bar-color">
                 <div class="col-span-11 flex items-center">About</div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4">
@@ -54,7 +54,7 @@
             <!-- About End -->
 
             <!-- Contact -->
-            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-3xl toggles">
+            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-2xl toggles heading-bar-color">
                 <div class="col-span-11 flex items-center">Contact</div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 p-4">
@@ -68,7 +68,7 @@
             <!-- Contact End -->
     
             <!-- Education -->
-            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-3xl toggles">
+            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-2xl toggles heading-bar-color">
                 <div class="col-span-11 flex items-center">Education</div>
                 <div class="col-span-1 flex justify-end items-center">
                     <label for="education_Toggle" class="flex items-center cursor-pointer">
@@ -81,7 +81,7 @@
             <!-- Education End -->
 
             <!-- Services -->
-            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-3xl toggles">
+            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-2xl toggles heading-bar-color">
                 <div class="col-span-11 flex items-center">Services</div>
                 <div class="col-span-1 flex justify-end items-center">
                     <label for="services_Toggle" class="flex items-center cursor-pointer">
@@ -94,7 +94,7 @@
             <!-- Services End -->
 
             <!-- Experience -->
-            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-3xl toggles">
+            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-2xl toggles heading-bar-color">
                 <div class="col-span-11 flex items-center">Experience</div>
                 <div class="col-span-1 flex justify-end items-center">
                     <label for="experience_Toggle" class="flex items-center cursor-pointer">
@@ -107,7 +107,7 @@
             <!-- Experience End -->
 
             <!-- Skills -->
-            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-3xl toggles">
+            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-2xl toggles heading-bar-color">
                 <div class="col-span-11 flex items-center">Skills</div>
                 <div class="col-span-1 flex justify-end items-center">
                     <label for="skills_Toggle" class="flex items-center cursor-pointer">
@@ -120,7 +120,7 @@
             <!-- Skills End -->
 
             <!-- Projects -->
-            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-3xl toggles">
+            <div class="grid grid-cols-12 gap-4 p-4 font-bold my-4 rounded-2xl toggles heading-bar-color">
                 <div class="col-span-11 flex items-center">Projects</div>
                 <div class="col-span-1 flex justify-end items-center">
                     <label for="projects_Toggle" class="flex items-center cursor-pointer">

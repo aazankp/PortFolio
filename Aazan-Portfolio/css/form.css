@@ -2,6 +2,9 @@
     --primary-color: #93c5fd;
     --theme-color: #85abff;
 }
+.heading-bar-color{
+    background-color: #7fc8f8 !important;
+}
 .toggles {
     background-color: var(--primary-color);
 }

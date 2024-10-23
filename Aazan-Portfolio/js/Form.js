@@ -746,6 +746,8 @@ $(document).ready(function()
         var textareaFields = $("#portFolio_Form_Submit textarea.validate");
         var IconInputFields = $("#portFolio_Form_Submit input.validate:hidden");
 
+        isEmpty = false;
+
         if (inputFields.length > 0) {
             isEmpty = false;
             inputFields.each(function() {
